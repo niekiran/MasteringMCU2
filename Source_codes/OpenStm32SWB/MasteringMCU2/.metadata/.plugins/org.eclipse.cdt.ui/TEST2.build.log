@@ -1,0 +1,40 @@
+11:28:29 **** Programming project TEST2 on chip ****
+"D:\\Ac6\\SystemWorkbench\\plugins\\fr.ac6.mcu.externaltools.openocd.win32_1.17.0.201801120948\\tools\\openocd\\bin\\openocd.exe" -f stm32.flash.5393976773169351348.cfg -s "E:\\Workspace\\STM32WBworkspace\\MasteringMCU2\\AC6\\R\\TEST2" -s "D:\\Ac6\\SystemWorkbench\\plugins\\fr.ac6.mcu.debug_2.1.4.201801120948\\resources\\openocd\\st_scripts" -c "program Debug/TEST2.elf verify exit" 
+Open On-Chip Debugger 0.10.0-dev-00007-g58350bc-dirty (2018-01-08-12:20)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+srst_only separate srst_nogate srst_open_drain connect_assert_srst
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter_nsrst_delay: 100
+adapter speed: 1800 kHz
+Info : clock speed 1800 kHz
+Info : STLINK v2.1 JTAG v29 API v2 M18 VID 0x0483 PID 0x374B
+Info : using stlink api v2
+Info : Target voltage: 3.261983
+Info : Stlink adapter speed set to 1800 kHz
+Info : STM32F446RETx.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Stlink adapter speed set to 1800 kHz
+adapter speed: 1800 kHz
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x08001ad4 msp: 0x20020000
+configuring PLL
+Info : Stlink adapter speed set to 4000 kHz
+adapter speed: 4000 kHz
+** Programming Started **
+auto erase enabled
+Info : device id = 0x10006421
+Info : flash size = 512kbytes
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x20000046 msp: 0x20020000
+wrote 16384 bytes from file Debug/TEST2.elf in 0.650037s (24.614 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20020000
+verified 7144 bytes in 0.188011s (37.107 KiB/s)
+** Verified OK **
+shutdown command invoked
+
+11:28:31 Build Finished (took 1s.286ms)
+

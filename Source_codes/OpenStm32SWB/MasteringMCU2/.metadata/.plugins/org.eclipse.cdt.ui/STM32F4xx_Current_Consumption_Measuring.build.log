@@ -1,0 +1,6 @@
+07:57:16 **** Incremental Build of configuration Debug for project STM32F4xx_Current_Consumption_Measuring ****
+make all 
+make: Nothing to be done for 'all'.
+
+07:57:16 Build Finished (took 319ms)
+

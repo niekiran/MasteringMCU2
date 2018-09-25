@@ -1,0 +1,56 @@
+/*
+ * it.c
+ *
+ *  Created on: 02-Jun-2018
+ *      Author: kiran
+ */
+
+#include "main.h"
+
+extern TIM_HandleTypeDef htimer6;
+extern DMA_HandleTypeDef uartdma;
+extern UART_HandleTypeDef huart2;
+
+extern void turn_off_peris(uint8_t off);
+
+void SysTick_Handler (void)
+{
+	HAL_IncTick();
+	HAL_SYSTICK_IRQHandler();
+
+}
+
+
+void TIM6_DAC_IRQHandler(void)
+{
+	//turn_off_peris(0);
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_SET);
+	HAL_TIM_IRQHandler(&htimer6);
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
+	//turn_off_peris(1);
+
+}
+
+
+void EXTI15_10_IRQHandler(void)
+{
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_SET);
+	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
+}
+
+void DMA1_Stream6_IRQHandler(void)
+{
+
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_SET);
+	HAL_DMA_IRQHandler(&uartdma);
+	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
+
+
+}
+
+
+void USART2_IRQHandler(void)
+{
+	HAL_UART_IRQHandler(&huart2);
+}

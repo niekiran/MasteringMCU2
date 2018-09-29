@@ -1,0 +1,7 @@
+10:44:12 **** Clean-only build of configuration Debug for project irda ****
+make clean 
+rm -rf *
+ 
+
+10:44:12 Build Finished (took 464ms)
+

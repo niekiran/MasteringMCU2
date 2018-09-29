@@ -1,0 +1,6 @@
+10:44:10 **** Clean-only build of configuration Debug for project RTC_AlarmA_12h ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+
+10:44:10 Build Finished (took 90ms)
+

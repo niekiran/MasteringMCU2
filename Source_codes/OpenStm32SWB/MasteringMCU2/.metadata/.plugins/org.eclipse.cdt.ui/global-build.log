@@ -1,0 +1,102 @@
+10:43:37 **** Clean-only build of configuration Debug for project Current_Measurement_Stop_Mode ****
+make clean 
+rm -rf *
+ 
+10:44:09 **** Clean-only build of configuration Debug for project BkupSRAM_Standby ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:09 **** Clean-only build of configuration Debug for project CAN_LoopBack ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:09 **** Clean-only build of configuration Debug for project CAN_LoopBack_IT ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:09 **** Clean-only build of configuration Debug for project CAN_Normal_Mode_2Nodes ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:09 **** Clean-only build of configuration Debug for project Current_Measurement_Run_Mode ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:09 **** Clean-only build of configuration Debug for project Current_Measurement_Sleep_Mode ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project Current_Measurement_Standby_Mode ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project Current_Measurement_Stop_Mode ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project HSE_SYSCLK_8Mhz ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project PLL_SYSCLK ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project PLL_SYSCLK_HSE ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project RTC_AlarmA ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project RTC_AlarmA_12h ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project RTC_Alarm_standby_wakeup ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:10 **** Clean-only build of configuration Debug for project RTC_Date_Time ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:11 **** Clean-only build of configuration Debug for project RTC_Demo_App ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:11 **** Clean-only build of configuration Debug for project RTC_Print_TimeInfo ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:11 **** Clean-only build of configuration Debug for project SDIO_FATFS ****
+make clean 
+rm -rf *
+ 
+10:44:11 **** Clean-only build of configuration Debug for project Sleep-On-Exit_1 ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:11 **** Clean-only build of configuration Debug for project TEST1 ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:11 **** Clean-only build of configuration Debug for project UART2_Example ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:11 **** Clean-only build of configuration Debug for project UART2_Example_IT ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:11 **** Clean-only build of configuration Debug for project WFE_button ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:12 **** Clean-only build of configuration Debug for project WFI ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:12 **** Clean-only build of configuration Debug for project irda ****
+make clean 
+rm -rf *
+ 
+10:44:12 **** Clean-only build of configuration Debug for project time_base_100ms ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:12 **** Clean-only build of configuration Debug for project time_base_100ms_IT ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:12 **** Clean-only build of configuration Debug for project time_base_10micro ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:13 **** Clean-only build of configuration Debug for project timer_IC_1 ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:13 **** Clean-only build of configuration Debug for project timer_OC_1 ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:13 **** Clean-only build of configuration Debug for project timer_OC_PWM_1 ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.
+10:44:13 **** Clean-only build of configuration Debug for project timer_PWM_LED ****
+make clean 
+make: *** No rule to make target 'clean'.  Stop.

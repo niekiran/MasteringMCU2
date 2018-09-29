@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="CleanDialogSettings">
+		<item value="500" key="DIALOG_WIDTH"/>
+		<item value="false" key="TOGGLE_SELECTED"/>
+		<item value="377" key="DIALOG_HEIGHT"/>
+		<item value="390" key="DIALOG_X_ORIGIN"/>
+		<item value="89" key="DIALOG_Y_ORIGIN"/>
+	</section>
+	<section name="ExternalProjectImportWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<item value="true" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="E:\Workspace\STM32WBworkspace\MasteringMCU2\AC6\R"/>
+			<item value="C:\Users\kiran\Downloads\GPIO_DRIVER\Eclipse"/>
+			<item value="C:\Users\kiran\Downloads\en.stm32f4_dsp_stdperiph_lib\STM32F4xx_DSP_StdPeriph_Lib_V1.8.0\Project\STM32F4xx_StdPeriph_Templates\SW4STM32\STM32F446xx"/>
+			<item value="C:\Users\kiran\Downloads\SPI_Drivers"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.internal.ide.dialogs.ProjectContentsLocationArea">
+		<item value="C:\" key="OUTSIDE_LOCATION"/>
+	</section>
+	<section name="ChooseWorkspaceDialogSettings">
+		<item value="338" key="DIALOG_X_ORIGIN"/>
+		<item value="161" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

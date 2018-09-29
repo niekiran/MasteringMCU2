@@ -1,6 +1,0 @@
-21:34:45 **** Clean-only build of configuration Debug for project time_base_100ms_IT ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
-
-21:34:46 Build Finished (took 92ms)
-

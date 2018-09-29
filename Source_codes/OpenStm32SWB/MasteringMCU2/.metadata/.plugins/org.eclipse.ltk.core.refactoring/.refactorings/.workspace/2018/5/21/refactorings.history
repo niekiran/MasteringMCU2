@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;TEST1/Drivers/CMSIS/Include/core_cm3.h&apos;" deleteContents="false" description="Delete resource &apos;TEST1/Drivers/CMSIS/Include/core_cm3.h&apos;" element1="/TEST1/Drivers/CMSIS/Include/core_cm3.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1527242191403"/>&#x0A;<refactoring comment="Delete resource &apos;TEST1/Drivers/CMSIS/Include/core_cm7.h&apos;" deleteContents="false" description="Delete resource &apos;TEST1/Drivers/CMSIS/Include/core_cm7.h&apos;" element1="/TEST1/Drivers/CMSIS/Include/core_cm7.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1527242198890"/>
-</session>

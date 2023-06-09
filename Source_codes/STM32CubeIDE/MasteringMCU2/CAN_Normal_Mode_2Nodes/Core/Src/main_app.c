@@ -348,7 +348,7 @@ void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan)
 		LED_Manage_Output(rcvd_msg[0]);
 		sprintf(msg,"Message Received : #%x\r\n",rcvd_msg[0]);
 	}
-	else if ( RxHeader.StdId == 0x651 && RxHeader.RTR == 1)
+	else if ( RxHeader.StdId == 0x651 && RxHeader.RTR == 2)
 	{
 		//This is a remote frame sent by n1 to n2
 		Send_response(RxHeader.StdId);

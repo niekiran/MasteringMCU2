@@ -46,15 +46,10 @@ void printmsg(char *format,...)
 
 int main(void)
 {
-
 	HAL_Init();
-
 	GPIO_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	UART2_Init();
-
 	RTC_Init();
 
 	printmsg("This is RTC Alarm Test program\r\n");
@@ -191,7 +186,6 @@ void RTC_CalendarConfig(void)
 	//RTC_TimeInit.TimeFormat = RTC_HOURFORMAT12_PM;
 	HAL_RTC_SetTime(&hrtc, &RTC_TimeInit,RTC_FORMAT_BIN);
 
-
 	RTC_DateInit.Date = 12;
 	RTC_DateInit.Month = RTC_MONTH_JUNE;
 	RTC_DateInit.Year = 18;
@@ -209,7 +203,6 @@ void GPIO_Init(void)
 {
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
-
 	GPIO_InitTypeDef ledgpio , buttongpio;
 
 	ledgpio.Pin = GPIO_PIN_5;
@@ -245,7 +238,6 @@ void UART2_Init(void)
 	huart2.Init.Parity = UART_PARITY_NONE;
 	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
 	huart2.Init.Mode = UART_MODE_TX;
-
 
 	if ( HAL_UART_Init(&huart2) != HAL_OK )
 	{
@@ -288,7 +280,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
      RTC_TimeRead.Minutes,RTC_TimeRead.Seconds);
   printmsg("Current Date is : %02d-%2d-%2d  <%s> \r\n",RTC_DateRead.Month,RTC_DateRead.Date,\
      RTC_DateRead.Year,getDayofweek(RTC_DateRead.WeekDay));
-
   RTC_AlarmConfig();
 }
 
@@ -300,9 +291,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 void RTC_AlarmConfig(void)
 {
   RTC_AlarmTypeDef AlarmA_Set;
-
   memset(&AlarmA_Set,0,sizeof(AlarmA_Set));
-
   HAL_RTC_DeactivateAlarm(&hrtc,RTC_ALARM_A);
 
   //xx:45:09
@@ -315,7 +304,6 @@ void RTC_AlarmConfig(void)
   {
     Error_handler();
   }
-
   printmsg("Alarm Set Successful\r\n");
 }
 
@@ -328,11 +316,8 @@ void RTC_AlarmConfig(void)
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
 {
   printmsg("Alarm Triggered \r\n");
-
   RTC_TimeTypeDef RTC_TimeRead;
-
   HAL_RTC_GetTime(hrtc,&RTC_TimeRead,RTC_FORMAT_BIN);
-
   printmsg("Current Time is : %02d:%02d:%02d\r\n",RTC_TimeRead.Hours,\
   RTC_TimeRead.Minutes,RTC_TimeRead.Seconds);
 

@@ -20,7 +20,7 @@ void UART2_Init(void);
 void SystemClock_Config_HSE(uint8_t clock_freq);
 void RTC_Init(void);
 void RTC_CalendarConfig(void);
-void  RTC_AlarmConfig(void);
+void RTC_AlarmConfig(void);
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
@@ -46,22 +46,17 @@ void printmsg(char *format,...)
 
 int main(void)
 {
-
   HAL_Init();
+  GPIO_Init();
+  SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
+  UART2_Init();
+  RTC_Init();
 
-	GPIO_Init();
+  //Enable clock for PWR Controller block
+  __HAL_RCC_PWR_CLK_ENABLE();
 
-	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
-	UART2_Init();
-
-	RTC_Init();
-
-	//Enable clock for PWR Controller block
-	__HAL_RCC_PWR_CLK_ENABLE();
-
-	if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
-	{
+  if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
+  {
     __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
     __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
     __HAL_RTC_ALARM_CLEAR_FLAG(&hrtc,RTC_FLAG_ALRAF);
@@ -83,13 +78,13 @@ int main(void)
     HAL_Delay(2000);
     HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET);
-	}
+  }
 
-	printmsg("This is RTC Alarm Test program\r\n");
+  printmsg("This is RTC Alarm Test program\r\n");
 
-	while(1);
+  while(1);
 
-	return 0;
+  return 0;
 }
 
 
@@ -100,16 +95,16 @@ int main(void)
   */
 void SystemClock_Config_HSE(uint8_t clock_freq)
 {
-	RCC_OscInitTypeDef Osc_Init;
-	RCC_ClkInitTypeDef Clock_Init;
+  RCC_OscInitTypeDef Osc_Init;
+  RCC_ClkInitTypeDef Clock_Init;
   uint8_t flash_latency=0;
 
-	Osc_Init.OscillatorType = RCC_OSCILLATORTYPE_HSE ;
-	Osc_Init.HSEState = RCC_HSE_ON;
-	Osc_Init.PLL.PLLState = RCC_PLL_ON;
-	Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  Osc_Init.OscillatorType = RCC_OSCILLATORTYPE_HSE ;
+  Osc_Init.HSEState = RCC_HSE_ON;
+  Osc_Init.PLL.PLLState = RCC_PLL_ON;
+  Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 
-	switch(clock_freq) {
+  switch(clock_freq) {
   case SYS_CLOCK_FREQ_50_MHZ:
     Osc_Init.PLL.PLLM = 4;
     Osc_Init.PLL.PLLN = 50;
@@ -157,28 +152,28 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
 
   default:
     return ;
-	}
+  }
 
-	if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-	if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-	/*Configure the systick timer interrupt frequency (for every 1 ms) */
-	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
-	HAL_SYSTICK_Config(hclk_freq/1000);
+  /*Configure the systick timer interrupt frequency (for every 1 ms) */
+  uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
+  HAL_SYSTICK_Config(hclk_freq/1000);
 
-	/**Configure the Systick
-	*/
-	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+  /**Configure the Systick
+  */
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
-	/* SysTick_IRQn interrupt configuration */
-	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
 /**
@@ -210,24 +205,24 @@ void RTC_Init(void)
   */
 void RTC_CalendarConfig(void)
 {
-	RTC_TimeTypeDef RTC_TimeInit;
-	RTC_DateTypeDef RTC_DateInit;
-	//this function does RTC Calendar Config
-	//Lets configure the calendar for Time : 12:11:10 PM Date : 12 june 2018 TUESDAY
+  RTC_TimeTypeDef RTC_TimeInit;
+  RTC_DateTypeDef RTC_DateInit;
+  //this function does RTC Calendar Config
+  //Lets configure the calendar for Time : 12:11:10 PM Date : 12 june 2018 TUESDAY
 
-	RTC_TimeInit.Hours = 23;
-	RTC_TimeInit.Minutes = 15;
-	RTC_TimeInit.Seconds = 15;
-	//RTC_TimeInit.TimeFormat = RTC_HOURFORMAT12_AM;
-	HAL_RTC_SetTime(&hrtc, &RTC_TimeInit,RTC_FORMAT_BIN);
+  RTC_TimeInit.Hours = 23;
+  RTC_TimeInit.Minutes = 15;
+  RTC_TimeInit.Seconds = 15;
+  //RTC_TimeInit.TimeFormat = RTC_HOURFORMAT12_AM;
+  HAL_RTC_SetTime(&hrtc, &RTC_TimeInit,RTC_FORMAT_BIN);
 
 
-	RTC_DateInit.Date = 12;
-	RTC_DateInit.Month = RTC_MONTH_JUNE;
-	RTC_DateInit.Year = 18;
-	RTC_DateInit.WeekDay = RTC_WEEKDAY_SUNDAY;
+  RTC_DateInit.Date = 12;
+  RTC_DateInit.Month = RTC_MONTH_JUNE;
+  RTC_DateInit.Year = 18;
+  RTC_DateInit.WeekDay = RTC_WEEKDAY_SUNDAY;
 
-	HAL_RTC_SetDate(&hrtc,&RTC_DateInit,RTC_FORMAT_BIN);
+  HAL_RTC_SetDate(&hrtc,&RTC_DateInit,RTC_FORMAT_BIN);
 }
 
 /**
@@ -240,25 +235,25 @@ void GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
-	GPIO_InitTypeDef ledgpio , buttongpio;
+  GPIO_InitTypeDef ledgpio , buttongpio;
 
-	ledgpio.Pin = GPIO_PIN_5;
-	ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
-	ledgpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOA,&ledgpio);
+  ledgpio.Pin = GPIO_PIN_5;
+  ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
+  ledgpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA,&ledgpio);
 
-	ledgpio.Pin = GPIO_PIN_8;
-	ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
-	ledgpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOA,&ledgpio);
+  ledgpio.Pin = GPIO_PIN_8;
+  ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
+  ledgpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA,&ledgpio);
 
-	buttongpio.Pin = GPIO_PIN_13;
-	buttongpio.Mode = GPIO_MODE_IT_FALLING;
-	buttongpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOC,&buttongpio);
+  buttongpio.Pin = GPIO_PIN_13;
+  buttongpio.Mode = GPIO_MODE_IT_FALLING;
+  buttongpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC,&buttongpio);
 
-	HAL_NVIC_SetPriority(EXTI15_10_IRQn,15,0);
-	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn,15,0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 /**
@@ -268,19 +263,19 @@ void GPIO_Init(void)
   */
 void UART2_Init(void)
 {
-	huart2.Instance = USART2;
-	huart2.Init.BaudRate =115200;
-	huart2.Init.WordLength = UART_WORDLENGTH_8B;
-	huart2.Init.StopBits = UART_STOPBITS_1;
-	huart2.Init.Parity = UART_PARITY_NONE;
-	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart2.Init.Mode = UART_MODE_TX;
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate =115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.Mode = UART_MODE_TX;
 
-	if ( HAL_UART_Init(&huart2) != HAL_OK )
-	{
-		//There is a problem
-		Error_handler();
-	}
+  if ( HAL_UART_Init(&huart2) != HAL_OK )
+  {
+    //There is a problem
+    Error_handler();
+  }
 }
 
 /**
@@ -290,9 +285,9 @@ void UART2_Init(void)
   */
 char* getDayofweek(uint8_t number)
 {
-	char *weekday[] = { "Monday", "TuesDay", "Wednesday","Thursday","Friday","Saturday","Sunday"};
+  char *weekday[] = { "Monday", "TuesDay", "Wednesday","Thursday","Friday","Saturday","Sunday"};
 
-	return weekday[number-1];
+  return weekday[number-1];
 }
 
 /**
@@ -302,32 +297,32 @@ char* getDayofweek(uint8_t number)
   */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	 RTC_TimeTypeDef RTC_TimeRead;
-	 RTC_DateTypeDef RTC_DateRead;
+   RTC_TimeTypeDef RTC_TimeRead;
+   RTC_DateTypeDef RTC_DateRead;
 
-	 RTC_CalendarConfig();
+   RTC_CalendarConfig();
 
-	 HAL_RTC_GetTime(&hrtc,&RTC_TimeRead,RTC_FORMAT_BIN);
+   HAL_RTC_GetTime(&hrtc,&RTC_TimeRead,RTC_FORMAT_BIN);
 
-	 HAL_RTC_GetDate(&hrtc,&RTC_DateRead,RTC_FORMAT_BIN);
+   HAL_RTC_GetDate(&hrtc,&RTC_DateRead,RTC_FORMAT_BIN);
 
-	 printmsg("Current Time is : %02d:%02d:%02d\r\n",RTC_TimeRead.Hours,\
-			 RTC_TimeRead.Minutes,RTC_TimeRead.Seconds);
-	 printmsg("Current Date is : %02d-%2d-%2d  <%s> \r\n",RTC_DateRead.Month,RTC_DateRead.Date,\
-			 RTC_DateRead.Year,getDayofweek(RTC_DateRead.WeekDay));
+   printmsg("Current Time is : %02d:%02d:%02d\r\n",RTC_TimeRead.Hours,\
+       RTC_TimeRead.Minutes,RTC_TimeRead.Seconds);
+   printmsg("Current Date is : %02d-%2d-%2d  <%s> \r\n",RTC_DateRead.Month,RTC_DateRead.Date,\
+       RTC_DateRead.Year,getDayofweek(RTC_DateRead.WeekDay));
 
-	 //make sure that WUF and RTC alarm A flag are cleared
-	 __HAL_RTC_ALARM_CLEAR_FLAG(&hrtc,RTC_FLAG_ALRAF);
-	 __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-
-
-	 RTC_AlarmConfig();
+   //make sure that WUF and RTC alarm A flag are cleared
+   __HAL_RTC_ALARM_CLEAR_FLAG(&hrtc,RTC_FLAG_ALRAF);
+   __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
 
 
-	 printmsg("Went to STANDBY mode\r\n");
+   RTC_AlarmConfig();
 
-	 //Go to standby mode
-	 HAL_PWR_EnterSTANDBYMode();
+
+   printmsg("Went to STANDBY mode\r\n");
+
+   //Go to standby mode
+   HAL_PWR_EnterSTANDBYMode();
 }
 
 /**
@@ -377,6 +372,6 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
   */
 void Error_handler(void)
 {
-	while(1);
+  while(1);
 }
 

@@ -25,12 +25,9 @@ UART_HandleTypeDef huart2;
 
 int main(void)
 {
-
   char msg[100];
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_120_MHZ);
-
 	UART2_Init();
 
 	memset(msg,0,sizeof(msg));

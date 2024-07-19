@@ -27,19 +27,12 @@ CAN_HandleTypeDef hcan1;
 
 int main(void)
 {
-
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
-
 	CAN1_Init();
-
 	CAN_Filter_Config();
-
 
 	if( HAL_CAN_Start(&hcan1) != HAL_OK)
 	{
@@ -47,7 +40,6 @@ int main(void)
 	}
 
 	CAN1_Tx();
-
 	CAN1_Rx();
 
 	while(1);
@@ -253,8 +245,6 @@ void UART2_Init(void)
 		//There is a problem
 		Error_handler();
 	}
-
-
 }
 
 /**

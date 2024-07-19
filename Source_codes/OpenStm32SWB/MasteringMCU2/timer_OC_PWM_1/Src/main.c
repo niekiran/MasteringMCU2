@@ -23,15 +23,10 @@ UART_HandleTypeDef huart2;
 
 int main(void)
 {
-
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
-
 	TIMER2_Init();
 
 	if ( HAL_TIM_PWM_Start(&htimer2,TIM_CHANNEL_1) != HAL_OK)
@@ -131,13 +126,10 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
 		Error_handler();
 	}
 
-
-
 	if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
 	{
 		Error_handler();
 	}
-
 
 	/*Configure the systick timer interrupt frequency (for every 1 ms) */
 	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();

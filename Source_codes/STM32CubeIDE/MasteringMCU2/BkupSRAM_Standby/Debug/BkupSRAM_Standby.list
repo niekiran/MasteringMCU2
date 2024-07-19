@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00021426  00000000  00000000  00010930  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000a73a  00000000  00000000  00031d56  2**0
+ 17 .debug_line   0000a736  00000000  00000000  00031d56  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000c8323  00000000  00000000  0003c490  2**0
+ 18 .debug_str    000c8323  00000000  00000000  0003c48c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  001047b3  2**0
+ 19 .comment      00000043  00000000  00000000  001047af  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002194  00000000  00000000  001047f8  2**2
+ 20 .debug_frame  00002194  00000000  00000000  001047f4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000091  00000000  00000000  0010698c  2**0
+ 21 .debug_line_str 00000091  00000000  00000000  00106988  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -482,33 +482,28 @@ int main(void)
  800060c:	b580      	push	{r7, lr}
  800060e:	b088      	sub	sp, #32
  8000610:	af00      	add	r7, sp, #0
-	uint32_t * pBackupSRAMbase=0;
+  uint32_t * pBackupSRAMbase=0;
  8000612:	2300      	movs	r3, #0
  8000614:	61bb      	str	r3, [r7, #24]
-
-	char write_buf[] = "Hello";
+  char write_buf[] = "Hello";
  8000616:	4a4b      	ldr	r2, [pc, #300]	@ (8000744 <main+0x138>)
  8000618:	f107 0310 	add.w	r3, r7, #16
  800061c:	e892 0003 	ldmia.w	r2, {r0, r1}
  8000620:	6018      	str	r0, [r3, #0]
  8000622:	3304      	adds	r3, #4
  8000624:	8019      	strh	r1, [r3, #0]
-
-	HAL_Init();
+  HAL_Init();
  8000626:	f000 fa6b 	bl	8000b00 <HAL_Init>
-
-	GPIO_Init();
+  GPIO_Init();
  800062a:	f000 f93d 	bl	80008a8 <GPIO_Init>
-
-	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
+  SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
  800062e:	2032      	movs	r0, #50	@ 0x32
  8000630:	f000 f89c 	bl	800076c <SystemClock_Config_HSE>
-
-	UART2_Init();
+  UART2_Init();
  8000634:	f000 f95e 	bl	80008f4 <UART2_Init>
 
-	//1. Turn on the clock in RCC register for backup sram
-	__HAL_RCC_BKPSRAM_CLK_ENABLE();
+  //1. Turn on the clock in RCC register for backup sram
+  __HAL_RCC_BKPSRAM_CLK_ENABLE();
  8000638:	2300      	movs	r3, #0
  800063a:	60fb      	str	r3, [r7, #12]
  800063c:	4b42      	ldr	r3, [pc, #264]	@ (8000748 <main+0x13c>)
@@ -522,8 +517,8 @@ int main(void)
  8000650:	60fb      	str	r3, [r7, #12]
  8000652:	68fb      	ldr	r3, [r7, #12]
 
-	//2. Enable Write access to the backup domain
-	__HAL_RCC_PWR_CLK_ENABLE();
+  //2. Enable Write access to the backup domain
+  __HAL_RCC_PWR_CLK_ENABLE();
  8000654:	2300      	movs	r3, #0
  8000656:	60bb      	str	r3, [r7, #8]
  8000658:	4b3b      	ldr	r3, [pc, #236]	@ (8000748 <main+0x13c>)
@@ -536,15 +531,15 @@ int main(void)
  8000668:	f003 5380 	and.w	r3, r3, #268435456	@ 0x10000000
  800066c:	60bb      	str	r3, [r7, #8]
  800066e:	68bb      	ldr	r3, [r7, #8]
-	HAL_PWR_EnableBkUpAccess();
+  HAL_PWR_EnableBkUpAccess();
  8000670:	f000 fda0 	bl	80011b4 <HAL_PWR_EnableBkUpAccess>
 
-	pBackupSRAMbase = (uint32_t*)BKPSRAM_BASE;
+  pBackupSRAMbase = (uint32_t*)BKPSRAM_BASE;
  8000674:	4b35      	ldr	r3, [pc, #212]	@ (800074c <main+0x140>)
  8000676:	61bb      	str	r3, [r7, #24]
 
-	//Enable clock for PWR Controller block
-	__HAL_RCC_PWR_CLK_ENABLE();
+  //Enable clock for PWR Controller block
+  __HAL_RCC_PWR_CLK_ENABLE();
  8000678:	2300      	movs	r3, #0
  800067a:	607b      	str	r3, [r7, #4]
  800067c:	4b32      	ldr	r3, [pc, #200]	@ (8000748 <main+0x13c>)
@@ -558,59 +553,59 @@ int main(void)
  8000690:	607b      	str	r3, [r7, #4]
  8000692:	687b      	ldr	r3, [r7, #4]
 
-	if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
+  if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
  8000694:	4b2e      	ldr	r3, [pc, #184]	@ (8000750 <main+0x144>)
  8000696:	685b      	ldr	r3, [r3, #4]
  8000698:	f003 0302 	and.w	r3, r3, #2
  800069c:	2b02      	cmp	r3, #2
  800069e:	d11c      	bne.n	80006da <main+0xce>
-	{
-		__HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
+  {
+    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
  80006a0:	4b2b      	ldr	r3, [pc, #172]	@ (8000750 <main+0x144>)
  80006a2:	681b      	ldr	r3, [r3, #0]
  80006a4:	4a2a      	ldr	r2, [pc, #168]	@ (8000750 <main+0x144>)
  80006a6:	f043 0308 	orr.w	r3, r3, #8
  80006aa:	6013      	str	r3, [r2, #0]
-		__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
  80006ac:	4b28      	ldr	r3, [pc, #160]	@ (8000750 <main+0x144>)
  80006ae:	681b      	ldr	r3, [r3, #0]
  80006b0:	4a27      	ldr	r2, [pc, #156]	@ (8000750 <main+0x144>)
  80006b2:	f043 0304 	orr.w	r3, r3, #4
  80006b6:	6013      	str	r3, [r2, #0]
 
-		printmsg("woke up from the standby mode\r\n");
+    printmsg("woke up from the standby mode\r\n");
  80006b8:	4826      	ldr	r0, [pc, #152]	@ (8000754 <main+0x148>)
  80006ba:	f7ff ff81 	bl	80005c0 <printmsg>
-		uint8_t data = (uint8_t)*pBackupSRAMbase;
+    uint8_t data = (uint8_t)*pBackupSRAMbase;
  80006be:	69bb      	ldr	r3, [r7, #24]
  80006c0:	681b      	ldr	r3, [r3, #0]
  80006c2:	75fb      	strb	r3, [r7, #23]
-		if(data != 'H')
+    if(data != 'H')
  80006c4:	7dfb      	ldrb	r3, [r7, #23]
  80006c6:	2b48      	cmp	r3, #72	@ 0x48
  80006c8:	d003      	beq.n	80006d2 <main+0xc6>
-		{
-			printmsg("Backup SRAM data is lost\r\n");
+    {
+      printmsg("Backup SRAM data is lost\r\n");
  80006ca:	4823      	ldr	r0, [pc, #140]	@ (8000758 <main+0x14c>)
  80006cc:	f7ff ff78 	bl	80005c0 <printmsg>
  80006d0:	e01e      	b.n	8000710 <main+0x104>
-		}
-		else
-		{
-			printmsg("Backup SRAM data is safe \r\n");
+    }
+    else
+    {
+      printmsg("Backup SRAM data is safe \r\n");
  80006d2:	4822      	ldr	r0, [pc, #136]	@ (800075c <main+0x150>)
  80006d4:	f7ff ff74 	bl	80005c0 <printmsg>
  80006d8:	e01a      	b.n	8000710 <main+0x104>
-		}
-	}
-	else
-	{
-		for(uint32_t i =0 ; i < strlen(write_buf)+1 ; i++)
+    }
+  }
+  else
+  {
+    for(uint32_t i =0 ; i < strlen(write_buf)+1 ; i++)
  80006da:	2300      	movs	r3, #0
  80006dc:	61fb      	str	r3, [r7, #28]
  80006de:	e00d      	b.n	80006fc <main+0xf0>
-		{
-		  *(pBackupSRAMbase+i) = write_buf[i];
+    {
+      *(pBackupSRAMbase+i) = write_buf[i];
  80006e0:	f107 0210 	add.w	r2, r7, #16
  80006e4:	69fb      	ldr	r3, [r7, #28]
  80006e6:	4413      	add	r3, r2
@@ -621,7 +616,7 @@ int main(void)
  80006f0:	4413      	add	r3, r2
  80006f2:	460a      	mov	r2, r1
  80006f4:	601a      	str	r2, [r3, #0]
-		for(uint32_t i =0 ; i < strlen(write_buf)+1 ; i++)
+    for(uint32_t i =0 ; i < strlen(write_buf)+1 ; i++)
  80006f6:	69fb      	ldr	r3, [r7, #28]
  80006f8:	3301      	adds	r3, #1
  80006fa:	61fb      	str	r3, [r7, #28]
@@ -633,8 +628,8 @@ int main(void)
  800070a:	69fa      	ldr	r2, [r7, #28]
  800070c:	429a      	cmp	r2, r3
  800070e:	d3e7      	bcc.n	80006e0 <main+0xd4>
-		}
-	}
+    }
+  }
 
   printmsg("Press the user button to enter standby mode\r\n");
  8000710:	4813      	ldr	r0, [pc, #76]	@ (8000760 <main+0x154>)
@@ -661,7 +656,6 @@ int main(void)
   //Enable backup voltage reg.
   HAL_PWREx_EnableBkUpReg();
  8000736:	f000 fd7b 	bl	8001230 <HAL_PWREx_EnableBkUpReg>
-
   HAL_PWR_EnterSTANDBYMode();
  800073a:	f000 fd61 	bl	8001200 <HAL_PWR_EnterSTANDBYMode>
 
@@ -910,7 +904,6 @@ void GPIO_Init(void)
  80008a8:	b580      	push	{r7, lr}
  80008aa:	b086      	sub	sp, #24
  80008ac:	af00      	add	r7, sp, #0
-
   __HAL_RCC_GPIOC_CLK_ENABLE();
  80008ae:	2300      	movs	r3, #0
  80008b0:	603b      	str	r3, [r7, #0]
@@ -924,19 +917,18 @@ void GPIO_Init(void)
  80008c2:	f003 0304 	and.w	r3, r3, #4
  80008c6:	603b      	str	r3, [r7, #0]
  80008c8:	683b      	ldr	r3, [r7, #0]
+  GPIO_InitTypeDef  buttongpio;
 
-	GPIO_InitTypeDef  buttongpio;
-
-	buttongpio.Pin = GPIO_PIN_13;
+  buttongpio.Pin = GPIO_PIN_13;
  80008ca:	f44f 5300 	mov.w	r3, #8192	@ 0x2000
  80008ce:	607b      	str	r3, [r7, #4]
-	buttongpio.Mode = GPIO_MODE_INPUT;
+  buttongpio.Mode = GPIO_MODE_INPUT;
  80008d0:	2300      	movs	r3, #0
  80008d2:	60bb      	str	r3, [r7, #8]
-	buttongpio.Pull = GPIO_NOPULL;
+  buttongpio.Pull = GPIO_NOPULL;
  80008d4:	2300      	movs	r3, #0
  80008d6:	60fb      	str	r3, [r7, #12]
-	HAL_GPIO_Init(GPIOC,&buttongpio);
+  HAL_GPIO_Init(GPIOC,&buttongpio);
  80008d8:	1d3b      	adds	r3, r7, #4
  80008da:	4619      	mov	r1, r3
  80008dc:	4804      	ldr	r0, [pc, #16]	@ (80008f0 <GPIO_Init+0x48>)
@@ -959,47 +951,46 @@ void UART2_Init(void)
 {
  80008f4:	b580      	push	{r7, lr}
  80008f6:	af00      	add	r7, sp, #0
-	huart2.Instance = USART2;
+  huart2.Instance = USART2;
  80008f8:	4b0f      	ldr	r3, [pc, #60]	@ (8000938 <UART2_Init+0x44>)
  80008fa:	4a10      	ldr	r2, [pc, #64]	@ (800093c <UART2_Init+0x48>)
  80008fc:	601a      	str	r2, [r3, #0]
-	huart2.Init.BaudRate =115200;
+  huart2.Init.BaudRate =115200;
  80008fe:	4b0e      	ldr	r3, [pc, #56]	@ (8000938 <UART2_Init+0x44>)
  8000900:	f44f 32e1 	mov.w	r2, #115200	@ 0x1c200
  8000904:	605a      	str	r2, [r3, #4]
-	huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
  8000906:	4b0c      	ldr	r3, [pc, #48]	@ (8000938 <UART2_Init+0x44>)
  8000908:	2200      	movs	r2, #0
  800090a:	609a      	str	r2, [r3, #8]
-	huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.StopBits = UART_STOPBITS_1;
  800090c:	4b0a      	ldr	r3, [pc, #40]	@ (8000938 <UART2_Init+0x44>)
  800090e:	2200      	movs	r2, #0
  8000910:	60da      	str	r2, [r3, #12]
-	huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Parity = UART_PARITY_NONE;
  8000912:	4b09      	ldr	r3, [pc, #36]	@ (8000938 <UART2_Init+0x44>)
  8000914:	2200      	movs	r2, #0
  8000916:	611a      	str	r2, [r3, #16]
-	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
  8000918:	4b07      	ldr	r3, [pc, #28]	@ (8000938 <UART2_Init+0x44>)
  800091a:	2200      	movs	r2, #0
  800091c:	619a      	str	r2, [r3, #24]
-	huart2.Init.Mode = UART_MODE_TX;
+  huart2.Init.Mode = UART_MODE_TX;
  800091e:	4b06      	ldr	r3, [pc, #24]	@ (8000938 <UART2_Init+0x44>)
  8000920:	2208      	movs	r2, #8
  8000922:	615a      	str	r2, [r3, #20]
 
-	if ( HAL_UART_Init(&huart2) != HAL_OK )
+  if ( HAL_UART_Init(&huart2) != HAL_OK )
  8000924:	4804      	ldr	r0, [pc, #16]	@ (8000938 <UART2_Init+0x44>)
  8000926:	f001 fa91 	bl	8001e4c <HAL_UART_Init>
  800092a:	4603      	mov	r3, r0
  800092c:	2b00      	cmp	r3, #0
  800092e:	d001      	beq.n	8000934 <UART2_Init+0x40>
-	{
-		//There is a problem
-		Error_handler();
+  {
+    //There is a problem
+    Error_handler();
  8000930:	f000 f806 	bl	8000940 <Error_handler>
-	}
-
+  }
 }
  8000934:	bf00      	nop
  8000936:	bd80      	pop	{r7, pc}
@@ -1015,7 +1006,7 @@ void Error_handler(void)
 {
  8000940:	b480      	push	{r7}
  8000942:	af00      	add	r7, sp, #0
-	while(1);
+  while(1);
  8000944:	bf00      	nop
  8000946:	e7fd      	b.n	8000944 <Error_handler+0x4>
 

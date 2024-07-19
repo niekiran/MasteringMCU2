@@ -27,19 +27,12 @@ extern uint8_t some_data[];
 int main(void)
 {
 	HAL_Init();
-
 	//SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	GPIO_Init();
-
 	//HAL_SuspendTick();
-
 	UART2_Init();
-
 	TIMER6_Init();
-
 	GPIO_AnalogConfig();
-
 	//SCB->SCR |= ( 1 << 1);
 	HAL_PWR_EnableSleepOnExit();
 

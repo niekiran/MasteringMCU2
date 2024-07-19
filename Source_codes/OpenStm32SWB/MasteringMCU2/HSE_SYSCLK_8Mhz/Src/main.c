@@ -27,9 +27,7 @@ int main(void)
 	RCC_OscInitTypeDef osc_init;
 	RCC_ClkInitTypeDef clk_init;
 	char msg[100];
-
 	HAL_Init();
-
 	UART2_Init();
 
 	memset(&osc_init,0,sizeof(osc_init));

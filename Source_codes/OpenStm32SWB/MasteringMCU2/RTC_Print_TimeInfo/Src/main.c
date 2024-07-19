@@ -27,18 +27,13 @@ RTC_HandleTypeDef hrtc;
 
 int main(void)
 {
-
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
 
 	//TIMER6_Init();
 	RTC_Init();
-
 	RTC_ConfigureTimeDate();
 
 	while(1);

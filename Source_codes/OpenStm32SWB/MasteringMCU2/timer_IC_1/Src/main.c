@@ -42,19 +42,12 @@ int main(void)
 	//SystemClockConfig(SYS_CLOCK_FREQ_50_MHZ);
 
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
-
 	TIMER6_Init();
-
 	TIMER2_Init();
-
 	LSE_Configuration();
-
   HAL_TIM_Base_Start_IT(&htimer6);
-
 	HAL_TIM_IC_Start_IT(&htimer2,TIM_CHANNEL_1);
 
 	while(1)

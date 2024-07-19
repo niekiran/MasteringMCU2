@@ -6,10 +6,10 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
+#include "main_app.h"
 #include <string.h>
 #include <stdio.h>
 #include "stm32f4xx_hal.h"
-#include "main_app.h"
 
 /* Private function prototypes -----------------------------------------------*/
 void GPIO_Init(void);
@@ -24,47 +24,42 @@ extern uint8_t some_data[];
 
 int main(void)
 {
-	char msg[50];
+  char msg[50];
+  GPIO_Init();
+  HAL_Init();
+  //SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
+  //HAL_SuspendTick();
 
-	GPIO_Init();
+  UART2_Init();
+  GPIO_AnalogConfig();
 
-	HAL_Init();
+  while(1)
+  {
 
-	//SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
+    if ( HAL_UART_Transmit(&huart2,(uint8_t*)some_data,(uint16_t)strlen((char*)some_data),HAL_MAX_DELAY) != HAL_OK)
+    {
+      Error_handler();
+    }
 
-	//HAL_SuspendTick();
+    memset(msg,0,sizeof(msg));
+    sprintf(msg,"Going to Sleep !\r\n");
+    HAL_UART_Transmit(&huart2,(uint8_t*)msg,(uint16_t)strlen((char*)msg),HAL_MAX_DELAY);
 
-	UART2_Init();
+    /* Systick is not required so disabled it before going to sleep*/
+    HAL_SuspendTick();
 
-	GPIO_AnalogConfig();
+    /* going to sleep here */
+    __WFE();
 
-	while(1)
-	{
+    /* Continues from here when wakes up */
+    /* Enable the Systick */
+    HAL_ResumeTick();
 
-		if ( HAL_UART_Transmit(&huart2,(uint8_t*)some_data,(uint16_t)strlen((char*)some_data),HAL_MAX_DELAY) != HAL_OK)
-		{
-			Error_handler();
-		}
-
-		memset(msg,0,sizeof(msg));
-		sprintf(msg,"Going to Sleep !\r\n");
-		HAL_UART_Transmit(&huart2,(uint8_t*)msg,(uint16_t)strlen((char*)msg),HAL_MAX_DELAY);
-
-		/* Systick is not required so disabled it before going to sleep*/
-		HAL_SuspendTick();
-
-		/* going to sleep here */
-		__WFE();
-
-		/* Continues from here when wakes up */
-		/* Enable the Systick */
-		HAL_ResumeTick();
-
-		memset(msg,0,sizeof(msg));
-		sprintf(msg,"Woke up !\r\n");
-		HAL_UART_Transmit(&huart2,(uint8_t*)msg,(uint16_t)strlen((char*)msg),HAL_MAX_DELAY);
-	}
-	return 0;
+    memset(msg,0,sizeof(msg));
+    sprintf(msg,"Woke up !\r\n");
+    HAL_UART_Transmit(&huart2,(uint8_t*)msg,(uint16_t)strlen((char*)msg),HAL_MAX_DELAY);
+  }
+  return 0;
 }
 
 
@@ -75,18 +70,18 @@ int main(void)
   */
 void SystemClock_Config_HSE(uint8_t clock_freq)
 {
-	RCC_OscInitTypeDef Osc_Init;
-	RCC_ClkInitTypeDef Clock_Init;
+  RCC_OscInitTypeDef Osc_Init;
+  RCC_ClkInitTypeDef Clock_Init;
     uint8_t flash_latency=0;
 
-	Osc_Init.OscillatorType = RCC_OSCILLATORTYPE_HSE ;
-	Osc_Init.HSEState = RCC_HSE_ON;
-	Osc_Init.PLL.PLLState = RCC_PLL_ON;
-	Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  Osc_Init.OscillatorType = RCC_OSCILLATORTYPE_HSE ;
+  Osc_Init.HSEState = RCC_HSE_ON;
+  Osc_Init.PLL.PLLState = RCC_PLL_ON;
+  Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 
-	switch(clock_freq) {
-	case SYS_CLOCK_FREQ_50_MHZ:
-	  Osc_Init.PLL.PLLM = 4;
+  switch(clock_freq) {
+  case SYS_CLOCK_FREQ_50_MHZ:
+    Osc_Init.PLL.PLLM = 4;
     Osc_Init.PLL.PLLN = 50;
     Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
     Osc_Init.PLL.PLLQ = 2;
@@ -100,7 +95,7 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
     flash_latency = 1;
     break;
 
-	case SYS_CLOCK_FREQ_84_MHZ:
+  case SYS_CLOCK_FREQ_84_MHZ:
     Osc_Init.PLL.PLLM = 4;
     Osc_Init.PLL.PLLN = 84;
     Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
@@ -130,30 +125,30 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
     flash_latency = 3;
     break;
 
-	default:
-	  return ;
-	}
+  default:
+    return ;
+  }
 
-	if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-	if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-	/*Configure the systick timer interrupt frequency (for every 1 ms) */
-	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
-	HAL_SYSTICK_Config(hclk_freq/1000);
+  /*Configure the systick timer interrupt frequency (for every 1 ms) */
+  uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
+  HAL_SYSTICK_Config(hclk_freq/1000);
 
-	/**Configure the Systick
-	*/
-	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+  /**Configure the Systick
+  */
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
-	/* SysTick_IRQn interrupt configuration */
-	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
 /**
@@ -196,27 +191,27 @@ void GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_SLEEP_DISABLE();
 
-	GPIO_InitTypeDef ledgpio, buttongpio;
+  GPIO_InitTypeDef ledgpio, buttongpio;
 #if 0
-	ledgpio.Pin = GPIO_PIN_5;
-	ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
-	ledgpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOA,&ledgpio);
+  ledgpio.Pin = GPIO_PIN_5;
+  ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
+  ledgpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA,&ledgpio);
 
-	ledgpio.Pin = GPIO_PIN_12;
-	ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
-	ledgpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOA,&ledgpio);
+  ledgpio.Pin = GPIO_PIN_12;
+  ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
+  ledgpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA,&ledgpio);
 
 #endif
 
-	buttongpio.Pin = GPIO_PIN_13;
-	buttongpio.Mode = GPIO_MODE_EVT_FALLING;
-	buttongpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOC,&buttongpio);
+  buttongpio.Pin = GPIO_PIN_13;
+  buttongpio.Mode = GPIO_MODE_EVT_FALLING;
+  buttongpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC,&buttongpio);
 
-	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_12,GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_12,GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA,GPIO_PIN_5,GPIO_PIN_RESET);
 }
 
 /**
@@ -226,18 +221,18 @@ void GPIO_Init(void)
   */
 void UART2_Init(void)
 {
-	huart2.Instance = USART2;
-	huart2.Init.BaudRate =921600;
-	huart2.Init.WordLength = UART_WORDLENGTH_8B;
-	huart2.Init.StopBits = UART_STOPBITS_1;
-	huart2.Init.Parity = UART_PARITY_NONE;
-	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart2.Init.Mode = UART_MODE_TX;
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate =921600;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.Mode = UART_MODE_TX;
 
-	if ( HAL_UART_Init(&huart2) != HAL_OK )
-	{
-		Error_handler();
-	}
+  if ( HAL_UART_Init(&huart2) != HAL_OK )
+  {
+    Error_handler();
+  }
 }
 
 /**
@@ -247,10 +242,10 @@ void UART2_Init(void)
   */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if ( HAL_UART_Transmit(&huart2,(uint8_t*)some_data,(uint16_t)strlen((char*)some_data),HAL_MAX_DELAY) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if ( HAL_UART_Transmit(&huart2,(uint8_t*)some_data,(uint16_t)strlen((char*)some_data),HAL_MAX_DELAY) != HAL_OK)
+  {
+    Error_handler();
+  }
 }
 
 /**
@@ -270,6 +265,6 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
   */
 void Error_handler(void)
 {
-	while(1);
+  while(1);
 }
 

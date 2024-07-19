@@ -31,13 +31,9 @@ volatile uint32_t ccr_content;
 int main(void)
 {
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
-
 	TIMER2_Init();
 
 	if( HAL_TIM_OC_Start_IT(&htimer2,TIM_CHANNEL_1) != HAL_OK)

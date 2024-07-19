@@ -27,23 +27,18 @@ RTC_HandleTypeDef hrtc;
 
 int main(void)
 {
+  HAL_Init();
+  SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
+  GPIO_Init();
+  UART2_Init();
 
-	HAL_Init();
+  //TIMER6_Init();
+  RTC_Init();
+  RTC_ConfigureTimeDate();
 
-	SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
+  while(1);
 
-	GPIO_Init();
-
-	UART2_Init();
-
-	//TIMER6_Init();
-	RTC_Init();
-
-	RTC_ConfigureTimeDate();
-
-	while(1);
-
-	return 0;
+  return 0;
 }
 
 
@@ -54,16 +49,16 @@ int main(void)
   */
 void SystemClock_Config_HSE(uint8_t clock_freq)
 {
-	RCC_OscInitTypeDef Osc_Init;
-	RCC_ClkInitTypeDef Clock_Init;
+  RCC_OscInitTypeDef Osc_Init;
+  RCC_ClkInitTypeDef Clock_Init;
   uint8_t flash_latency=0;
 
-	Osc_Init.OscillatorType = RCC_OSCILLATORTYPE_HSE ;
-	Osc_Init.HSEState = RCC_HSE_ON;
-	Osc_Init.PLL.PLLState = RCC_PLL_ON;
-	Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  Osc_Init.OscillatorType = RCC_OSCILLATORTYPE_HSE ;
+  Osc_Init.HSEState = RCC_HSE_ON;
+  Osc_Init.PLL.PLLState = RCC_PLL_ON;
+  Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 
-	switch(clock_freq) {
+  switch(clock_freq) {
   case SYS_CLOCK_FREQ_50_MHZ:
     Osc_Init.PLL.PLLM = 4;
     Osc_Init.PLL.PLLN = 50;
@@ -111,28 +106,28 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
 
   default:
     return ;
-	}
+  }
 
-	if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-	if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-	/*Configure the systick timer interrupt frequency (for every 1 ms) */
-	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
-	HAL_SYSTICK_Config(hclk_freq/1000);
+  /*Configure the systick timer interrupt frequency (for every 1 ms) */
+  uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
+  HAL_SYSTICK_Config(hclk_freq/1000);
 
-	/**Configure the Systick
-	*/
-	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+  /**Configure the Systick
+  */
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
-	/* SysTick_IRQn interrupt configuration */
-	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
 /**
@@ -166,13 +161,13 @@ void GPIO_Init(void)
   */
 void TIMER6_Init(void)
 {
-	htimer6.Instance = TIM6;
-	htimer6.Init.Prescaler = 4999;
-	htimer6.Init.Period = 10000-1;
-	if( HAL_TIM_Base_Init(&htimer6) != HAL_OK )
-	{
-		Error_handler();
-	}
+  htimer6.Instance = TIM6;
+  htimer6.Init.Prescaler = 4999;
+  htimer6.Init.Period = 10000-1;
+  if( HAL_TIM_Base_Init(&htimer6) != HAL_OK )
+  {
+    Error_handler();
+  }
 }
 
 /**
@@ -182,19 +177,19 @@ void TIMER6_Init(void)
   */
 void RTC_Init(void)
 {
-	hrtc.Instance = RTC;
-	hrtc.Init.HourFormat     = RTC_HOURFORMAT_24;
-	hrtc.Init.AsynchPrediv   = RTC_ASYNCH_PREDIV;
-	hrtc.Init.SynchPrediv    = RTC_SYNCH_PREDIV;
-	hrtc.Init.OutPut         = RTC_OUTPUT_DISABLE;
-	hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
-	hrtc.Init.OutPutType     = RTC_OUTPUT_TYPE_OPENDRAIN;
-	__HAL_RTC_RESET_HANDLE_STATE(&hrtc);
-	if (HAL_RTC_Init(&hrtc) != HAL_OK)
-	{
-		/* Initialization Error */
-		Error_handler();
-	}
+  hrtc.Instance = RTC;
+  hrtc.Init.HourFormat     = RTC_HOURFORMAT_24;
+  hrtc.Init.AsynchPrediv   = RTC_ASYNCH_PREDIV;
+  hrtc.Init.SynchPrediv    = RTC_SYNCH_PREDIV;
+  hrtc.Init.OutPut         = RTC_OUTPUT_DISABLE;
+  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  hrtc.Init.OutPutType     = RTC_OUTPUT_TYPE_OPENDRAIN;
+  __HAL_RTC_RESET_HANDLE_STATE(&hrtc);
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    /* Initialization Error */
+    Error_handler();
+  }
 }
 
 /**
@@ -242,18 +237,18 @@ void RTC_ConfigureTimeDate(void)
   */
 void UART2_Init(void)
 {
-	huart2.Instance = USART2;
-	huart2.Init.BaudRate = 115200;
-	huart2.Init.WordLength = UART_WORDLENGTH_8B;
-	huart2.Init.StopBits = UART_STOPBITS_1;
-	huart2.Init.Parity = UART_PARITY_NONE;
-	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart2.Init.Mode = UART_MODE_TX_RX;
-	if ( HAL_UART_Init(&huart2) != HAL_OK )
-	{
-		//There is a problem
-		Error_handler();
-	}
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  if ( HAL_UART_Init(&huart2) != HAL_OK )
+  {
+    //There is a problem
+    Error_handler();
+  }
 }
 
 /**
@@ -301,6 +296,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   */
 void Error_handler(void)
 {
-	while(1);
+  while(1);
 }
 

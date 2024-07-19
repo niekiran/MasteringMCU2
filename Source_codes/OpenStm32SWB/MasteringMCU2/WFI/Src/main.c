@@ -24,17 +24,11 @@ extern uint8_t some_data[];
 
 int main(void)
 {
-
 	GPIO_Init();
-
 	HAL_Init();
-
 	//SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	//HAL_SuspendTick();
-
 	UART2_Init();
-
 	GPIO_AnalogConfig();
 
 	while(1)
@@ -213,7 +207,6 @@ void UART2_Init(void)
 	huart2.Init.Parity = UART_PARITY_NONE;
 	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
 	huart2.Init.Mode = UART_MODE_TX;
-
 
 	if ( HAL_UART_Init(&huart2) != HAL_OK )
 	{

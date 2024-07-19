@@ -34,35 +34,27 @@ CAN_RxHeaderTypeDef RxHeader;
 
 int main(void)
 {
+  HAL_Init();
+  SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
+  GPIO_Init();
+  UART2_Init();
+  TIMER6_Init();
+  CAN1_Init();
+  CAN_Filter_Config();
 
-	HAL_Init();
+  if(HAL_CAN_ActivateNotification(&hcan1,CAN_IT_TX_MAILBOX_EMPTY|CAN_IT_RX_FIFO0_MSG_PENDING|CAN_IT_BUSOFF)!= HAL_OK)
+  {
+    Error_handler();
+  }
 
-	SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
+  if( HAL_CAN_Start(&hcan1) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-	GPIO_Init();
+  while(1);
 
-	UART2_Init();
-
-	TIMER6_Init();
-
-	CAN1_Init();
-
-	CAN_Filter_Config();
-
-	if(HAL_CAN_ActivateNotification(&hcan1,CAN_IT_TX_MAILBOX_EMPTY|CAN_IT_RX_FIFO0_MSG_PENDING|CAN_IT_BUSOFF)!= HAL_OK)
-	{
-	  Error_handler();
-	}
-
-
-	if( HAL_CAN_Start(&hcan1) != HAL_OK)
-	{
-	  Error_handler();
-	}
-
-	while(1);
-
-	return 0;
+  return 0;
 }
 
 
@@ -160,30 +152,28 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
   */
 void CAN1_Tx()
 {
-	CAN_TxHeaderTypeDef TxHeader;
+  CAN_TxHeaderTypeDef TxHeader;
+  uint32_t TxMailbox;
+  uint8_t message;
 
-	uint32_t TxMailbox;
+  TxHeader.DLC = 1;
+  TxHeader.StdId = 0x65D;
+  TxHeader.IDE   = CAN_ID_STD;
+  TxHeader.RTR = CAN_RTR_DATA;
 
-	uint8_t message;
+  message = ++led_no;
 
-	TxHeader.DLC = 1;
-	TxHeader.StdId = 0x65D;
-	TxHeader.IDE   = CAN_ID_STD;
-	TxHeader.RTR = CAN_RTR_DATA;
+  if(led_no == 4)
+  {
+    led_no = 0;
+  }
 
-	message = ++led_no;
+  HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
 
-	if(led_no == 4)
-	{
-	  led_no = 0;
-	}
-
-	HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
-
-	if( HAL_CAN_AddTxMessage(&hcan1,&TxHeader,&message,&TxMailbox) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if( HAL_CAN_AddTxMessage(&hcan1,&TxHeader,&message,&TxMailbox) != HAL_OK)
+  {
+    Error_handler();
+  }
 }
 
 /**
@@ -192,23 +182,22 @@ void CAN1_Tx()
   */
 void CAN_Filter_Config(void)
 {
-	CAN_FilterTypeDef can1_filter_init;
+  CAN_FilterTypeDef can1_filter_init;
 
-	can1_filter_init.FilterActivation = ENABLE;
-	can1_filter_init.FilterBank  = 0;
-	can1_filter_init.FilterFIFOAssignment = CAN_RX_FIFO0;
-	can1_filter_init.FilterIdHigh = 0x0000;
-	can1_filter_init.FilterIdLow = 0x0000;
-	can1_filter_init.FilterMaskIdHigh = 0X01C0;
-	can1_filter_init.FilterMaskIdLow = 0x0000;
-	can1_filter_init.FilterMode = CAN_FILTERMODE_IDMASK;
-	can1_filter_init.FilterScale = CAN_FILTERSCALE_32BIT;
+  can1_filter_init.FilterActivation = ENABLE;
+  can1_filter_init.FilterBank  = 0;
+  can1_filter_init.FilterFIFOAssignment = CAN_RX_FIFO0;
+  can1_filter_init.FilterIdHigh = 0x0000;
+  can1_filter_init.FilterIdLow = 0x0000;
+  can1_filter_init.FilterMaskIdHigh = 0X01C0;
+  can1_filter_init.FilterMaskIdLow = 0x0000;
+  can1_filter_init.FilterMode = CAN_FILTERMODE_IDMASK;
+  can1_filter_init.FilterScale = CAN_FILTERSCALE_32BIT;
 
-	if( HAL_CAN_ConfigFilter(&hcan1,&can1_filter_init) != HAL_OK)
-	{
-		Error_handler();
-	}
-
+  if( HAL_CAN_ConfigFilter(&hcan1,&can1_filter_init) != HAL_OK)
+  {
+    Error_handler();
+  }
 }
 
 /**
@@ -218,36 +207,34 @@ void CAN_Filter_Config(void)
   */
 void GPIO_Init(void)
 {
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-	__HAL_RCC_GPIOC_CLK_ENABLE();
-	__HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
 
-	GPIO_InitTypeDef ledgpio;
-	ledgpio.Pin = GPIO_PIN_5;
-	ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
-	ledgpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOA,&ledgpio);
+  GPIO_InitTypeDef ledgpio;
+  ledgpio.Pin = GPIO_PIN_5;
+  ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
+  ledgpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA,&ledgpio);
 
 
-	ledgpio.Pin = GPIO_PIN_9 | GPIO_PIN_8 | GPIO_PIN_6;
-	ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
-	ledgpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOC,&ledgpio);
+  ledgpio.Pin = GPIO_PIN_9 | GPIO_PIN_8 | GPIO_PIN_6;
+  ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
+  ledgpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC,&ledgpio);
 
-	ledgpio.Pin = GPIO_PIN_8;
-	ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
-	ledgpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOB,&ledgpio);
+  ledgpio.Pin = GPIO_PIN_8;
+  ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
+  ledgpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB,&ledgpio);
 
-	ledgpio.Pin = GPIO_PIN_13;
-	ledgpio.Mode = GPIO_MODE_IT_FALLING;
-	ledgpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOC,&ledgpio);
+  ledgpio.Pin = GPIO_PIN_13;
+  ledgpio.Mode = GPIO_MODE_IT_FALLING;
+  ledgpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC,&ledgpio);
 
-	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-
-
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 /**
@@ -257,13 +244,13 @@ void GPIO_Init(void)
   */
 void TIMER6_Init(void)
 {
-	htimer6.Instance = TIM6;
-	htimer6.Init.Prescaler = 4999;
-	htimer6.Init.Period = 10000-1;
-	if( HAL_TIM_Base_Init(&htimer6) != HAL_OK )
-	{
-		Error_handler();
-	}
+  htimer6.Instance = TIM6;
+  htimer6.Init.Prescaler = 4999;
+  htimer6.Init.Period = 10000-1;
+  if( HAL_TIM_Base_Init(&htimer6) != HAL_OK )
+  {
+    Error_handler();
+  }
 }
 
 /**
@@ -273,18 +260,18 @@ void TIMER6_Init(void)
   */
 void UART2_Init(void)
 {
-	huart2.Instance = USART2;
-	huart2.Init.BaudRate = 115200;
-	huart2.Init.WordLength = UART_WORDLENGTH_8B;
-	huart2.Init.StopBits = UART_STOPBITS_1;
-	huart2.Init.Parity = UART_PARITY_NONE;
-	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart2.Init.Mode = UART_MODE_TX_RX;
-	if ( HAL_UART_Init(&huart2) != HAL_OK )
-	{
-		//There is a problem
-		Error_handler();
-	}
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  if ( HAL_UART_Init(&huart2) != HAL_OK )
+  {
+    //There is a problem
+    Error_handler();
+  }
 }
 
 /**
@@ -294,25 +281,25 @@ void UART2_Init(void)
   */
 void CAN1_Init(void)
 {
-	hcan1.Instance = CAN1;
-	hcan1.Init.Mode = CAN_MODE_NORMAL;
-	hcan1.Init.AutoBusOff = ENABLE;
-	hcan1.Init.AutoRetransmission = ENABLE;
-	hcan1.Init.AutoWakeUp = DISABLE;
-	hcan1.Init.ReceiveFifoLocked = DISABLE;
-	hcan1.Init.TimeTriggeredMode = DISABLE;
-	hcan1.Init.TransmitFifoPriority = DISABLE;
+  hcan1.Instance = CAN1;
+  hcan1.Init.Mode = CAN_MODE_NORMAL;
+  hcan1.Init.AutoBusOff = ENABLE;
+  hcan1.Init.AutoRetransmission = ENABLE;
+  hcan1.Init.AutoWakeUp = DISABLE;
+  hcan1.Init.ReceiveFifoLocked = DISABLE;
+  hcan1.Init.TimeTriggeredMode = DISABLE;
+  hcan1.Init.TransmitFifoPriority = DISABLE;
 
-	//Settings related to CAN bit timings
-	hcan1.Init.Prescaler = 3;
-	hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
-	hcan1.Init.TimeSeg1 = CAN_BS1_11TQ;
-	hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
+  //Settings related to CAN bit timings
+  hcan1.Init.Prescaler = 3;
+  hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_11TQ;
+  hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
 
-	if ( HAL_CAN_Init (&hcan1) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if ( HAL_CAN_Init (&hcan1) != HAL_OK)
+  {
+    Error_handler();
+  }
 }
 
 /**
@@ -323,10 +310,9 @@ void CAN1_Init(void)
   */
 void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan)
 {
-	char msg[50];
-	sprintf(msg,"Message Transmitted:M0\r\n");
-	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
-
+  char msg[50];
+  sprintf(msg,"Message Transmitted:M0\r\n");
+  HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
 }
 
 /**
@@ -337,9 +323,9 @@ void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan)
   */
 void HAL_CAN_TxMailbox1CompleteCallback(CAN_HandleTypeDef *hcan)
 {
-	char msg[50];
-	sprintf(msg,"Message Transmitted:M1\r\n");
-	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
+  char msg[50];
+  sprintf(msg,"Message Transmitted:M1\r\n");
+  HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
 }
 
 /**
@@ -350,9 +336,9 @@ void HAL_CAN_TxMailbox1CompleteCallback(CAN_HandleTypeDef *hcan)
   */
 void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan)
 {
-	char msg[50];
-	sprintf(msg,"Message Transmitted:M2\r\n");
-	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
+  char msg[50];
+  sprintf(msg,"Message Transmitted:M2\r\n");
+  HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
 }
 
 /**
@@ -363,34 +349,34 @@ void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan)
   */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
-	uint8_t rcvd_msg[8];
+  uint8_t rcvd_msg[8];
 
-	char msg[50];
+  char msg[50];
 
-	if(HAL_CAN_GetRxMessage(hcan,CAN_RX_FIFO0,&RxHeader,rcvd_msg) != HAL_OK)
-	{
-		Error_handler();
-	}
+  if(HAL_CAN_GetRxMessage(hcan,CAN_RX_FIFO0,&RxHeader,rcvd_msg) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-	if(RxHeader.StdId == 0x65D && RxHeader.RTR == 0 )
-	{
-		//This is data frame sent by n1 to n2
-		LED_Manage_Output(rcvd_msg[0]);
-		sprintf(msg,"Message Received : #%x\r\n",rcvd_msg[0]);
-	}
-	else if ( RxHeader.StdId == 0x651 && RxHeader.RTR == 1)
-	{
-		//This is a remote frame sent by n1 to n2
-		Send_response(RxHeader.StdId);
-		return;
-	}
-	else if ( RxHeader.StdId == 0x651 && RxHeader.RTR == 0)
-	{
-		//its a reply ( data frame) by n2 to n1
-		sprintf(msg,"Reply Received : %#X\r\n",rcvd_msg[0] << 8 | rcvd_msg[1]);
-	}
+  if(RxHeader.StdId == 0x65D && RxHeader.RTR == 0 )
+  {
+    //This is data frame sent by n1 to n2
+    LED_Manage_Output(rcvd_msg[0]);
+    sprintf(msg,"Message Received : #%x\r\n",rcvd_msg[0]);
+  }
+  else if ( RxHeader.StdId == 0x651 && RxHeader.RTR == 1)
+  {
+    //This is a remote frame sent by n1 to n2
+    Send_response(RxHeader.StdId);
+    return;
+  }
+  else if ( RxHeader.StdId == 0x651 && RxHeader.RTR == 0)
+  {
+    //its a reply ( data frame) by n2 to n1
+    sprintf(msg,"Reply Received : %#X\r\n",rcvd_msg[0] << 8 | rcvd_msg[1]);
+  }
 
-	 HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
+   HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
 }
 
 
@@ -485,6 +471,6 @@ void Send_response(uint32_t StdId)
   */
 void Error_handler(void)
 {
-	while(1);
+  while(1);
 }
 

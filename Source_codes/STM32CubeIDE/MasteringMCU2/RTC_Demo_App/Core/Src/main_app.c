@@ -53,37 +53,32 @@ RTC_HandleTypeDef hrtc;
   */
 void printmsg(char *format,...)
 {
-	char str[80];
+  char str[80];
 
-	/*Extract the the argument list using VA apis */
-	va_list args;
-	va_start(args, format);
-	vsprintf(str, format,args);
-	HAL_UART_Transmit(&huart2,(uint8_t *)str, strlen(str),HAL_MAX_DELAY);
-	va_end(args);
+  /*Extract the the argument list using VA apis */
+  va_list args;
+  va_start(args, format);
+  vsprintf(str, format,args);
+  HAL_UART_Transmit(&huart2,(uint8_t *)str, strlen(str),HAL_MAX_DELAY);
+  va_end(args);
 }
 
 int main(void)
 {
+  HAL_Init();
+  SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
+  GPIO_Init();
+  UART2_Init();
+  //TIMER6_Init();
 
-	HAL_Init();
+  while( ! PrintUserMenu())
+  {
 
-	SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
+  }
 
-	GPIO_Init();
+  while(1);
 
-	UART2_Init();
-
-	//TIMER6_Init();
-
-	while( ! PrintUserMenu())
-	{
-
-	}
-
-	while(1);
-
-	return 0;
+  return 0;
 }
 
 /**
@@ -183,7 +178,6 @@ void GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
-
   GPIO_InitTypeDef ledgpio;
   ledgpio.Pin = GPIO_PIN_5;
   ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
@@ -205,13 +199,13 @@ void GPIO_Init(void)
   */
 void TIMER6_Init(void)
 {
-	htimer6.Instance = TIM6;
-	htimer6.Init.Prescaler = 4999;
-	htimer6.Init.Period = 10000-1;
-	if( HAL_TIM_Base_Init(&htimer6) != HAL_OK )
-	{
-		Error_handler();
-	}
+  htimer6.Instance = TIM6;
+  htimer6.Init.Prescaler = 4999;
+  htimer6.Init.Period = 10000-1;
+  if( HAL_TIM_Base_Init(&htimer6) != HAL_OK )
+  {
+    Error_handler();
+  }
 }
 
 /**
@@ -221,19 +215,19 @@ void TIMER6_Init(void)
   */
 void RTC_Init(void)
 {
-	hrtc.Instance = RTC;
-	hrtc.Init.HourFormat     = RTC_HOURFORMAT_24;
-	hrtc.Init.AsynchPrediv   = RTC_ASYNCH_PREDIV;
-	hrtc.Init.SynchPrediv    = RTC_SYNCH_PREDIV;
-	hrtc.Init.OutPut         = RTC_OUTPUT_DISABLE;
-	hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
-	hrtc.Init.OutPutType     = RTC_OUTPUT_TYPE_OPENDRAIN;
-	__HAL_RTC_RESET_HANDLE_STATE(&hrtc);
-	if (HAL_RTC_Init(&hrtc) != HAL_OK)
-	{
-		/* Initialization Error */
-		Error_handler();
-	}
+  hrtc.Instance = RTC;
+  hrtc.Init.HourFormat     = RTC_HOURFORMAT_24;
+  hrtc.Init.AsynchPrediv   = RTC_ASYNCH_PREDIV;
+  hrtc.Init.SynchPrediv    = RTC_SYNCH_PREDIV;
+  hrtc.Init.OutPut         = RTC_OUTPUT_DISABLE;
+  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  hrtc.Init.OutPutType     = RTC_OUTPUT_TYPE_OPENDRAIN;
+  __HAL_RTC_RESET_HANDLE_STATE(&hrtc);
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    /* Initialization Error */
+    Error_handler();
+  }
 }
 
 /**
@@ -281,18 +275,18 @@ void RTC_ConfigureTimeDate(void)
   */
 void UART2_Init(void)
 {
-	huart2.Instance = USART2;
-	huart2.Init.BaudRate = 115200;
-	huart2.Init.WordLength = UART_WORDLENGTH_8B;
-	huart2.Init.StopBits = UART_STOPBITS_1;
-	huart2.Init.Parity = UART_PARITY_NONE;
-	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart2.Init.Mode = UART_MODE_TX_RX;
-	if ( HAL_UART_Init(&huart2) != HAL_OK )
-	{
-		//There is a problem
-		Error_handler();
-	}
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  if ( HAL_UART_Init(&huart2) != HAL_OK )
+  {
+    //There is a problem
+    Error_handler();
+  }
 }
 
 /**
@@ -404,12 +398,12 @@ uint8_t PrintUserMenu(void)
 
 uint8_t is_valid_time_set(void)
 {
-	return 1;
+  return 1;
 }
 
 uint8_t Calendar_Demo(uint8_t arg)
 {
-  uint8_t time_format,seconds,minutes,hour,date,month,year,ampm;
+  uint8_t time_format, seconds, minutes, hour, date, month, year, ampm;
   uint8_t user_input[6];
   uint32_t cnt=0;
   switch(arg) {
@@ -489,31 +483,31 @@ uint8_t Calendar_Demo(uint8_t arg)
 uint8_t Alarm_Demo(uint8_t arg)
 {
 
-	return 0;
+  return 0;
 }
 
 uint8_t LowPowerDemo(uint8_t arg)
 {
 
-	return 0;
+  return 0;
 }
 
 uint8_t  TimeStamp_Demo(uint8_t arg)
 {
 
-	return 0;
+  return 0;
 }
 
 uint8_t CalendarDemoMenuPrint(void)
 {
-	uint32_t cnt=0;
-	printmsg("This is calendar Demo\r\n");
-	printmsg("Set time-->1\r\n");
-	printmsg("Set date-->2\r\n");
-	printmsg("Display current time and date-->3\r\n");
-	printmsg("Go back to main menu -->0\r\n");
-	printmsg("Type your option here :");
-	uint8_t user_input[2];
+  uint32_t cnt=0;
+  printmsg("This is calendar Demo\r\n");
+  printmsg("Set time-->1\r\n");
+  printmsg("Set date-->2\r\n");
+  printmsg("Display current time and date-->3\r\n");
+  printmsg("Go back to main menu -->0\r\n");
+  printmsg("Type your option here :");
+  uint8_t user_input[2];
   while(data_user != '\r')
   {
     HAL_UART_Receive(&huart2, (uint8_t*)&data_user, 1, HAL_MAX_DELAY);
@@ -521,36 +515,36 @@ uint8_t CalendarDemoMenuPrint(void)
     cnt++;
   }
 
-	printmsg("\r\n received inputs %d %d \r\n",user_input[0],user_input[1]);
+  printmsg("\r\n received inputs %d %d \r\n",user_input[0],user_input[1]);
 
-	return user_input[0];
+  return user_input[0];
 }
 
 uint8_t LowPowerDemoMenuPrint(void)
 {
-	printmsg("This is LOW power demo\r\n");
-	printmsg("STOP mode demo+ RTC alarm\r\n");
-	printmsg("STANDBY mode demo + RTC wakeup timer\r\n");
-	printmsg("Type your option here :");
-	uint8_t user_input[2];
-	HAL_UART_Receive(&huart2,user_input,2,HAL_MAX_DELAY);
-	printmsg("\r\n received inputs %d %d \r",user_input[0],user_input[1]);
+  printmsg("This is LOW power demo\r\n");
+  printmsg("STOP mode demo+ RTC alarm\r\n");
+  printmsg("STANDBY mode demo + RTC wakeup timer\r\n");
+  printmsg("Type your option here :");
+  uint8_t user_input[2];
+  HAL_UART_Receive(&huart2,user_input,2,HAL_MAX_DELAY);
+  printmsg("\r\n received inputs %d %d \r",user_input[0],user_input[1]);
 
-	return user_input[0];
+  return user_input[0];
 }
 
 uint8_t Alarm_DemoPrint(void)
 {
-	printmsg("This is alarm Demo\r\n");
-	printmsg("Display already set alarm\r\n");
-	printmsg("Delete an alarm\r\n");
-	printmsg("Set new Alarm\r\r");
-	printmsg("Type your option here :");
-	uint8_t user_input[2];
-	HAL_UART_Receive(&huart2,user_input,2,HAL_MAX_DELAY);
-	printmsg("\r\n received inputs %d %d \r",user_input[0],user_input[1]);
+  printmsg("This is alarm Demo\r\n");
+  printmsg("Display already set alarm\r\n");
+  printmsg("Delete an alarm\r\n");
+  printmsg("Set new Alarm\r\r");
+  printmsg("Type your option here :");
+  uint8_t user_input[2];
+  HAL_UART_Receive(&huart2,user_input,2,HAL_MAX_DELAY);
+  printmsg("\r\n received inputs %d %d \r",user_input[0],user_input[1]);
 
-	return user_input[0];
+  return user_input[0];
 }
 
 void RTC_configureUserGivenTime(uint8_t seconds,uint8_t minutes,uint8_t hour,uint8_t AMPM, uint8_t format)
@@ -606,35 +600,35 @@ void RTC_configureUserGivenDate(uint16_t year,uint8_t month,uint8_t date)
 
 void RTC_DisplayCurrentTime(void)
 {
-	char showtime[50];
+  char showtime[50];
 
-	RTC_TimeTypeDef stimestructureget;
+  RTC_TimeTypeDef stimestructureget;
 
-	memset(&stimestructureget,0,sizeof(stimestructureget));
+  memset(&stimestructureget,0,sizeof(stimestructureget));
 
-	/* Get the RTC current Time */
-	HAL_RTC_GetTime(&hrtc, &stimestructureget, RTC_FORMAT_BIN);
+  /* Get the RTC current Time */
+  HAL_RTC_GetTime(&hrtc, &stimestructureget, RTC_FORMAT_BIN);
 
-	/* Display time Format : hh:mm:ss */
-	sprintf((char*)showtime,"Current Time is : %02d:%02d:%02d\r\n",stimestructureget.Hours, stimestructureget.Minutes, stimestructureget.Seconds);
-	HAL_UART_Transmit(&huart2,(uint8_t*)showtime,strlen(showtime),HAL_MAX_DELAY);
+  /* Display time Format : hh:mm:ss */
+  sprintf((char*)showtime,"Current Time is : %02d:%02d:%02d\r\n",stimestructureget.Hours, stimestructureget.Minutes, stimestructureget.Seconds);
+  HAL_UART_Transmit(&huart2,(uint8_t*)showtime,strlen(showtime),HAL_MAX_DELAY);
 }
 
 void RTC_DisplayCurrentDate(void)
 {
-	char showtime[50];
+  char showtime[50];
 
-	RTC_DateTypeDef sdatestructureget;
+  RTC_DateTypeDef sdatestructureget;
 
-	memset(&sdatestructureget,0,sizeof(sdatestructureget));
+  memset(&sdatestructureget,0,sizeof(sdatestructureget));
 
-	/* Get the RTC current Date */
-	HAL_RTC_GetDate(&hrtc, &sdatestructureget, RTC_FORMAT_BIN);
+  /* Get the RTC current Date */
+  HAL_RTC_GetDate(&hrtc, &sdatestructureget, RTC_FORMAT_BIN);
 
-	memset(showtime,0,sizeof(showtime));
-	sprintf((char*)showtime,"Current Date is : %02d-%2d-%2d\r\n",sdatestructureget.Month, sdatestructureget.Date, 2000 + sdatestructureget.Year);
+  memset(showtime,0,sizeof(showtime));
+  sprintf((char*)showtime,"Current Date is : %02d-%2d-%2d\r\n",sdatestructureget.Month, sdatestructureget.Date, 2000 + sdatestructureget.Year);
 
-	HAL_UART_Transmit(&huart2,(uint8_t*)showtime,strlen(showtime),HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart2,(uint8_t*)showtime,strlen(showtime),HAL_MAX_DELAY);
 }
 
 
@@ -665,6 +659,6 @@ uint16_t getYear(uint8_t *year)
   */
 void Error_handler(void)
 {
-	while(1);
+  while(1);
 }
 

@@ -65,15 +65,10 @@ void printmsg(char *format,...)
 
 int main(void)
 {
-
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
-
 	//TIMER6_Init();
 
 	while( ! PrintUserMenu())
@@ -182,7 +177,6 @@ void GPIO_Init(void)
 {
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
-
 
   GPIO_InitTypeDef ledgpio;
   ledgpio.Pin = GPIO_PIN_5;
@@ -409,7 +403,7 @@ uint8_t is_valid_time_set(void)
 
 uint8_t Calendar_Demo(uint8_t arg)
 {
-  uint8_t time_format,seconds,minutes,hour,date,month,year,ampm;
+  uint8_t time_format, seconds, minutes, hour, date, month, year, ampm;
   uint8_t user_input[6];
   uint32_t cnt=0;
   switch(arg) {

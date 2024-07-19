@@ -34,26 +34,18 @@ CAN_RxHeaderTypeDef RxHeader;
 
 int main(void)
 {
-
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_84_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
-
 	TIMER6_Init();
-
 	CAN1_Init();
-
 	CAN_Filter_Config();
 
 	if(HAL_CAN_ActivateNotification(&hcan1,CAN_IT_TX_MAILBOX_EMPTY|CAN_IT_RX_FIFO0_MSG_PENDING|CAN_IT_BUSOFF)!= HAL_OK)
 	{
 	  Error_handler();
 	}
-
 
 	if( HAL_CAN_Start(&hcan1) != HAL_OK)
 	{
@@ -161,9 +153,7 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
 void CAN1_Tx()
 {
 	CAN_TxHeaderTypeDef TxHeader;
-
 	uint32_t TxMailbox;
-
 	uint8_t message;
 
 	TxHeader.DLC = 1;
@@ -323,7 +313,6 @@ void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan)
 	char msg[50];
 	sprintf(msg,"Message Transmitted:M0\r\n");
 	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
-
 }
 
 /**

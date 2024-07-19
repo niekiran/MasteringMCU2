@@ -5,7 +5,7 @@
  *      Author: kiran
  */
 
-#include "main_app.h"
+#include "main.h"
 
 /**
   * @brief This function handles System tick timer.

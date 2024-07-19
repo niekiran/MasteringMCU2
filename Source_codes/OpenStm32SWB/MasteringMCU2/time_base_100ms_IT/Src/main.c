@@ -21,11 +21,8 @@ TIM_HandleTypeDef htimer6;
 int main(void)
 {
 	HAL_Init();
-
 	SystemClockConfig();
-
 	GPIO_Init();
-
 	TIMER6_Init();
 
 	//Lets start timer in IT mode

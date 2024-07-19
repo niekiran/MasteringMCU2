@@ -1,10 +1,24 @@
-15:31:32 **** Incremental Build of configuration Debug for project RTC_AlarmA ****
+18:37:30 **** Build of configuration Debug for project RTC_AlarmA ****
 make -j4 all 
+arm-none-eabi-gcc "../Core/Src/it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/it.d" -MT"Core/Src/it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/it.o"
+arm-none-eabi-gcc "../Core/Src/main_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main_app.d" -MT"Core/Src/main_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main_app.o"
+arm-none-eabi-gcc "../Core/Src/msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/msp.d" -MT"Core/Src/msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/msp.o"
+../Core/Src/msp.c: In function 'HAL_RTC_MspInit':
+../Core/Src/msp.c:78:5: warning: implicit declaration of function 'Error_handler' [-Wimplicit-function-declaration]
+   78 |     Error_handler();
+      |     ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "RTC_AlarmA.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\RTC_AlarmA\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RTC_AlarmA.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.15.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.100.202403111256/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: RTC_AlarmA.elf has a LOAD segment with RWX permissions
+Finished building target: RTC_AlarmA.elf
+ 
 arm-none-eabi-size  RTC_AlarmA.elf 
+arm-none-eabi-objdump -h -S RTC_AlarmA.elf  > "RTC_AlarmA.list"
    text	   data	    bss	    dec	    hex	filename
   17108	    100	   2004	  19212	   4b0c	RTC_AlarmA.elf
 Finished building: default.size.stdout
  
+Finished building: RTC_AlarmA.list
+ 
 
-15:31:32 Build Finished. 0 errors, 0 warnings. (took 260ms)
+18:37:32 Build Finished. 0 errors, 2 warnings. (took 1s.653ms)
 

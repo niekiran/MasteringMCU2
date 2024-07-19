@@ -25,17 +25,12 @@ extern uint8_t some_data[];
 int main(void)
 {
 	char msg[50];
-
 	GPIO_Init();
-
 	HAL_Init();
-
 	//SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	//HAL_SuspendTick();
 
 	UART2_Init();
-
 	GPIO_AnalogConfig();
 
 	while(1)

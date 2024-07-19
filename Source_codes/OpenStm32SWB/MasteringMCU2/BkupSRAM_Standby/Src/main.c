@@ -45,15 +45,10 @@ void printmsg(char *format,...)
 int main(void)
 {
   uint32_t * pBackupSRAMbase=0;
-
   char write_buf[] = "Hello";
-
   HAL_Init();
-
   GPIO_Init();
-
   SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
   UART2_Init();
 
   //1. Turn on the clock in RCC register for backup sram
@@ -103,7 +98,6 @@ int main(void)
 
   //Enable backup voltage reg.
   HAL_PWREx_EnableBkUpReg();
-
   HAL_PWR_EnterSTANDBYMode();
 
   while(1) {}
@@ -205,7 +199,6 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
   */
 void GPIO_Init(void)
 {
-
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
   GPIO_InitTypeDef  buttongpio;
@@ -236,7 +229,6 @@ void UART2_Init(void)
     //There is a problem
     Error_handler();
   }
-
 }
 
 /**

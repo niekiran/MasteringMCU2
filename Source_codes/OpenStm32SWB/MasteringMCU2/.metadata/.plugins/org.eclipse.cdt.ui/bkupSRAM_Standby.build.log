@@ -1,42 +1,23 @@
-11:32:27 **** Programming project BkupSRAM_Standby on chip ****
-"U:\\Ac6\\SystemWorkbench\\plugins\\fr.ac6.mcu.externaltools.openocd.win32_1.23.0.201904120827\\tools\\openocd\\bin\\openocd.exe" -f stm32.flash.1462644247303007990.cfg -s "C:\\Users\\shrey\\STM32CubeIDE\\MasteringMCU2\\Source_codes\\OpenStm32SWB\\MasteringMCU2\\BkupSRAM_Standby" -s "U:\\Ac6\\SystemWorkbench\\plugins\\fr.ac6.mcu.debug_2.5.0.201904120827\\resources\\openocd\\st_scripts" -c "program Debug/BkupSRAM_Standby.elf verify reset " -c shutdown 
-Open On-Chip Debugger 0.10.0+dev-00021-g524e8c8 (2019-04-12-08:48)
-Licensed under GNU GPL v2
-For bug reports, read
-	http://openocd.org/doc/doxygen/bugs.html
-srst_only separate srst_nogate srst_open_drain connect_assert_srst
-Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
-adapter speed: 4000 kHz
-adapter_nsrst_delay: 100
-Info : clock speed 4000 kHz
-Info : STLINK v2.1 JTAG v45 API v2 M30 VID 0x0483 PID 0x374B
-Info : using stlink api v2
-Info : Target voltage: 3.261983
-Info : Stlink adapter speed set to 4000 kHz
-Info : STM32F446RETx.cpu: hardware has 6 breakpoints, 4 watchpoints
-Info : Listening on port 3333 for gdb connections
-target halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08001908 msp: 0x20020000
-configuring PLL
-Info : Stlink adapter speed set to 4000 kHz
-adapter speed: 4000 kHz
-** Programming Started **
-auto erase enabled
-Info : device id = 0x10006421
-Info : flash size = 512kbytes
-target halted due to breakpoint, current mode: Thread 
-xPSR: 0x61000000 pc: 0x20000046 msp: 0x20020000
-wrote 16384 bytes from file Debug/BkupSRAM_Standby.elf in 0.643373s (24.869 KiB/s)
-** Programming Finished **
-** Verify Started **
-target halted due to breakpoint, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000002e msp: 0x20020000
-target halted due to breakpoint, current mode: Thread 
-xPSR: 0x61000000 pc: 0x2000002e msp: 0x20020000
-verified 9048 bytes in 0.156769s (56.363 KiB/s)
-** Verified OK **
-** Resetting Target **
-shutdown command invoked
+18:20:29 **** Incremental Build of configuration Debug for project BkupSRAM_Standby ****
+make all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\BkupSRAM_Standby\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/BkupSRAM_Standby/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/BkupSRAM_Standby/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/BkupSRAM_Standby/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/BkupSRAM_Standby/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/BkupSRAM_Standby/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+Finished building: ../Src/main.c
+ 
+Building target: BkupSRAM_Standby.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F446RETx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "BkupSRAM_Standby.elf" @"objects.list"   -lm
+Finished building target: BkupSRAM_Standby.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "BkupSRAM_Standby.elf" "BkupSRAM_Standby.bin"
+arm-none-eabi-size "BkupSRAM_Standby.elf"
+   text	   data	    bss	    dec	    hex	filename
+   8916	    120	   1648	  10684	   29bc	BkupSRAM_Standby.elf
+ 
 
-11:32:28 Build Finished (took 1s.83ms)
+18:20:32 Build Finished (took 2s.866ms)
 

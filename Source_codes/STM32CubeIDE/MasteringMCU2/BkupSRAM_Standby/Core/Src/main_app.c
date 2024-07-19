@@ -44,53 +44,48 @@ void printmsg(char *format,...)
 
 int main(void)
 {
-	uint32_t * pBackupSRAMbase=0;
+  uint32_t * pBackupSRAMbase=0;
+  char write_buf[] = "Hello";
+  HAL_Init();
+  GPIO_Init();
+  SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
+  UART2_Init();
 
-	char write_buf[] = "Hello";
+  //1. Turn on the clock in RCC register for backup sram
+  __HAL_RCC_BKPSRAM_CLK_ENABLE();
 
-	HAL_Init();
+  //2. Enable Write access to the backup domain
+  __HAL_RCC_PWR_CLK_ENABLE();
+  HAL_PWR_EnableBkUpAccess();
 
-	GPIO_Init();
+  pBackupSRAMbase = (uint32_t*)BKPSRAM_BASE;
 
-	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
+  //Enable clock for PWR Controller block
+  __HAL_RCC_PWR_CLK_ENABLE();
 
-	UART2_Init();
+  if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
+  {
+    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
+    __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
 
-	//1. Turn on the clock in RCC register for backup sram
-	__HAL_RCC_BKPSRAM_CLK_ENABLE();
-
-	//2. Enable Write access to the backup domain
-	__HAL_RCC_PWR_CLK_ENABLE();
-	HAL_PWR_EnableBkUpAccess();
-
-	pBackupSRAMbase = (uint32_t*)BKPSRAM_BASE;
-
-	//Enable clock for PWR Controller block
-	__HAL_RCC_PWR_CLK_ENABLE();
-
-	if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
-	{
-		__HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
-		__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-
-		printmsg("woke up from the standby mode\r\n");
-		uint8_t data = (uint8_t)*pBackupSRAMbase;
-		if(data != 'H')
-		{
-			printmsg("Backup SRAM data is lost\r\n");
-		}
-		else
-		{
-			printmsg("Backup SRAM data is safe \r\n");
-		}
-	}
-	else
-	{
-		for(uint32_t i =0 ; i < strlen(write_buf)+1 ; i++)
-		{
-		  *(pBackupSRAMbase+i) = write_buf[i];
-		}
-	}
+    printmsg("woke up from the standby mode\r\n");
+    uint8_t data = (uint8_t)*pBackupSRAMbase;
+    if(data != 'H')
+    {
+      printmsg("Backup SRAM data is lost\r\n");
+    }
+    else
+    {
+      printmsg("Backup SRAM data is safe \r\n");
+    }
+  }
+  else
+  {
+    for(uint32_t i =0 ; i < strlen(write_buf)+1 ; i++)
+    {
+      *(pBackupSRAMbase+i) = write_buf[i];
+    }
+  }
 
   printmsg("Press the user button to enter standby mode\r\n");
   while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13) != GPIO_PIN_RESET) {}
@@ -103,7 +98,6 @@ int main(void)
 
   //Enable backup voltage reg.
   HAL_PWREx_EnableBkUpReg();
-
   HAL_PWR_EnterSTANDBYMode();
 
   while(1) {}
@@ -205,15 +199,13 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
   */
 void GPIO_Init(void)
 {
-
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  GPIO_InitTypeDef  buttongpio;
 
-	GPIO_InitTypeDef  buttongpio;
-
-	buttongpio.Pin = GPIO_PIN_13;
-	buttongpio.Mode = GPIO_MODE_INPUT;
-	buttongpio.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(GPIOC,&buttongpio);
+  buttongpio.Pin = GPIO_PIN_13;
+  buttongpio.Mode = GPIO_MODE_INPUT;
+  buttongpio.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC,&buttongpio);
 }
 
 /**
@@ -223,20 +215,19 @@ void GPIO_Init(void)
   */
 void UART2_Init(void)
 {
-	huart2.Instance = USART2;
-	huart2.Init.BaudRate =115200;
-	huart2.Init.WordLength = UART_WORDLENGTH_8B;
-	huart2.Init.StopBits = UART_STOPBITS_1;
-	huart2.Init.Parity = UART_PARITY_NONE;
-	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart2.Init.Mode = UART_MODE_TX;
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate =115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.Mode = UART_MODE_TX;
 
-	if ( HAL_UART_Init(&huart2) != HAL_OK )
-	{
-		//There is a problem
-		Error_handler();
-	}
-
+  if ( HAL_UART_Init(&huart2) != HAL_OK )
+  {
+    //There is a problem
+    Error_handler();
+  }
 }
 
 /**
@@ -245,6 +236,6 @@ void UART2_Init(void)
   */
 void Error_handler(void)
 {
-	while(1);
+  while(1);
 }
 

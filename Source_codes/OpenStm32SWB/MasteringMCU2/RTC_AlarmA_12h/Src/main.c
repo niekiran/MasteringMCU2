@@ -20,7 +20,7 @@ void UART2_Init(void);
 void SystemClock_Config_HSE(uint8_t clock_freq);
 void RTC_Init(void);
 void RTC_CalendarConfig(void);
-void  RTC_AlarmConfig(void);
+void RTC_AlarmConfig(void);
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
@@ -46,15 +46,10 @@ void printmsg(char *format,...)
 
 int main(void)
 {
-
 	HAL_Init();
-
 	GPIO_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	UART2_Init();
-
 	RTC_Init();
 
 	printmsg("This is RTC Alarm Test program\r\n");
@@ -247,7 +242,6 @@ void UART2_Init(void)
 	huart2.Init.Parity = UART_PARITY_NONE;
 	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
 	huart2.Init.Mode = UART_MODE_TX;
-
 
 	if ( HAL_UART_Init(&huart2) != HAL_OK )
 	{

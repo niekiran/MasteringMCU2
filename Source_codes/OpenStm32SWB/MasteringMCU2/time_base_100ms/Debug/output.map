@@ -3778,17 +3778,17 @@ OUTPUT(time_base_100ms.elf elf32-littlearm)
  .debug_macro   0x0002128c      0x32b Src/msp.o
  .debug_macro   0x000215b7      0x331 Src/system_stm32f4xx.o
 
-.debug_line     0x00000000     0x6ac3
+.debug_line     0x00000000     0x6ac2
  .debug_line    0x00000000      0xac5 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .debug_line    0x00000ac5      0xc00 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .debug_line    0x000016c5      0xab2 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
  .debug_line    0x00002177      0xa51 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o
  .debug_line    0x00002bc8     0x1a7d Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.o
  .debug_line    0x00004645      0x8c6 Src/it.o
- .debug_line    0x00004f0b      0x95b Src/main.o
- .debug_line    0x00005866      0x8dd Src/msp.o
- .debug_line    0x00006143      0x901 Src/system_stm32f4xx.o
- .debug_line    0x00006a44       0x7f startup/startup_stm32f446xx.o
+ .debug_line    0x00004f0b      0x95a Src/main.o
+ .debug_line    0x00005865      0x8dd Src/msp.o
+ .debug_line    0x00006142      0x901 Src/system_stm32f4xx.o
+ .debug_line    0x00006a43       0x7f startup/startup_stm32f446xx.o
 
 .debug_str      0x00000000    0xc7ec0
  .debug_str     0x00000000    0xc63fd Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o

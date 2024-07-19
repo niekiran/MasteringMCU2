@@ -7,7 +7,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
-#include<stdio.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <stdarg.h>
 #include "stm32f4xx_hal.h"
@@ -45,15 +45,10 @@ void printmsg(char *format,...)
 
 int main(void)
 {
-
 	HAL_Init();
-
 	GPIO_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	UART2_Init();
-
 	RTC_Init();
 
 	printmsg("This is RTC calendar Test program\r\n");
@@ -67,7 +62,6 @@ int main(void)
 	}
 
 	//RTC_CalendarConfig();
-
 	//Enable the wakeup pin 1 in pwr_csr register
 	HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
 
@@ -205,14 +199,12 @@ void RTC_CalendarConfig(void)
 	RTC_TimeInit.TimeFormat = RTC_HOURFORMAT12_PM;
 	HAL_RTC_SetTime(&hrtc, &RTC_TimeInit,RTC_FORMAT_BIN);
 
-
 	RTC_DateInit.Date = 12;
 	RTC_DateInit.Month = RTC_MONTH_JUNE;
 	RTC_DateInit.Year = 18;
 	RTC_DateInit.WeekDay = RTC_WEEKDAY_TUESDAY;
 
 	HAL_RTC_SetDate(&hrtc,&RTC_DateInit,RTC_FORMAT_BIN);
-
 }
 
 /**
@@ -257,7 +249,6 @@ void UART2_Init(void)
 	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
 	huart2.Init.Mode = UART_MODE_TX;
 
-
 	if ( HAL_UART_Init(&huart2) != HAL_OK )
 	{
 		//There is a problem
@@ -290,7 +281,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   RTC_DateTypeDef RTC_DateRead;
 
   HAL_RTC_GetTime(&hrtc,&RTC_TimeRead,RTC_FORMAT_BIN);
-
   HAL_RTC_GetDate(&hrtc,&RTC_DateRead,RTC_FORMAT_BIN);
 
   printmsg("Current Time is : %02d:%02d:%02d\r\n",RTC_TimeRead.Hours,\

@@ -18,17 +18,12 @@ void Error_handler(void);
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htimer6;
 
-
 int main(void)
 {
 	HAL_Init();
-
 	SystemClockConfig(SYS_CLOCK_FREQ_50_MHZ);
-
 	GPIO_Init();
-
 	TIMER6_Init();
-
 	//Lets start the timer
 	HAL_TIM_Base_Start_IT(&htimer6);
 
@@ -150,7 +145,6 @@ void TIMER6_Init(void)
 	{
 		Error_handler();
 	}
-
 }
 
 /**

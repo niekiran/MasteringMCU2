@@ -6,7 +6,7 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
-#include <main.h>
+#include "main.h"
 #include <string.h>
 #include "stm32f4xx_hal.h"
 
@@ -22,9 +22,7 @@ uint8_t convert_to_capital(uint8_t data);
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
-
 char *user_data = "The application is running\r\n";
-
 uint8_t  data_buffer[100];
 uint8_t  recvd_data;
 uint32_t count=0;
@@ -39,12 +37,10 @@ int main(void)
 	uint16_t len_of_data = strlen(user_data);
 	HAL_UART_Transmit(&huart2,(uint8_t*)user_data,len_of_data,HAL_MAX_DELAY);
 
-
   while(reception_complete != TRUE)
   {
     HAL_UART_Receive_IT(&huart2,&recvd_data,1);
   }
-
 
 	while(1);
 

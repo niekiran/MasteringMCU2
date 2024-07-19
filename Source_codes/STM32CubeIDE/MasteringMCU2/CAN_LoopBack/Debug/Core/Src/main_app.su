@@ -1,9 +1,9 @@
 ../Core/Src/main_app.c:28:5:main	8	static
-../Core/Src/main_app.c:62:6:SystemClock_Config_HSE	96	static
-../Core/Src/main_app.c:149:6:CAN1_Tx	96	static
-../Core/Src/main_app.c:179:6:CAN1_Rx	96	static
-../Core/Src/main_app.c:202:6:CAN_Filter_Config	48	static
-../Core/Src/main_app.c:227:6:GPIO_Init	32	static
-../Core/Src/main_app.c:242:6:UART2_Init	8	static
-../Core/Src/main_app.c:265:6:CAN1_Init	8	static
-../Core/Src/main_app.c:292:6:Error_handler	4	static
+../Core/Src/main_app.c:54:6:SystemClock_Config_HSE	96	static
+../Core/Src/main_app.c:141:6:CAN1_Tx	96	static
+../Core/Src/main_app.c:171:6:CAN1_Rx	96	static
+../Core/Src/main_app.c:194:6:CAN_Filter_Config	48	static
+../Core/Src/main_app.c:219:6:GPIO_Init	32	static
+../Core/Src/main_app.c:234:6:UART2_Init	8	static
+../Core/Src/main_app.c:255:6:CAN1_Init	8	static
+../Core/Src/main_app.c:282:6:Error_handler	4	static

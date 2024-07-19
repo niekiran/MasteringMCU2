@@ -27,24 +27,17 @@ CAN_HandleTypeDef hcan1;
 
 int main(void)
 {
-
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
-
 	CAN1_Init();
-
 	CAN_Filter_Config();
 
 	if(HAL_CAN_ActivateNotification(&hcan1,CAN_IT_TX_MAILBOX_EMPTY | CAN_IT_RX_FIFO0_MSG_PENDING |CAN_IT_BUSOFF) != HAL_OK)
 	{
 		Error_handler();
 	}
-
 
 	if( HAL_CAN_Start(&hcan1) != HAL_OK)
 	{
@@ -154,9 +147,7 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
 void CAN1_Tx(void)
 {
 	CAN_TxHeaderTypeDef TxHeader;
-
 	uint32_t TxMailbox;
-
 	uint8_t our_message[5] = {'H','E','L','L','O'};
 
 	TxHeader.DLC = 5;
@@ -330,11 +321,8 @@ void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan)
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
 	CAN_RxHeaderTypeDef RxHeader;
-
 	uint8_t rcvd_msg[5];
-
 	char msg[50];
-
 
 	if(HAL_CAN_GetRxMessage(&hcan1,CAN_RX_FIFO0,&RxHeader,rcvd_msg) != HAL_OK)
 	{
@@ -342,7 +330,6 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 	}
 
 	sprintf(msg,"Message Received : %s\r\n",rcvd_msg);
-
 	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
 }
 

@@ -1,0 +1,4 @@
+Src/core_list_join.o: ../Src/core_list_join.c ../Inc/coremark.h \
+ ../Inc/core_portme.h
+../Inc/coremark.h:
+../Inc/core_portme.h:

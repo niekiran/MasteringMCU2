@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
+# Toolchain: GNU Tools for STM32 (12.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -43,14 +43,14 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 EXECUTABLES += \
 BkupSRAM_Standby.elf \
 
+MAP_FILES += \
+BkupSRAM_Standby.map \
+
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
 BkupSRAM_Standby.list \
-
-OBJCOPY_BIN += \
-BkupSRAM_Standby.bin \
 
 
 # All Target
@@ -60,8 +60,8 @@ all: main-build
 main-build: BkupSRAM_Standby.elf secondary-outputs
 
 # Tool invocations
-BkupSRAM_Standby.elf: $(OBJS) $(USER_OBJS) D:\mcu2\ws\mcu2_projects\BkupSRAM_Standby\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "BkupSRAM_Standby.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\mcu2\ws\mcu2_projects\BkupSRAM_Standby\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BkupSRAM_Standby.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+BkupSRAM_Standby.elf BkupSRAM_Standby.map: $(OBJS) $(USER_OBJS) C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\BkupSRAM_Standby\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "BkupSRAM_Standby.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\BkupSRAM_Standby\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BkupSRAM_Standby.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -75,17 +75,12 @@ BkupSRAM_Standby.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS
 	@echo 'Finished building: $@'
 	@echo ' '
 
-BkupSRAM_Standby.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "BkupSRAM_Standby.bin"
-	@echo 'Finished building: $@'
-	@echo ' '
-
 # Other Targets
 clean:
-	-$(RM) BkupSRAM_Standby.bin BkupSRAM_Standby.elf BkupSRAM_Standby.list default.size.stdout
+	-$(RM) BkupSRAM_Standby.elf BkupSRAM_Standby.list BkupSRAM_Standby.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

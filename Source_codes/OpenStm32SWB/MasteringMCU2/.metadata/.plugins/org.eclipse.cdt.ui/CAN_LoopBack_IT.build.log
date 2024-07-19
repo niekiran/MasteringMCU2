@@ -1,6 +1,23 @@
-10:44:09 **** Clean-only build of configuration Debug for project CAN_LoopBack_IT ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+17:34:19 **** Incremental Build of configuration Debug for project CAN_LoopBack_IT ****
+make all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\CAN_LoopBack_IT\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_LoopBack_IT/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_LoopBack_IT/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_LoopBack_IT/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_LoopBack_IT/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_LoopBack_IT/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+Finished building: ../Src/main.c
+ 
+Building target: CAN_LoopBack_IT.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F446RETx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "CAN_LoopBack_IT.elf" @"objects.list"   -lm
+Finished building target: CAN_LoopBack_IT.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "CAN_LoopBack_IT.elf" "CAN_LoopBack_IT.bin"
+arm-none-eabi-size "CAN_LoopBack_IT.elf"
+   text	   data	    bss	    dec	    hex	filename
+  11096	    120	   1688	  12904	   3268	CAN_LoopBack_IT.elf
+ 
 
-10:44:09 Build Finished (took 78ms)
+17:34:21 Build Finished (took 2s.201ms)
 

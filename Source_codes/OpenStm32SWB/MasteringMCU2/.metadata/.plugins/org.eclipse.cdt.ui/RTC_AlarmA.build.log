@@ -1,6 +1,6 @@
-10:44:10 **** Clean-only build of configuration Debug for project RTC_AlarmA ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+17:33:51 **** Incremental Build of configuration Debug for project RTC_AlarmA ****
+make all 
+make: Nothing to be done for 'all'.
 
-10:44:10 Build Finished (took 77ms)
+17:33:51 Build Finished (took 522ms)
 

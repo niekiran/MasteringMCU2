@@ -5,35 +5,43 @@
  *      Author: kiran
  */
 
+/* Includes ------------------------------------------------------------------*/
 #include <string.h>
+#include<stdio.h>
 #include <stdint.h>
 #include <stdarg.h>
 #include "stm32f4xx_hal.h"
 #include "main.h"
 
-
+/* Private function prototypes -----------------------------------------------*/
 void GPIO_Init(void);
 void Error_handler(void);
 void UART2_Init(void);
 void SystemClock_Config_HSE(uint8_t clock_freq);
 void RTC_Init(void);
 void RTC_CalendarConfig(void);
+
+/* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
 RTC_HandleTypeDef hrtc;
 
+/**
+  * @brief  Print a string to console over UART.
+  * @param  format: Format string as in printf.
+  * @param  ...: Additional arguments providing the data to print.
+  * @retval None
+  */
 void printmsg(char *format,...)
- {
+{
+  char str[80];
 
-	char str[80];
-
-	/*Extract the the argument list using VA apis */
-	va_list args;
-	va_start(args, format);
-	vsprintf(str, format,args);
-	HAL_UART_Transmit(&huart2,(uint8_t *)str, strlen(str),HAL_MAX_DELAY);
-	va_end(args);
-
- }
+  /*Extract the the argument list using VA apis */
+  va_list args;
+  va_start(args, format);
+  vsprintf(str, format,args);
+  HAL_UART_Transmit(&huart2,(uint8_t *)str, strlen(str),HAL_MAX_DELAY);
+  va_end(args);
+}
 
 int main(void)
 {
@@ -58,8 +66,6 @@ int main(void)
 		HAL_GPIO_EXTI_Callback(0);
 	}
 
-
-
 	//RTC_CalendarConfig();
 
 	//Enable the wakeup pin 1 in pwr_csr register
@@ -70,11 +76,8 @@ int main(void)
 
 	while(1);
 
-
 	return 0;
 }
-
-
 
 /**
   * @brief System Clock Configuration
@@ -91,69 +94,65 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
 	Osc_Init.PLL.PLLState = RCC_PLL_ON;
 	Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 
-	switch(clock_freq)
-	 {
-	  case SYS_CLOCK_FREQ_50_MHZ:
-		  Osc_Init.PLL.PLLM = 4;
-		  Osc_Init.PLL.PLLN = 50;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
-          flash_latency = 1;
-	     break;
+	switch(clock_freq) {
+	case SYS_CLOCK_FREQ_50_MHZ:
+    Osc_Init.PLL.PLLM = 4;
+    Osc_Init.PLL.PLLN = 50;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK  | RCC_CLOCKTYPE_SYSCLK |
+                           RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
+    flash_latency = 1;
+    break;
 
-	  case SYS_CLOCK_FREQ_84_MHZ:
-		  Osc_Init.PLL.PLLM = 4;
-		  Osc_Init.PLL.PLLN = 84;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
-          flash_latency = 2;
-	     break;
+  case SYS_CLOCK_FREQ_84_MHZ:
+    Osc_Init.PLL.PLLM = 4;
+    Osc_Init.PLL.PLLN = 84;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK  | RCC_CLOCKTYPE_SYSCLK |
+                           RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
+    flash_latency = 2;
+    break;
 
-	  case SYS_CLOCK_FREQ_120_MHZ:
-		  Osc_Init.PLL.PLLM = 4;
-		  Osc_Init.PLL.PLLN = 120;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV4;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV2;
-          flash_latency = 3;
-	     break;
+  case SYS_CLOCK_FREQ_120_MHZ:
+    Osc_Init.PLL.PLLM = 4;
+    Osc_Init.PLL.PLLN = 120;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK  | RCC_CLOCKTYPE_SYSCLK |
+                           RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV4;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV2;
+    flash_latency = 3;
+    break;
 
-	  default:
-	   return ;
-	 }
-
-		if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
-	{
-			Error_handler();
+  default:
+    return ;
 	}
 
-
+	if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
+	{
+	  Error_handler();
+	}
 
 	if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
 	{
 		Error_handler();
 	}
-
 
 	/*Configure the systick timer interrupt frequency (for every 1 ms) */
 	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
@@ -165,31 +164,35 @@ void SystemClock_Config_HSE(uint8_t clock_freq)
 
 	/* SysTick_IRQn interrupt configuration */
 	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-
-
-
- }
-
-
-void RTC_Init(void)
-{
-   hrtc.Instance = RTC;
-   hrtc.Init.HourFormat =RTC_HOURFORMAT_12;
-   hrtc.Init.AsynchPrediv = 0x7F;
-   hrtc.Init.SynchPrediv = 0xFF;
-   hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
-   hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_LOW;
-   hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
-
-   if( HAL_RTC_Init(&hrtc) != HAL_OK)
-   {
-	   Error_handler();
-   }
 }
 
+/**
+  * @brief RTC Initialization Function
+  * @param None
+  * @retval None
+  */
+void RTC_Init(void)
+{
+  hrtc.Instance = RTC;
+  hrtc.Init.HourFormat =RTC_HOURFORMAT_12;
+  hrtc.Init.AsynchPrediv = 0x7F;
+  hrtc.Init.SynchPrediv = 0xFF;
+  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
+  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_LOW;
+  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
 
+  if( HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    Error_handler();
+  }
+}
 
-void  RTC_CalendarConfig(void)
+/**
+  * @brief RTC calender configuration
+  * @param None
+  * @retval None
+  */
+void RTC_CalendarConfig(void)
 {
 	RTC_TimeTypeDef RTC_TimeInit;
 	RTC_DateTypeDef RTC_DateInit;
@@ -212,10 +215,15 @@ void  RTC_CalendarConfig(void)
 
 }
 
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
 void GPIO_Init(void)
 {
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
 
 
 	GPIO_InitTypeDef ledgpio , buttongpio;
@@ -232,16 +240,15 @@ void GPIO_Init(void)
 
 	HAL_NVIC_SetPriority(EXTI15_10_IRQn,15,0);
 	HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
-
-
 }
 
-
-
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
 void UART2_Init(void)
 {
-
-
 	huart2.Instance = USART2;
 	huart2.Init.BaudRate =115200;
 	huart2.Init.WordLength = UART_WORDLENGTH_8B;
@@ -256,10 +263,15 @@ void UART2_Init(void)
 		//There is a problem
 		Error_handler();
 	}
-
 }
 
-
+/**
+  * @brief  Returns the name of the day of the week.
+  *         This function takes a number (1-7) and returns the corresponding
+  *         day of the week as a string.
+  * @param  number: The day of the week as a number (1 for Monday, 2 for Tuesday, etc.).
+  * @retval char*: The name of the corresponding day of the week.
+  */
 char* getDayofweek(uint8_t number)
 {
 	char *weekday[] = { "Monday", "TuesDay", "Wednesday","Thursday","Friday","Saturday","Sunday"};
@@ -272,22 +284,25 @@ char* getDayofweek(uint8_t number)
   * @param  GPIO_Pin Specifies the pins connected EXTI line
   * @retval None
   */
- void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	 RTC_TimeTypeDef RTC_TimeRead;
-	 RTC_DateTypeDef RTC_DateRead;
+  RTC_TimeTypeDef RTC_TimeRead;
+  RTC_DateTypeDef RTC_DateRead;
 
-	 HAL_RTC_GetTime(&hrtc,&RTC_TimeRead,RTC_FORMAT_BIN);
+  HAL_RTC_GetTime(&hrtc,&RTC_TimeRead,RTC_FORMAT_BIN);
 
-	 HAL_RTC_GetDate(&hrtc,&RTC_DateRead,RTC_FORMAT_BIN);
+  HAL_RTC_GetDate(&hrtc,&RTC_DateRead,RTC_FORMAT_BIN);
 
-	 printmsg("Current Time is : %02d:%02d:%02d\r\n",RTC_TimeRead.Hours,\
-			 RTC_TimeRead.Minutes,RTC_TimeRead.Seconds);
-	 printmsg("Current Date is : %02d-%2d-%2d  <%s> \r\n",RTC_DateRead.Month,RTC_DateRead.Date,\
-			 RTC_DateRead.Year,getDayofweek(RTC_DateRead.WeekDay));
+  printmsg("Current Time is : %02d:%02d:%02d\r\n",RTC_TimeRead.Hours,\
+     RTC_TimeRead.Minutes,RTC_TimeRead.Seconds);
+  printmsg("Current Date is : %02d-%2d-%2d  <%s> \r\n",RTC_DateRead.Month,RTC_DateRead.Date,\
+     RTC_DateRead.Year,getDayofweek(RTC_DateRead.WeekDay));
 }
 
-
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_handler(void)
 {
 	while(1);

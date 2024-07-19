@@ -1,0 +1,6 @@
+../StdPeriph_Driver/src/stm32f4xx_crc.c:56:6:CRC_ResetDR	4	static
+../StdPeriph_Driver/src/stm32f4xx_crc.c:67:10:CRC_CalcCRC	16	static
+../StdPeriph_Driver/src/stm32f4xx_crc.c:80:10:CRC_CalcBlockCRC	24	static
+../StdPeriph_Driver/src/stm32f4xx_crc.c:96:10:CRC_GetCRC	4	static
+../StdPeriph_Driver/src/stm32f4xx_crc.c:106:6:CRC_SetIDRegister	16	static
+../StdPeriph_Driver/src/stm32f4xx_crc.c:116:9:CRC_GetIDRegister	4	static

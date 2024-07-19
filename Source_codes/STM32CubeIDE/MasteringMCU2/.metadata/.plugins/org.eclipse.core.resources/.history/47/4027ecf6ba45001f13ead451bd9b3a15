@@ -1,0 +1,2 @@
+../StdPeriph_Driver/src/stm32f4xx_cryp_tdes.c:100:13:CRYP_TDES_ECB	136	static
+../StdPeriph_Driver/src/stm32f4xx_cryp_tdes.c:210:13:CRYP_TDES_CBC	160	static

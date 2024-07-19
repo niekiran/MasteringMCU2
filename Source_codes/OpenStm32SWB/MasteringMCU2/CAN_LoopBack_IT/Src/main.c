@@ -5,11 +5,13 @@
  *      Author: kiran
  */
 
+/* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include "stm32f4xx_hal.h"
 #include "main.h"
+#include <stdio.h>
 
-
+/* Private function prototypes -----------------------------------------------*/
 void GPIO_Init(void);
 void Error_handler(void);
 void UART2_Init(void);
@@ -19,9 +21,9 @@ void CAN1_Tx(void);
 void CAN1_Rx(void);
 void CAN_Filter_Config(void);
 
+/* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
 CAN_HandleTypeDef hcan1;
-
 
 int main(void)
 {
@@ -51,7 +53,6 @@ int main(void)
 
 	CAN1_Tx();
 
-
 	while(1);
 
 	return 0;
@@ -65,99 +66,93 @@ int main(void)
   */
 void SystemClock_Config_HSE(uint8_t clock_freq)
 {
-	RCC_OscInitTypeDef Osc_Init;
-	RCC_ClkInitTypeDef Clock_Init;
-    uint8_t flash_latency=0;
+  RCC_OscInitTypeDef Osc_Init;
+  RCC_ClkInitTypeDef Clock_Init;
+  uint8_t flash_latency=0;
 
-	Osc_Init.OscillatorType = RCC_OSCILLATORTYPE_HSE ;
-	Osc_Init.HSEState = RCC_HSE_ON;
-	Osc_Init.PLL.PLLState = RCC_PLL_ON;
-	Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  Osc_Init.OscillatorType = RCC_OSCILLATORTYPE_HSE ;
+  Osc_Init.HSEState = RCC_HSE_ON;
+  Osc_Init.PLL.PLLState = RCC_PLL_ON;
+  Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
 
-	switch(clock_freq)
-	 {
-	  case SYS_CLOCK_FREQ_50_MHZ:
-		  Osc_Init.PLL.PLLM = 4;
-		  Osc_Init.PLL.PLLN = 50;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
-          flash_latency = 1;
-	     break;
+  switch(clock_freq) {
+  case SYS_CLOCK_FREQ_50_MHZ:
+    Osc_Init.PLL.PLLM = 4;
+    Osc_Init.PLL.PLLN = 50;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK  | RCC_CLOCKTYPE_SYSCLK |
+                           RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
+    flash_latency = 1;
+    break;
 
-	  case SYS_CLOCK_FREQ_84_MHZ:
-		  Osc_Init.PLL.PLLM = 4;
-		  Osc_Init.PLL.PLLN = 84;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
-          flash_latency = 2;
-	     break;
+  case SYS_CLOCK_FREQ_84_MHZ:
+    Osc_Init.PLL.PLLM = 4;
+    Osc_Init.PLL.PLLN = 84;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK  | RCC_CLOCKTYPE_SYSCLK |
+                           RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
+    flash_latency = 2;
+    break;
 
-	  case SYS_CLOCK_FREQ_120_MHZ:
-		  Osc_Init.PLL.PLLM = 4;
-		  Osc_Init.PLL.PLLN = 120;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV4;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV2;
-          flash_latency = 3;
-	     break;
+  case SYS_CLOCK_FREQ_120_MHZ:
+    Osc_Init.PLL.PLLM = 4;
+    Osc_Init.PLL.PLLN = 120;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV4;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV2;
+    flash_latency = 3;
+    break;
 
-	  default:
-	   return ;
-	 }
+  default:
+    return ;
+  }
 
-		if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
-	{
-			Error_handler();
-	}
+  if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
+  {
+    Error_handler();
+  }
 
+  if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
+  {
+    Error_handler();
+  }
 
+  /*Configure the systick timer interrupt frequency (for every 1 ms) */
+  uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
+  HAL_SYSTICK_Config(hclk_freq/1000);
 
-	if (HAL_RCC_ClockConfig(&Clock_Init, flash_latency) != HAL_OK)
-	{
-		Error_handler();
-	}
+  /**Configure the Systick
+  */
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+}
 
-	/*Configure the systick timer interrupt frequency (for every 1 ms) */
-	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
-	HAL_SYSTICK_Config(hclk_freq/1000);
-
-	/**Configure the Systick
-	*/
-	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
-
-	/* SysTick_IRQn interrupt configuration */
-	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-
-
-
- }
-
-
+/**
+  * @brief  Transmit a message via CAN1.
+  * @retval None
+  */
 void CAN1_Tx(void)
 {
-
-
 	CAN_TxHeaderTypeDef TxHeader;
 
 	uint32_t TxMailbox;
@@ -173,10 +168,12 @@ void CAN1_Tx(void)
 	{
 		Error_handler();
 	}
-
-
 }
 
+/**
+  * @brief  Receive a message from CAN1.
+  * @retval None
+  */
 void CAN1_Rx(void)
 {
 	CAN_RxHeaderTypeDef RxHeader;
@@ -195,10 +192,12 @@ void CAN1_Rx(void)
 	sprintf(msg,"Message Received : %s\r\n",rcvd_msg);
 
 	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
-
 }
 
-
+/**
+  * @brief  Configures the CAN filter.
+  * @retval None
+  */
 void CAN_Filter_Config(void)
 {
 	CAN_FilterTypeDef can1_filter_init;
@@ -217,8 +216,13 @@ void CAN_Filter_Config(void)
 	{
 		Error_handler();
 	}
-
 }
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
 void GPIO_Init(void)
 {
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -229,8 +233,11 @@ void GPIO_Init(void)
 	HAL_GPIO_Init(GPIOA,&ledgpio);
 }
 
-
-
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
 void UART2_Init(void)
 {
 	huart2.Instance = USART2;
@@ -245,11 +252,13 @@ void UART2_Init(void)
 		//There is a problem
 		Error_handler();
 	}
-
-
 }
 
-
+/**
+  * @brief CAN Initialization Function
+  * @param None
+  * @retval None
+  */
 void CAN1_Init(void)
 {
 	hcan1.Instance = CAN1;
@@ -271,26 +280,40 @@ void CAN1_Init(void)
 	{
 		Error_handler();
 	}
-
 }
 
+/**
+  * @brief  Transmission Mailbox 0 complete callback.
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
+  *         the configuration information for the specified CAN.
+  * @retval None
+  */
 void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan)
 {
 	char msg[50];
 	sprintf(msg,"Message Transmitted:M0\r\n");
 	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
-
 }
 
+/**
+  * @brief  Transmission Mailbox 1 complete callback.
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
+  *         the configuration information for the specified CAN.
+  * @retval None
+  */
 void HAL_CAN_TxMailbox1CompleteCallback(CAN_HandleTypeDef *hcan)
 {
 	char msg[50];
 	sprintf(msg,"Message Transmitted:M1\r\n");
 	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
-
 }
 
-
+/**
+  * @brief  Transmission Mailbox 1 complete callback.
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
+  *         the configuration information for the specified CAN.
+  * @retval None
+  */
 void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan)
 {
 	char msg[50];
@@ -298,7 +321,12 @@ void HAL_CAN_TxMailbox2CompleteCallback(CAN_HandleTypeDef *hcan)
 	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
 }
 
-
+/**
+  * @brief  Rx FIFO 0 message pending callback.
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
+  *         the configuration information for the specified CAN.
+  * @retval None
+  */
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
 	CAN_RxHeaderTypeDef RxHeader;
@@ -316,19 +344,25 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 	sprintf(msg,"Message Received : %s\r\n",rcvd_msg);
 
 	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
-
 }
 
-
+/**
+  * @brief  Error CAN callback.
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
+  *         the configuration information for the specified CAN.
+  * @retval None
+  */
 void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
 {
 	char msg[50];
 	sprintf(msg,"CAN Error Detected\r\n");
 	HAL_UART_Transmit(&huart2,(uint8_t*)msg,strlen(msg),HAL_MAX_DELAY);
-
 }
 
-
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_handler(void)
 {
 	while(1);

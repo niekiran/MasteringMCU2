@@ -1,6 +1,42 @@
-10:44:11 **** Clean-only build of configuration Debug for project WFE_button ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+12:28:29 **** Programming project WFE_button on chip ****
+"U:\\Ac6\\SystemWorkbench\\plugins\\fr.ac6.mcu.externaltools.openocd.win32_1.23.0.201904120827\\tools\\openocd\\bin\\openocd.exe" -f stm32.flash.2450339997548886436.cfg -s "C:\\Users\\shrey\\STM32CubeIDE\\MasteringMCU2\\Source_codes\\OpenStm32SWB\\MasteringMCU2\\WFE_button" -s "U:\\Ac6\\SystemWorkbench\\plugins\\fr.ac6.mcu.debug_2.5.0.201904120827\\resources\\openocd\\st_scripts" -c "program Debug/WFE_button.elf verify reset " -c shutdown 
+Open On-Chip Debugger 0.10.0+dev-00021-g524e8c8 (2019-04-12-08:48)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+srst_only separate srst_nogate srst_open_drain connect_assert_srst
+Info : The selected transport took over low-level target control. The results might differ compared to plain JTAG/SWD
+adapter speed: 4000 kHz
+adapter_nsrst_delay: 100
+Info : clock speed 4000 kHz
+Info : STLINK v2.1 JTAG v45 API v2 M30 VID 0x0483 PID 0x374B
+Info : using stlink api v2
+Info : Target voltage: 3.265135
+Info : Stlink adapter speed set to 4000 kHz
+Info : STM32F446RETx.cpu: hardware has 6 breakpoints, 4 watchpoints
+Info : Listening on port 3333 for gdb connections
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x08000cdc msp: 0x20020000
+configuring PLL
+Info : Stlink adapter speed set to 4000 kHz
+adapter speed: 4000 kHz
+** Programming Started **
+auto erase enabled
+Info : device id = 0x10006421
+Info : flash size = 512kbytes
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x20000046 msp: 0x20020000
+wrote 16384 bytes from file Debug/WFE_button.elf in 0.578086s (27.678 KiB/s)
+** Programming Finished **
+** Verify Started **
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20020000
+target halted due to breakpoint, current mode: Thread 
+xPSR: 0x61000000 pc: 0x2000002e msp: 0x20020000
+verified 4432 bytes in 0.109370s (39.573 KiB/s)
+** Verified OK **
+** Resetting Target **
+shutdown command invoked
 
-10:44:12 Build Finished (took 79ms)
+12:28:30 Build Finished (took 973ms)
 

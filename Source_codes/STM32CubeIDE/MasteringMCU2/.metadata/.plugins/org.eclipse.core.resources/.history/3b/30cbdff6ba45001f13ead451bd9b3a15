@@ -1,0 +1,5 @@
+../Src/core_util.c:39:8:get_seed_32	6
+../Src/core_util.c:155:8:crcu8	4
+../Src/core_util.c:179:8:crcu16	1
+../Src/core_util.c:185:8:crcu32	1
+../Src/core_util.c:192:8:crc16	1

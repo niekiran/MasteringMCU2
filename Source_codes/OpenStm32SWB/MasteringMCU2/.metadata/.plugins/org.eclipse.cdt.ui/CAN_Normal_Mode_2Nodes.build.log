@@ -1,6 +1,23 @@
-10:44:09 **** Clean-only build of configuration Debug for project CAN_Normal_Mode_2Nodes ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+17:34:41 **** Incremental Build of configuration Debug for project CAN_Normal_Mode_2Nodes ****
+make all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\CAN_Normal_Mode_2Nodes\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_Normal_Mode_2Nodes/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_Normal_Mode_2Nodes/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_Normal_Mode_2Nodes/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_Normal_Mode_2Nodes/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/CAN_Normal_Mode_2Nodes/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+Finished building: ../Src/main.c
+ 
+Building target: CAN_Normal_Mode_2Nodes.elf
+Invoking: MCU G++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F446RETx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -fno-exceptions -fno-rtti -o "CAN_Normal_Mode_2Nodes.elf" @"objects.list"   -lm
+Finished building target: CAN_Normal_Mode_2Nodes.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "CAN_Normal_Mode_2Nodes.elf" "CAN_Normal_Mode_2Nodes.bin"
+arm-none-eabi-size "CAN_Normal_Mode_2Nodes.elf"
+   text	   data	    bss	    dec	    hex	filename
+  12472	    120	   1784	  14376	   3828	CAN_Normal_Mode_2Nodes.elf
+ 
 
-10:44:09 Build Finished (took 80ms)
+17:34:43 Build Finished (took 2s.540ms)
 

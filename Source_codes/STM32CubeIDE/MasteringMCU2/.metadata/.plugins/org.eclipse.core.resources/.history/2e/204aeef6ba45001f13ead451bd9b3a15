@@ -1,0 +1,15 @@
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:126:6:DCMI_DeInit	4	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:143:6:DCMI_Init	24	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:185:6:DCMI_StructInit	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:205:6:DCMI_CROPConfig	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:223:6:DCMI_CROPCmd	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:246:6:DCMI_SetEmbeddedSynchroCodes	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:261:6:DCMI_JPEGCmd	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:299:6:DCMI_Cmd	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:322:6:DCMI_CaptureCmd	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:344:10:DCMI_ReadData	4	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:377:6:DCMI_ITConfig	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:414:12:DCMI_GetFlagStatus	32	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:461:6:DCMI_ClearFlag	16	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:483:10:DCMI_GetITStatus	24	static
+../StdPeriph_Driver/src/stm32f4xx_dcmi.c:515:6:DCMI_ClearITPendingBit	16	static

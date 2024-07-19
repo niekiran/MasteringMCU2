@@ -5,23 +5,28 @@
  *      Author: kiran
  */
 
-
+/* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "main.h"
 
+/* Private function prototypes -----------------------------------------------*/
 void SystemClockConfig(uint8_t clock_freq);
 void TIMER6_Init(void);
 void GPIO_Init(void);
 void Error_handler(void);
 
+/* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htimer6;
 
 
 int main(void)
 {
 	HAL_Init();
+
 	SystemClockConfig(SYS_CLOCK_FREQ_50_MHZ);
+
 	GPIO_Init();
+
 	TIMER6_Init();
 
 	//Lets start the timer
@@ -29,11 +34,13 @@ int main(void)
 
 	while(1);
 
-
 	return 0;
 }
 
-
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClockConfig(uint8_t clock_freq )
 {
 	RCC_OscInitTypeDef Osc_Init;
@@ -45,66 +52,62 @@ void SystemClockConfig(uint8_t clock_freq )
 	Osc_Init.PLL.PLLState = RCC_PLL_ON;
 	Osc_Init.PLL.PLLSource = RCC_PLLSOURCE_HSI;
 
-	switch(clock_freq)
-	 {
-	  case SYS_CLOCK_FREQ_50_MHZ:
-		  Osc_Init.PLL.PLLM = 8;
-		  Osc_Init.PLL.PLLN = 50;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
-	     break;
+	switch(clock_freq) {
+	case SYS_CLOCK_FREQ_50_MHZ:
+    Osc_Init.PLL.PLLM = 8;
+    Osc_Init.PLL.PLLN = 50;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK  | RCC_CLOCKTYPE_SYSCLK |
+                           RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
+    break;
 
-	  case SYS_CLOCK_FREQ_84_MHZ:
-		  Osc_Init.PLL.PLLM = 8;
-		  Osc_Init.PLL.PLLN = 84;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
-	     break;
+  case SYS_CLOCK_FREQ_84_MHZ:
+    Osc_Init.PLL.PLLM = 8;
+    Osc_Init.PLL.PLLN = 84;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK  | RCC_CLOCKTYPE_SYSCLK |
+                           RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV2;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV1;
+    break;
 
-	  case SYS_CLOCK_FREQ_120_MHZ:
-		  Osc_Init.PLL.PLLM = 8;
-		  Osc_Init.PLL.PLLN = 120;
-		  Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
-		  Osc_Init.PLL.PLLQ = 2;
-		  Osc_Init.PLL.PLLR = 2;
-		  Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-	                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-		  Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-		  Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
-		  Clock_Init.APB1CLKDivider = RCC_HCLK_DIV4;
-		  Clock_Init.APB2CLKDivider = RCC_HCLK_DIV2;
-	     break;
+  case SYS_CLOCK_FREQ_120_MHZ:
+    Osc_Init.PLL.PLLM = 8;
+    Osc_Init.PLL.PLLN = 120;
+    Osc_Init.PLL.PLLP = RCC_PLLP_DIV2;
+    Osc_Init.PLL.PLLQ = 2;
+    Osc_Init.PLL.PLLR = 2;
+    Clock_Init.ClockType = RCC_CLOCKTYPE_HCLK  | RCC_CLOCKTYPE_SYSCLK |
+                           RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+    Clock_Init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    Clock_Init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    Clock_Init.APB1CLKDivider = RCC_HCLK_DIV4;
+    Clock_Init.APB2CLKDivider = RCC_HCLK_DIV2;
+    break;
 
-	  default:
-	   return ;
-	 }
-
-		if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
-	{
-			Error_handler();
+  default:
+    return ;
 	}
 
-
+	if (HAL_RCC_OscConfig(&Osc_Init) != HAL_OK)
+	{
+	  Error_handler();
+	}
 
 	if (HAL_RCC_ClockConfig(&Clock_Init, FLASH_LATENCY_2) != HAL_OK)
 	{
 		Error_handler();
 	}
-
 
 	/*Configure the systick timer interrupt frequency (for every 1 ms) */
 	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
@@ -116,13 +119,16 @@ void SystemClockConfig(uint8_t clock_freq )
 
 	/* SysTick_IRQn interrupt configuration */
 	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-
 }
 
-
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
 void GPIO_Init(void)
 {
-    __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 	GPIO_InitTypeDef ledgpio;
 	ledgpio.Pin = GPIO_PIN_5;
 	ledgpio.Mode = GPIO_MODE_OUTPUT_PP;
@@ -130,6 +136,11 @@ void GPIO_Init(void)
 	HAL_GPIO_Init(GPIOA,&ledgpio);
 }
 
+/**
+  * @brief TIM6 Initialization Function
+  * @param None
+  * @retval None
+  */
 void TIMER6_Init(void)
 {
 	htimer6.Instance = TIM6;
@@ -142,12 +153,20 @@ void TIMER6_Init(void)
 
 }
 
+/**
+  * @brief  Period elapsed callback in non-blocking mode
+  * @param  htim TIM handle
+  * @retval None
+  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_5);
 }
 
-
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_handler(void)
 {
 	while(1);

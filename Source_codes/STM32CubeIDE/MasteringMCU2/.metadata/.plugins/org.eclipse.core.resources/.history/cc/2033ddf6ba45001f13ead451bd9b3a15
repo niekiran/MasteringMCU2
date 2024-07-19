@@ -1,0 +1,12 @@
+../Src/core_list_join.c:63:8:calc_func	48	static
+../Src/core_list_join.c:104:8:cmp_complex	32	static
+../Src/core_list_join.c:116:8:cmp_idx	24	static
+../Src/core_list_join.c:126:6:copy_info	16	static
+../Src/core_list_join.c:139:8:core_bench_list	48	static
+../Src/core_list_join.c:227:12:core_list_init	80	static
+../Src/core_list_join.c:301:12:core_list_insert_new	32	static
+../Src/core_list_join.c:336:12:core_list_remove	24	static
+../Src/core_list_join.c:366:12:core_list_undo_remove	24	static
+../Src/core_list_join.c:392:12:core_list_find	16	static
+../Src/core_list_join.c:421:12:core_list_reverse	24	static
+../Src/core_list_join.c:454:12:core_list_mergesort	64	static

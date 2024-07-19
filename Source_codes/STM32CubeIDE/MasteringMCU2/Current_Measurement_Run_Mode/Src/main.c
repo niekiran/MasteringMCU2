@@ -40,7 +40,6 @@
 #include "main.h"
 #include "pwr_modes.h"
 
-
 __IO uint32_t uwCounter = 0x00;
 __IO uint8_t UserButtonStatus = RESET;
 
@@ -73,8 +72,6 @@ int main(void)
 	/* Infinite loop */
 	while (1)
 	{}
-
-
 }
 
 
@@ -163,35 +160,35 @@ void Measure_Run (void)
 */
 void GPIO_AnalogConfig (void)
 {
-	  GPIO_InitTypeDef  GPIO_InitStructure;
+  GPIO_InitTypeDef  GPIO_InitStructure;
 
-	  /* Configure GPIOs as Analog input to reduce current consumption*/
-	  /* Enable GPIOs clock */
-	  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | \
-	                          RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | \
-	                          RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOH , ENABLE);
+  /* Configure GPIOs as Analog input to reduce current consumption*/
+  /* Enable GPIOs clock */
+  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | \
+                          RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | \
+                          RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOH , ENABLE);
 
-	  RCC_AHB1PeriphClockCmd ((RCC_AHB1Periph_GPIOF | RCC_AHB1Periph_GPIOG),ENABLE );
+  RCC_AHB1PeriphClockCmd ((RCC_AHB1Periph_GPIOF | RCC_AHB1Periph_GPIOG),ENABLE );
 
-	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
-	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
-	  GPIO_Init(GPIOC, &GPIO_InitStructure);
-	  GPIO_Init(GPIOD, &GPIO_InitStructure);
-	  GPIO_Init(GPIOE, &GPIO_InitStructure);
-	  GPIO_Init(GPIOH, &GPIO_InitStructure);
-	  GPIO_Init(GPIOF, &GPIO_InitStructure);
-	  GPIO_Init(GPIOG, &GPIO_InitStructure);
-	  GPIO_Init(GPIOA, &GPIO_InitStructure);
-	  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+  GPIO_Init(GPIOE, &GPIO_InitStructure);
+  GPIO_Init(GPIOH, &GPIO_InitStructure);
+  GPIO_Init(GPIOF, &GPIO_InitStructure);
+  GPIO_Init(GPIOG, &GPIO_InitStructure);
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-	  /* Disable GPIOs clock */
-	  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | \
-	                          RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | \
-	                          RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOH , DISABLE);
+  /* Disable GPIOs clock */
+  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | \
+                          RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | \
+                          RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOH , DISABLE);
 
-	  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOF | RCC_AHB1Periph_GPIOG, DISABLE);
+  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOF | RCC_AHB1Periph_GPIOG, DISABLE);
 }
 
 
@@ -202,7 +199,7 @@ void GPIO_AnalogConfig (void)
 */
 static void LedsConfig (void)
 {
-/* Modification of code required if your board is not NUCLEO-F446RE*/
+  /* Modification of code required if your board is not NUCLEO-F446RE*/
 	GPIO_InitTypeDef  GPIO_InitStructure;
 
 	/*Configure GPIO structure */
@@ -227,47 +224,47 @@ static void LedsConfig (void)
 */
 void ButtonPinInt_configuration(void)
 {
-	  NVIC_InitTypeDef NVIC_InitStructure;
-#if 1
-	  GPIO_InitTypeDef GPIO_InitStructure;
-	  EXTI_InitTypeDef EXTI_InitStructure;
+  NVIC_InitTypeDef NVIC_InitStructure;
+  #if 1
+  GPIO_InitTypeDef GPIO_InitStructure;
+  EXTI_InitTypeDef EXTI_InitStructure;
 
 
-	  /* Enable GPIOA clock */
-	  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+  /* Enable GPIOA clock */
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 
-	  /* Enable SYSCFG clock */
-	  RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+  /* Enable SYSCFG clock */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 
-	  /* Configure PA0 pin as input floating */
-	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
-	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  /* Configure PA0 pin as input floating */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
 
-	  /* Connect EXTI Line0 to PA0 pin */
-      SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOC, EXTI_PinSource13);
-
-
-	  /* Configure EXTI Line0 */
-	  EXTI_DeInit();
-	  EXTI_InitStructure.EXTI_Line = EXTI_Line13;
-	  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
-	  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	  EXTI_Init(&EXTI_InitStructure);
+  /* Connect EXTI Line0 to PA0 pin */
+    SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOC, EXTI_PinSource13);
 
 
+  /* Configure EXTI Line0 */
+  EXTI_DeInit();
+  EXTI_InitStructure.EXTI_Line = EXTI_Line13;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
 
-	  /* Enable and set EXTI Line0 Interrupt to the lowest priority */
-	  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
-	  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	  NVIC_Init(&NVIC_InitStructure);
-#endif
+
+
+  /* Enable and set EXTI Line0 Interrupt to the lowest priority */
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+  #endif
 
 #if 0
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
@@ -302,34 +299,34 @@ void WaitUser_PushBotton (void)
 */
 static void Mode_Exit (void)
 {
-	/* Clock init configuration */
-	  RCC_DeInit();
+  /* Clock init configuration */
+  RCC_DeInit();
 
-	  /* Disable HSE */
-	  RCC_HSEConfig(RCC_HSE_OFF);
+  /* Disable HSE */
+  RCC_HSEConfig(RCC_HSE_OFF);
 
-	  /* Enable HSI */
-	  RCC_HSICmd(ENABLE);
+  /* Enable HSI */
+  RCC_HSICmd(ENABLE);
 
-	  /* Wait till HSI is ready */
-	  while (RCC_GetFlagStatus(RCC_FLAG_HSIRDY) == RESET)
-	  {}
+  /* Wait till HSI is ready */
+  while (RCC_GetFlagStatus(RCC_FLAG_HSIRDY) == RESET)
+  {}
 
-	  /* Select HSI as system clock source */
-	  RCC_SYSCLKConfig(RCC_SYSCLKSource_HSI);
+  /* Select HSI as system clock source */
+  RCC_SYSCLKConfig(RCC_SYSCLKSource_HSI);
 
-	  /* Wait till HSI is used as system clock source */
-	  while (RCC_GetSYSCLKSource() != 0x00)
-	  {}
+  /* Wait till HSI is used as system clock source */
+  while (RCC_GetSYSCLKSource() != 0x00)
+  {}
 
-	  /* Enable PWR APB1 Clock */
-	  RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+  /* Enable PWR APB1 Clock */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
 
-	  /*Configure Leds GPIOs */
-	  LedsConfig();
+  /*Configure Leds GPIOs */
+  LedsConfig();
 
-	  /* Configure Wakeup pin  */
-	  ButtonPinInt_configuration();
+  /* Configure Wakeup pin  */
+  ButtonPinInt_configuration();
 }
 
 /**
@@ -343,7 +340,7 @@ void Delay(__IO uint32_t nTime)
 
 }
 
- void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	 UserButtonStatus = SET;
 }

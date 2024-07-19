@@ -1,0 +1,10 @@
+../Src/main.c:54:5:main	1
+../Src/main.c:84:6:Measure_Run	1
+../Src/main.c:161:6:GPIO_AnalogConfig	1
+../Src/main.c:200:13:LedsConfig	1
+../Src/main.c:225:6:ButtonPinInt_configuration	1
+../Src/main.c:287:6:WaitUser_PushBotton	2
+../Src/main.c:300:13:Mode_Exit	3
+../Src/main.c:337:6:Delay	1
+../Src/main.c:343:6:HAL_GPIO_EXTI_Callback	1
+../Src/main.c:356:6:_Error_Handler	1

@@ -1,0 +1,8 @@
+../StdPeriph_Driver/src/stm32f4xx_wwdg.c:138:6:WWDG_DeInit	8	static
+../StdPeriph_Driver/src/stm32f4xx_wwdg.c:154:6:WWDG_SetPrescaler	24	static
+../StdPeriph_Driver/src/stm32f4xx_wwdg.c:173:6:WWDG_SetWindowValue	24	static
+../StdPeriph_Driver/src/stm32f4xx_wwdg.c:196:6:WWDG_EnableIT	4	static
+../StdPeriph_Driver/src/stm32f4xx_wwdg.c:208:6:WWDG_SetCounter	16	static
+../StdPeriph_Driver/src/stm32f4xx_wwdg.c:239:6:WWDG_Enable	16	static
+../StdPeriph_Driver/src/stm32f4xx_wwdg.c:266:12:WWDG_GetFlagStatus	16	static
+../StdPeriph_Driver/src/stm32f4xx_wwdg.c:286:6:WWDG_ClearFlag	4	static

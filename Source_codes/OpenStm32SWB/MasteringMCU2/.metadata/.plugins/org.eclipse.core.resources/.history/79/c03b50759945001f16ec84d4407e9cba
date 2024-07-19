@@ -1,0 +1,622 @@
+/**
+  ******************************************************************************
+  * @file    STM32F4xx_Current_Consumption_Measuring/src/pwr_modes.c
+  * @author  MCD Application Team
+  * @version V1.0.0
+  * @date    17-January-2014
+  * @brief   Power modes functions
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
+  *
+  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+  * You may not use this file except in compliance with the License.
+  * You may obtain a copy of the License at:
+  *
+  *        http://www.st.com/software_license_agreement_liberty_v2
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
+  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  *
+  ******************************************************************************
+  */
+
+/* Includes ------------------------------------------------------------------*/
+#include <stdio.h>
+#include <stdlib.h>
+
+/* CODE & PRODUCT CONFIGURATION ----------------------------------------------*/
+#include "stm32f4xx.h"
+#include "pwr_modes.h"
+#include "main.h"
+
+/** @addtogroup STM32F4xx current consumption
+  * @{
+  */
+
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+#define WakeupCounter 0xA000 /*specifies the WakeUp counter*/
+#define HSE_OF_NUCLEO_F446RE 8
+
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+ErrorStatus HSEStartUpStatus;
+GPIO_InitTypeDef GPIO_InitStructure;
+
+void DisableAllAHBxAPBxPeriClocks(void)
+{
+	/*Disabling clocks of all the peripherals in AHB1,2,3 and APB1,2 domain */
+	//Clearing off all bits in the below registers to disable the clocks. for more info refer RM , RCC Register Section
+	  RCC->AHB1ENR &= ~(0xFFFFFFFF);
+	  RCC->AHB2ENR &= ~(0xFFFFFFFF);
+	  RCC->AHB3ENR &= ~(0xFFFFFFFF);
+	  RCC->APB1ENR &= ~(0xFFFFFFFF);
+	  RCC->APB2ENR &= ~(0xFFFFFFFF);
+}
+
+void EnableAllAHBxAPBxPeriClocks(void)
+{
+	/*Enabling clocks of all the peripherals in AHB1,2,3 and APB1,2 domain */
+	RCC->AHB1ENR |= 0x606410FF;
+	RCC->AHB2ENR |= ( (1 << 0) | (1 << 7));
+	RCC->AHB3ENR |= 0x00000003;
+	RCC->APB1ENR |= 0x3FFFC9FF;
+	RCC->APB2ENR |= 0x00C77F66;
+}
+
+
+
+
+
+/**
+  * @brief  This function configures the system to enter SLEEP mode
+  *         for current consumption measurement purpose.
+  *         SLEEP Mode 180MHz All Peripherals Disabled
+  *         ==========================================
+  *            - System Running at PLL (180MHz)
+  *            - Over drive scale 1
+  *            - Flash 5 wait state
+  *            - Instruction and Data caches ON/OFF
+  *            - Prefetch ON/OFF
+  *            - Code running from Internal FLASH
+  *            - All peripherals disabled.
+  *            - using the external 8 MHz oscillator
+  *            - Wakeup using WakeUp Pin (PA.00)
+  *
+  * @note  This mode is available only for STM32F427_437xx device
+  * @note  This mode is available only with 3,3 V in this project
+  * @param  None
+  * @retval None
+  */
+
+void PWR_SleepPeriphDisabled180Mhz(void)
+{
+	 /* Clock init configuration ------------------------------------------------*/
+	  RCC_DeInit();
+
+	  /* Enable HSE */
+	  RCC_HSEConfig(RCC_HSE_ON);
+
+	  /* Wait till HSE is ready */
+	  HSEStartUpStatus = RCC_WaitForHSEStartUp();
+
+	  if (HSEStartUpStatus == SUCCESS)
+	  {
+
+	    /* Enable PWR APB1 Clock */
+	    RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+
+	    /* Select regulator voltage output Scale 1 mode */
+	    PWR_MainRegulatorModeConfig(PWR_Regulator_Voltage_Scale1);
+
+	    /* Configure Wait states according to power supply voltage */
+	#if defined VDD3_3
+	    /* Flash 5 wait state */
+	    FLASH_SetLatency(FLASH_Latency_5);
+
+	#endif
+
+	    /* Configures the AHB clock */
+	    RCC_HCLKConfig(RCC_SYSCLK_Div1);
+
+	    /* PCLK2 = HCLK/2 */
+	    RCC_PCLK2Config(RCC_HCLK_Div2);
+
+	    /* PCLK1 = HCLK/4 */
+	    RCC_PCLK1Config(RCC_HCLK_Div4);
+
+	    /*---------------over drive config --------------*/
+
+	    PWR_OverDriveCmd(ENABLE);
+
+	    while ( PWR_GetFlagStatus(PWR_FLAG_ODRDY) == RESET)
+	    {}
+
+	    PWR_OverDriveSWCmd(ENABLE);
+
+	    while ( PWR_GetFlagStatus(PWR_FLAG_ODSWRDY) == RESET)
+	    {}
+
+	    /*-----------------------------------------------*/
+
+	    /* configure the PLL */
+	    RCC->PLLCFGR = HSE_OF_NUCLEO_F446RE | (360 << 6) | (((2 >> 1) - 1) << 16) | (RCC_PLLCFGR_PLLSRC_HSE) |
+	                   (7 << 24);
+
+	    /* Enable PLL */
+	    RCC_PLLCmd(ENABLE);
+
+	    /* Wait till PLL is ready */
+	    while ((RCC->CR & RCC_CR_PLLRDY) == 0)
+	    {}
+
+	    /* Select PLL as system clock source */
+	    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+
+	    /* Wait till the main PLL is used as system clock source */
+	    while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS ) != RCC_CFGR_SWS_PLL);
+	  {}
+	  }
+
+	  /* GPIO CONFIG -------------------------------------------------------------*/
+
+	  /* GPIOs Periph clock enable */
+	  RCC_AHB1PeriphClockCmd(ALL_GPIOs, ENABLE);
+
+	  /* Configure all GPIO port pins in Analog Input mode (floating input trigger
+	     OFF) */
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+	  GPIO_Init(GPIOC, &GPIO_InitStructure);
+	  GPIO_Init(GPIOD, &GPIO_InitStructure);
+	  GPIO_Init(GPIOE, &GPIO_InitStructure);
+	  GPIO_Init(GPIOH, &GPIO_InitStructure);
+	  GPIO_Init(GPIOF, &GPIO_InitStructure);
+	  GPIO_Init(GPIOG, &GPIO_InitStructure);
+	  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+	  /* GPIOs Periph clock disable */
+	  RCC_AHB1PeriphClockCmd(ALL_GPIOs, DISABLE);
+
+	  /* All Periph clock Disable */
+	  DisableAllAHBxAPBxPeriClocks();
+
+	  /* Configure Wakeup pin  */
+	  ButtonPinInt_configuration();
+
+	  /* Enable the wakeup pin */
+	  //PWR_WakeUpPinCmd(PWR_WakeUp_Pin2,ENABLE);
+
+	  /* Request to enter SLEEP mode */
+	  __WFI();
+
+
+}
+
+/**
+  * @brief  This function configures the system to enter SLEEP mode
+  *         for current consumption measurement purpose.
+  *         SLEEP Mode 180MHz All Peripherals Enabled
+  *         ==========================================
+  *            - System Running at PLL (180MHz)
+  *            - Over drive scale 1
+  *            - Flash 5 wait state
+  *            - Instruction and Data caches ON/OFF
+  *            - Prefetch ON/OFF
+  *            - Code running from Internal FLASH
+  *            - All peripherals enabled.
+  *            - using the external 8 MHz oscillator
+  *            - Wakeup using WakeUp Pin (PA.00)
+  *
+  * @note  This mode is available only for STM32F427_437xx device
+  * @note  This mode is available only with 3,3 V in this project
+  * @param  None
+  * @retval None
+  */
+
+void PWR_SleepPeriphEnabled180Mhz(void)
+{
+	 /* Clock init configuration ------------------------------------------------*/
+	  RCC_DeInit();
+
+	  /* Enable HSE */
+	  RCC_HSEConfig(RCC_HSE_ON);
+
+	  /* Wait till HSE is ready */
+	  HSEStartUpStatus = RCC_WaitForHSEStartUp();
+
+	  if (HSEStartUpStatus == SUCCESS)
+	  {
+
+	    /* Enable PWR APB1 Clock */
+	    RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+
+	    /* Select regulator voltage output Scale 1 mode */
+	    PWR_MainRegulatorModeConfig(PWR_Regulator_Voltage_Scale1);
+
+	    /* Configure Wait states according to power supply voltage */
+	#if defined VDD3_3
+	    /* Flash 5 wait state */
+	    FLASH_SetLatency(FLASH_Latency_5);
+
+	#endif
+
+	    /* Configures the AHB clock */
+	    RCC_HCLKConfig(RCC_SYSCLK_Div1);
+
+	    /* PCLK2 = HCLK/2 */
+	    RCC_PCLK2Config(RCC_HCLK_Div2);
+
+	    /* PCLK1 = HCLK/4 */
+	    RCC_PCLK1Config(RCC_HCLK_Div4);
+
+	    /*---------------- over drive config -----------*/
+
+	    PWR_OverDriveCmd(ENABLE);
+
+	    while ( PWR_GetFlagStatus(PWR_FLAG_ODRDY) == RESET)
+	    {}
+
+	    PWR_OverDriveSWCmd(ENABLE);
+
+	    while ( PWR_GetFlagStatus(PWR_FLAG_ODSWRDY) == RESET)
+	    {}
+
+	    /*-----------------------------------------------*/
+
+	    /* configure the PLL */
+	    RCC->PLLCFGR = HSE_OF_NUCLEO_F446RE | (360 << 6) | (((2 >> 1) - 1) << 16) | (RCC_PLLCFGR_PLLSRC_HSE) |
+	                   (7 << 24);
+
+	    /* Enable PLL */
+	    RCC_PLLCmd(ENABLE);
+
+	    /* Wait till PLL is ready */
+	    while ((RCC->CR & RCC_CR_PLLRDY) == 0)
+	    {}
+
+	    /* Select PLL as system clock source */
+	    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+
+	    /* Wait till the main PLL is used as system clock source */
+	    while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS ) != RCC_CFGR_SWS_PLL);
+	  {}
+	  }
+
+	  /* GPIO CONFIG -------------------------------------------------------------*/
+
+	  /* GPIOs Periph clock enable */
+	  RCC_AHB1PeriphClockCmd(ALL_GPIOs, ENABLE);
+
+	  /* Configure all GPIO port pins in Analog Input mode (floating input trigger
+	     OFF) */
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+	  GPIO_Init(GPIOC, &GPIO_InitStructure);
+	  GPIO_Init(GPIOD, &GPIO_InitStructure);
+	  GPIO_Init(GPIOE, &GPIO_InitStructure);
+	  GPIO_Init(GPIOH, &GPIO_InitStructure);
+	  GPIO_Init(GPIOF, &GPIO_InitStructure);
+	  GPIO_Init(GPIOG, &GPIO_InitStructure);
+	  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+	  /* All Periph clock Enable */
+	  EnableAllAHBxAPBxPeriClocks();
+	  /* Configure Wakeup pin  */
+	  ButtonPinInt_configuration();
+
+	  /* Enable the wakeup pin */
+	  PWR_WakeUpPinCmd(PWR_WakeUp_Pin1,ENABLE);
+
+	  /* Request to enter SLEEP mode */
+	  __WFI();
+
+
+}
+
+
+/**
+  * @brief  This function configures the system on SLEEP mode for
+  *         current consumption measurement purpose.
+  *         SLEEP Mode 60 MHz All Peripherals Disabled
+  *         =========================================
+  *            - System Running at PLL (60MHz)
+  *            - Scale 3
+  *            - Flash : 1 wait state (3,3 V) / 2 wait state (1,8 V)
+  *            - Instruction and Data caches ON/OFF
+  *            - Prefetch ON/OFF
+  *            - Code running from Internal FLASH
+  *            - using the external 8 MHz oscillator
+  *            - All peripherals disabled.
+  *            - Wakeup using WakeUp Pin (PA.00)
+  *
+  * @note  This mode is available only for STM32F401x device
+  * @param  None
+  * @retval None
+  */
+
+void PWR_SleepPeriphDisabled60Mhz(void)
+{
+	 /* Clock init configuration ------------------------------------------------*/
+	  RCC_DeInit();
+
+	  /* Enable HSE */
+	  RCC_HSEConfig(RCC_HSE_ON);
+
+	  /* Wait till HSE is ready */
+	  HSEStartUpStatus = RCC_WaitForHSEStartUp();
+
+	  if (HSEStartUpStatus == SUCCESS)
+	  {
+
+	    /* Enable PWR APB1 Clock */
+	    RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+
+	    /* Select regulator voltage output Scale 3 mode*/
+	    PWR_MainRegulatorModeConfig(PWR_Regulator_Voltage_Scale3);
+
+	#if defined ART_Enable
+
+	#if defined Prefetch_Enable
+
+	    /* Enable prefetch buffer */
+	    FLASH_PrefetchBufferCmd(ENABLE);
+
+	#else /* Prefetch_Enable */
+
+	    /* Disable prefetch buffer */
+	    FLASH_PrefetchBufferCmd(DISABLE);
+
+	#endif /* Prefetch_Enable */
+
+	    /* Enable flash instruction cache */
+	    FLASH_InstructionCacheCmd(ENABLE);
+
+	    /* Enable flash data cache */
+	    FLASH_DataCacheCmd(ENABLE);
+
+	#else /* not ART_Enable */
+
+	    /* Disable prefetch buffer */
+	    FLASH_PrefetchBufferCmd(DISABLE);
+
+	    /* Disable flash instruction cache */
+	    FLASH_InstructionCacheCmd(DISABLE);
+
+	    /* Disable flash data cache */
+	    FLASH_DataCacheCmd(DISABLE);
+
+	#endif /* ART_Enable */
+
+	    /* Configure Wait states according to power supply voltage */
+	#if defined VDD3_3
+	    /* Flash 1 wait state */
+	    FLASH_SetLatency(FLASH_Latency_1);
+
+	#elif defined VDD1_8
+	    /* Flash 2 wait state */
+	    FLASH_SetLatency(FLASH_Latency_2);
+	#endif
+
+	    /* Configures the AHB clock */
+	    RCC_HCLKConfig(RCC_SYSCLK_Div1);
+
+	    /* PCLK2 = HCLK/2 */
+	    RCC_PCLK2Config(RCC_HCLK_Div1);
+
+	    /* PCLK1 = HCLK/4 */
+	    RCC_PCLK1Config(RCC_HCLK_Div2);
+
+	    /* configure the PLL */
+	    RCC->PLLCFGR = HSE_OF_NUCLEO_F446RE | (240 << 6) | (((4 >> 1) - 1) << 16) | (RCC_PLLCFGR_PLLSRC_HSE) |
+	                   (7 << 24);
+
+	    /* Enable PLL */
+	    RCC_PLLCmd(ENABLE);
+
+	    /* Wait till PLL is ready */
+	    while ((RCC->CR & RCC_CR_PLLRDY) == 0)
+	    {}
+
+	    /* Select PLL as system clock source */
+	    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+
+	    /* Wait till the main PLL is used as system clock source */
+	    while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS ) != RCC_CFGR_SWS_PLL);
+	  {}
+	  }
+
+	  /* GPIO CONFIG -------------------------------------------------------------*/
+	  RCC_AHB1PeriphClockCmd(ALL_GPIOs, ENABLE);
+
+	  /* Configure all GPIO port pins in Analog Input mode (floating input trigger
+	     OFF) */
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+	  GPIO_Init(GPIOC, &GPIO_InitStructure);
+	  GPIO_Init(GPIOD, &GPIO_InitStructure);
+	  GPIO_Init(GPIOE, &GPIO_InitStructure);
+	  GPIO_Init(GPIOH, &GPIO_InitStructure);
+	  GPIO_Init(GPIOF, &GPIO_InitStructure);
+	  GPIO_Init(GPIOG, &GPIO_InitStructure);
+	  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+	  /* GPIOs Periph clock disable */
+	  RCC_AHB1PeriphClockCmd(ALL_GPIOs, DISABLE);
+
+	  /* All Periph clock Disable */
+	  DisableAllAHBxAPBxPeriClocks();
+	  /* Configure Wakeup pin  */
+	  ButtonPinInt_configuration();
+
+	  /* Enable the wakeup pin */
+	  PWR_WakeUpPinCmd(PWR_WakeUp_Pin1,ENABLE);
+
+	  /* Request to enter SLEEP mode */
+	  __WFI();
+
+
+}
+
+/**
+  * @brief  This function configures the system on SLEEP mode for
+  *         current consumption measurement purpose.
+  *         SLEEP Mode 60 MHz All Peripherals Enabled
+  *         =========================================
+  *            - System Running at PLL (60MHz)
+  *            - Scale 3
+  *            - Flash : 1 wait state (3,3 V) / 2 wait state (1,8 V)
+  *            - Instruction and Data caches ON/OFF
+  *            - Prefetch ON/OFF
+  *            - Code running from Internal FLASH
+  *            - using the external 8 MHz oscillator
+  *            - All peripherals enabled.
+  *            - Wakeup using WakeUp Pin (PA.00)
+  *
+  * @note  This mode is available only for STM32F401x device
+  * @param  None
+  * @retval None
+  */
+
+void PWR_SleepPeriphEnabled60Mhz(void)
+{
+	/* Clock init configuration ------------------------------------------------*/
+	  RCC_DeInit();
+
+	  /* Enable HSE */
+	  RCC_HSEConfig(RCC_HSE_ON);
+
+	  /* Wait till HSE is ready */
+	  HSEStartUpStatus = RCC_WaitForHSEStartUp();
+
+	  if (HSEStartUpStatus == SUCCESS)
+	  {
+
+	    /* Enable PWR APB1 Clock */
+	    RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+
+	    /* Select regulator voltage output Scale 3 mode*/
+	    PWR_MainRegulatorModeConfig(PWR_Regulator_Voltage_Scale3);
+
+	#if defined ART_Enable
+
+	#if defined Prefetch_Enable
+
+	    /* Enable prefetch buffer */
+	    FLASH_PrefetchBufferCmd(ENABLE);
+
+	#else /* Prefetch_Enable */
+
+	    /* Disable prefetch buffer */
+	    FLASH_PrefetchBufferCmd(DISABLE);
+
+	#endif /* Prefetch_Enable */
+
+	    /* enable flash instruction cache */
+	    FLASH_InstructionCacheCmd(ENABLE);
+
+	    /* enable flash data cache */
+	    FLASH_DataCacheCmd(ENABLE);
+
+	#else /* not ART_Enable */
+
+	    /* Disable prefetch buffer */
+	    FLASH_PrefetchBufferCmd(DISABLE);
+
+	    /* Disable flash instruction cache */
+	    FLASH_InstructionCacheCmd(DISABLE);
+
+	    /* Disable flash data cache */
+	    FLASH_DataCacheCmd(DISABLE);
+
+	#endif /* ART_Enable */
+
+	    /* Configure Wait states according to power supply voltage */
+	#if defined VDD3_3
+	    /* Flash 1 wait state */
+	    FLASH_SetLatency(FLASH_Latency_1);
+
+	#elif defined VDD1_8
+	    /* Flash 2 wait state */
+	    FLASH_SetLatency(FLASH_Latency_2);
+	#endif
+
+	    /* Configures the AHB clock */
+	    RCC_HCLKConfig(RCC_SYSCLK_Div1);
+
+	    /* PCLK2 = HCLK/2 */
+	    RCC_PCLK2Config(RCC_HCLK_Div1);
+
+	    /* PCLK1 = HCLK/4 */
+	    RCC_PCLK1Config(RCC_HCLK_Div2);
+
+	    /* configure the PLL */
+	    RCC->PLLCFGR = HSE_OF_NUCLEO_F446RE | (240 << 6) | (((4 >> 1) - 1) << 16) | (RCC_PLLCFGR_PLLSRC_HSE) |
+	                   (7 << 24);
+
+	    /* Enable PLL */
+	    RCC_PLLCmd(ENABLE);
+
+	    /* Wait till PLL is ready */
+	    while ((RCC->CR & RCC_CR_PLLRDY) == 0)
+	    {}
+
+	    /* Select PLL as system clock source */
+	    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+
+	    /* Wait till the main PLL is used as system clock source */
+	    while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS ) != RCC_CFGR_SWS_PLL);
+	  {}
+	  }
+
+	  /* GPIO CONFIG -------------------------------------------------------------*/
+	  RCC_AHB1PeriphClockCmd(ALL_GPIOs, ENABLE);
+
+	  /* Configure all GPIO port pins in Analog Input mode (floating input trigger
+	     OFF) */
+	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+	  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+	  GPIO_Init(GPIOC, &GPIO_InitStructure);
+	  GPIO_Init(GPIOD, &GPIO_InitStructure);
+	  GPIO_Init(GPIOE, &GPIO_InitStructure);
+	  GPIO_Init(GPIOH, &GPIO_InitStructure);
+	  GPIO_Init(GPIOF, &GPIO_InitStructure);
+	  GPIO_Init(GPIOG, &GPIO_InitStructure);
+	  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+
+	  /* All Periph clock Disable */
+      EnableAllAHBxAPBxPeriClocks();
+	  /* Configure Wakeup pin  */
+	  ButtonPinInt_configuration();
+
+	  /* Enable the wakeup pin */
+	  PWR_WakeUpPinCmd(PWR_WakeUp_Pin1,ENABLE);
+
+	  /* Request to enter SLEEP mode */
+	  __WFI();
+}
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

@@ -1,0 +1,10 @@
+17:22:42 **** Incremental Build of configuration Debug for project Current_Measurement_Run_Mode ****
+make -j4 all 
+arm-none-eabi-size  Current_Measurement_Run_Mode.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12204	    112	   3608	  15924	   3e34	Current_Measurement_Run_Mode.elf
+Finished building: default.size.stdout
+ 
+
+17:22:43 Build Finished. 0 errors, 0 warnings. (took 485ms)
+

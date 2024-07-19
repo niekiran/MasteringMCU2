@@ -1,0 +1,16 @@
+../StdPeriph_Driver/src/stm32f4xx_cec.c:146:6:CEC_DeInit	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:160:6:CEC_Init	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:195:6:CEC_StructInit	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:212:6:CEC_Cmd	2
+../StdPeriph_Driver/src/stm32f4xx_cec.c:234:6:CEC_ListenModeCmd	2
+../StdPeriph_Driver/src/stm32f4xx_cec.c:255:6:CEC_OwnAddressConfig	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:270:6:CEC_OwnAddressClear	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:300:6:CEC_SendData	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:311:9:CEC_ReceiveData	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:322:6:CEC_StartOfMessage	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:333:6:CEC_EndOfMessage	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:433:6:CEC_ITConfig	2
+../StdPeriph_Driver/src/stm32f4xx_cec.c:470:12:CEC_GetFlagStatus	2
+../StdPeriph_Driver/src/stm32f4xx_cec.c:511:6:CEC_ClearFlag	1
+../StdPeriph_Driver/src/stm32f4xx_cec.c:538:10:CEC_GetITStatus	3
+../StdPeriph_Driver/src/stm32f4xx_cec.c:584:6:CEC_ClearITPendingBit	1

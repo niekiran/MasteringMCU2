@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-<ProjectName>E:\Workspace\STM32WBworkspace\MasteringMCU2\AC6\R\MasteringMCU2\Sleep-On-Exit_1\\Sleep-On-Exit_1</ProjectName>
+<ProjectName>E:\Workspace\STM32WBworkspace\MasteringMCU2\AC6\R\time_base_100ms\\time_base_100ms</ProjectName>
 <ProjectNature>C</ProjectNature> 
 <CMSIS>..\Drivers\CMSIS</CMSIS>
 <HAL_Driver>D:\stm32cube\en.stm32cubemx\STM32Cube\Repository\STM32Cube_FW_F4_V1.21.0\Drivers\CMSIS</HAL_Driver>
@@ -22,7 +22,7 @@
 
 <configs>
   <config>
-    <name>Sleep-On-Exit_1</name>				
+    <name>time_base_100ms</name>				
     <device>STM32F446RETx</device>		 
     <heapSize>0x200</heapSize>
     <stackSize>0x400</stackSize>

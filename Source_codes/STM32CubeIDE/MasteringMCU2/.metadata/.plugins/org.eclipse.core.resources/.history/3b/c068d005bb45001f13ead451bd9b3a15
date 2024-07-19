@@ -1,0 +1,7 @@
+../StdPeriph_Driver/src/stm32f4xx_syscfg.c:105:6:SYSCFG_DeInit	1
+../StdPeriph_Driver/src/stm32f4xx_syscfg.c:124:6:SYSCFG_MemoryRemapConfig	1
+../StdPeriph_Driver/src/stm32f4xx_syscfg.c:145:6:SYSCFG_MemorySwappingBank	1
+../StdPeriph_Driver/src/stm32f4xx_syscfg.c:168:6:SYSCFG_EXTILineConfig	1
+../StdPeriph_Driver/src/stm32f4xx_syscfg.c:189:6:SYSCFG_ETH_MediaInterfaceConfig	1
+../StdPeriph_Driver/src/stm32f4xx_syscfg.c:206:6:SYSCFG_CompensationCellCmd	1
+../StdPeriph_Driver/src/stm32f4xx_syscfg.c:219:12:SYSCFG_GetCompensationCellStatus	2

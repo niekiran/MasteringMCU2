@@ -1,0 +1,45 @@
+17:22:50 **** Incremental Build of configuration Debug for project Current_Measurement_Sleep_Mode ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -DDEBUG -DSTM32F446xx -DUSE_STDPERIPH_DRIVER -c -I../Inc -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Sleep_Mode/CMSIS/core" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Sleep_Mode/CMSIS/device" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Sleep_Mode/StdPeriph_Driver/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Current_Measurement_Sleep_Mode.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\Current_Measurement_Sleep_Mode\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Current_Measurement_Sleep_Mode.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Current_Measurement_Sleep_Mode.elf
+ 
+arm-none-eabi-size  Current_Measurement_Sleep_Mode.elf 
+arm-none-eabi-objdump -h -S Current_Measurement_Sleep_Mode.elf  > "Current_Measurement_Sleep_Mode.list"
+   text	   data	    bss	    dec	    hex	filename
+   4548	      0	   1576	   6124	   17ec	Current_Measurement_Sleep_Mode.elf
+Finished building: default.size.stdout
+ 
+Finished building: Current_Measurement_Sleep_Mode.list
+ 
+17:22:56 **** Incremental Build of configuration Debug for project Current_Measurement_Sleep_Mode ****
+make -j4 all 
+arm-none-eabi-size  Current_Measurement_Sleep_Mode.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4548	      0	   1576	   6124	   17ec	Current_Measurement_Sleep_Mode.elf
+Finished building: default.size.stdout
+ 
+17:23:34 **** Incremental Build of configuration Debug for project Current_Measurement_Standby_Mode ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -DDEBUG -DSTM32F446xx -DUSE_STDPERIPH_DRIVER -c -I../Inc -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/device" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:280:13: warning: 'Mode_Exit' defined but not used [-Wunused-function]
+  280 | static void Mode_Exit (void)
+      |             ^~~~~~~~~
+arm-none-eabi-gcc -o "Current_Measurement_Standby_Mode.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\Current_Measurement_Standby_Mode\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Current_Measurement_Standby_Mode.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Current_Measurement_Standby_Mode.elf
+ 
+arm-none-eabi-size  Current_Measurement_Standby_Mode.elf 
+arm-none-eabi-objdump -h -S Current_Measurement_Standby_Mode.elf  > "Current_Measurement_Standby_Mode.list"
+   text	   data	    bss	    dec	    hex	filename
+   4640	      0	   1568	   6208	   1840	Current_Measurement_Standby_Mode.elf
+Finished building: default.size.stdout
+ 
+Finished building: Current_Measurement_Standby_Mode.list
+ 
+17:23:53 **** Incremental Build of configuration Debug for project Current_Measurement_Stop_Mode ****
+make -j4 all 
+arm-none-eabi-size  Current_Measurement_Stop_Mode.elf 
+   text	   data	    bss	    dec	    hex	filename
+   3664	      0	   1568	   5232	   1470	Current_Measurement_Stop_Mode.elf
+Finished building: default.size.stdout
+ 

@@ -1,0 +1,10 @@
+10:32:51 **** Incremental Build of configuration Debug for project RTC_AlarmA ****
+make -j4 all 
+arm-none-eabi-size  RTC_AlarmA.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17108	    100	   2004	  19212	   4b0c	RTC_AlarmA.elf
+Finished building: default.size.stdout
+ 
+
+10:32:51 Build Finished. 0 errors, 0 warnings. (took 402ms)
+

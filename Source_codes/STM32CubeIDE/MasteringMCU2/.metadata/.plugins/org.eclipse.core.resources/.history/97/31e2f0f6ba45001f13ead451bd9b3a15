@@ -1,0 +1,8 @@
+../StdPeriph_Driver/src/stm32f4xx_exti.c:110:6:EXTI_DeInit	4	static
+../StdPeriph_Driver/src/stm32f4xx_exti.c:126:6:EXTI_Init	24	static
+../StdPeriph_Driver/src/stm32f4xx_exti.c:182:6:EXTI_StructInit	16	static
+../StdPeriph_Driver/src/stm32f4xx_exti.c:197:6:EXTI_GenerateSWInterrupt	16	static
+../StdPeriph_Driver/src/stm32f4xx_exti.c:227:12:EXTI_GetFlagStatus	24	static
+../StdPeriph_Driver/src/stm32f4xx_exti.c:250:6:EXTI_ClearFlag	16	static
+../StdPeriph_Driver/src/stm32f4xx_exti.c:264:10:EXTI_GetITStatus	24	static
+../StdPeriph_Driver/src/stm32f4xx_exti.c:288:6:EXTI_ClearITPendingBit	16	static

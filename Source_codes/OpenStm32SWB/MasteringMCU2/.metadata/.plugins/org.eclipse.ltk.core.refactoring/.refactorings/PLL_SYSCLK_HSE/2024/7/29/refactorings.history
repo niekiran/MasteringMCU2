@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;PLL_SYSCLK_HSE/Inc/main_app.h&apos; to &apos;main.h&apos;" description="Rename resource &apos;main_app.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Inc/main_app.h" name="main.h" stamp="1721369408668" updateReferences="true"/>
+</session>

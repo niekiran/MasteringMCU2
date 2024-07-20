@@ -4,18 +4,19 @@
  *  Created on: 02-Jun-2018
  *      Author: kiran
  */
-
-#include<string.h>
+/* Includes ------------------------------------------------------------------*/
+#include <string.h>
 #include "stm32f4xx_hal.h"
 #include "main.h"
 
+/* Private function prototypes -----------------------------------------------*/
 void SystemClockConfig(void);
 void UART2_Init(void);
 void Error_handler(void);
 uint8_t convert_to_capital(uint8_t data);
 
+/* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
-
 char *user_data = "The application is running\r\n";
 
 int main(void)
@@ -49,18 +50,24 @@ int main(void)
 
 	while(1);
 
-
 	return 0;
 }
 
-
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
 void SystemClockConfig(void)
 {
 
 
 }
 
-
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
 void UART2_Init(void)
 {
 	huart2.Instance = USART2;
@@ -75,11 +82,14 @@ void UART2_Init(void)
 		//There is a problem
 		Error_handler();
 	}
-
-
 }
 
-
+/**
+  * @brief  Converts a lowercase ASCII character to its uppercase equivalent.
+  * @param  data: The ASCII value of the character to be converted.
+  * @retval The ASCII value of the converted uppercase character.
+  *         If the input character is not a lowercase letter, it is returned unchanged.
+  */
 uint8_t convert_to_capital(uint8_t data)
 {
 	if( data >= 'a' && data <= 'z')
@@ -88,9 +98,12 @@ uint8_t convert_to_capital(uint8_t data)
 	}
 
 	return data;
-
 }
 
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_handler(void)
 {
 	while(1);

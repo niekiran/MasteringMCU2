@@ -1,0 +1,9 @@
+../Src/core_matrix.c:87:8:core_bench_matrix	1
+../Src/core_matrix.c:124:8:matrix_test	1
+../Src/core_matrix.c:173:8:core_init_matrix	5
+../Src/core_matrix.c:228:8:matrix_sum	4
+../Src/core_matrix.c:258:6:matrix_mul_const	3
+../Src/core_matrix.c:273:6:matrix_add_const	3
+../Src/core_matrix.c:289:6:matrix_mul_vect	3
+../Src/core_matrix.c:306:6:matrix_mul_matrix	4
+../Src/core_matrix.c:326:6:matrix_mul_matrix_bitextract	4

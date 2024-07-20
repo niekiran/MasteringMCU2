@@ -42,7 +42,7 @@
 
 /* USER CODE BEGIN Includes */
 
-#include<string.h>
+#include <string.h>
 
 /* USER CODE END Includes */
 
@@ -68,7 +68,12 @@ static void MX_USART2_UART_Init(void);
 char *user_data = "Hello World\r\n";
 char data_user='\0';
 
-
+/**
+  * @brief  Converts a lowercase ASCII character to its uppercase equivalent.
+  * @param  data: The ASCII value of the character to be converted.
+  * @retval The ASCII value of the converted uppercase character.
+  *         If the input character is not a lowercase letter, it is returned unchanged.
+  */
 char return_capital(char x)
 {
 	if( x >= 'a' && x <= 'z')
@@ -141,7 +146,6 @@ int main(void)
 
   }
   /* USER CODE END 3 */
-
 }
 
 /**

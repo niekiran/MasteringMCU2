@@ -1,0 +1,10 @@
+10:30:25 **** Incremental Build of configuration Debug for project WFI ****
+make -j4 all 
+arm-none-eabi-size  WFI.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5908	     56	   1640	   7604	   1db4	WFI.elf
+Finished building: default.size.stdout
+ 
+
+10:30:25 Build Finished. 0 errors, 0 warnings. (took 261ms)
+

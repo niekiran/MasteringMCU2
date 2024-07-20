@@ -1,0 +1,2 @@
+../Src/system_stm32f4xx.c:562:6:SystemCoreClockUpdate	32	static
+../Src/system_stm32f4xx.c:656:13:SetSysClock	16	static

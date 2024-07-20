@@ -1,0 +1,10 @@
+10:32:19 **** Incremental Build of configuration Debug for project Sleep-On-Exit_1 ****
+make -j4 all 
+arm-none-eabi-size  Sleep-On-Exit_1.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9844	     60	   1708	  11612	   2d5c	Sleep-On-Exit_1.elf
+Finished building: default.size.stdout
+ 
+
+10:32:19 Build Finished. 0 errors, 0 warnings. (took 405ms)
+

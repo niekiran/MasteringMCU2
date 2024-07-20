@@ -1,0 +1,4 @@
+Src/core_matrix.o: ../Src/core_matrix.c ../Inc/coremark.h \
+ ../Inc/core_portme.h
+../Inc/coremark.h:
+../Inc/core_portme.h:

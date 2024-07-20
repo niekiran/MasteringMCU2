@@ -1,0 +1,17 @@
+../StdPeriph_Driver/src/stm32f4xx_dac.c:187:6:DAC_DeInit	1
+../StdPeriph_Driver/src/stm32f4xx_dac.c:206:6:DAC_Init	1
+../StdPeriph_Driver/src/stm32f4xx_dac.c:242:6:DAC_StructInit	1
+../StdPeriph_Driver/src/stm32f4xx_dac.c:266:6:DAC_Cmd	2
+../StdPeriph_Driver/src/stm32f4xx_dac.c:294:6:DAC_SoftwareTriggerCmd	2
+../StdPeriph_Driver/src/stm32f4xx_dac.c:318:6:DAC_DualSoftwareTriggerCmd	2
+../StdPeriph_Driver/src/stm32f4xx_dac.c:349:6:DAC_WaveGenerationCmd	2
+../StdPeriph_Driver/src/stm32f4xx_dac.c:378:6:DAC_SetChannel1Data	1
+../StdPeriph_Driver/src/stm32f4xx_dac.c:403:6:DAC_SetChannel2Data	1
+../StdPeriph_Driver/src/stm32f4xx_dac.c:431:6:DAC_SetDualChannelData	2
+../StdPeriph_Driver/src/stm32f4xx_dac.c:465:10:DAC_GetDataOutputValue	1
+../StdPeriph_Driver/src/stm32f4xx_dac.c:510:6:DAC_DMACmd	2
+../StdPeriph_Driver/src/stm32f4xx_dac.c:558:6:DAC_ITConfig	2
+../StdPeriph_Driver/src/stm32f4xx_dac.c:590:12:DAC_GetFlagStatus	2
+../StdPeriph_Driver/src/stm32f4xx_dac.c:625:6:DAC_ClearFlag	1
+../StdPeriph_Driver/src/stm32f4xx_dac.c:648:10:DAC_GetITStatus	3
+../StdPeriph_Driver/src/stm32f4xx_dac.c:688:6:DAC_ClearITPendingBit	1

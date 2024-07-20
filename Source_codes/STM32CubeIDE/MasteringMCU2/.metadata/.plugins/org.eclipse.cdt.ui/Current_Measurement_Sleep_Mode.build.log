@@ -1,0 +1,10 @@
+10:33:21 **** Incremental Build of configuration Debug for project Current_Measurement_Sleep_Mode ****
+make -j4 all 
+arm-none-eabi-size  Current_Measurement_Sleep_Mode.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4548	      0	   1576	   6124	   17ec	Current_Measurement_Sleep_Mode.elf
+Finished building: default.size.stdout
+ 
+
+10:33:22 Build Finished. 0 errors, 0 warnings. (took 413ms)
+

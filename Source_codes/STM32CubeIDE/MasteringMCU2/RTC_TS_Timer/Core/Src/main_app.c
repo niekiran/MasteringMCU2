@@ -198,10 +198,9 @@ static void MX_RTC_Init(void)
   RTC_TimeTypeDef sTime;
   RTC_DateTypeDef sDate;
 
-    /**Initialize RTC Only 
-    */
+  /**Initialize RTC Only */
   hrtc.Instance = RTC;
-if(HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR0) != 0x32F2){
+  if(HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR0) != 0x32F2){
   hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
   hrtc.Init.AsynchPrediv = 127;
   hrtc.Init.SynchPrediv = 255;
@@ -237,7 +236,6 @@ if(HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR0) != 0x32F2){
 
     HAL_RTCEx_BKUPWrite(&hrtc,RTC_BKP_DR0,0x32F2);
   }
-
 }
 
 /* TIM6 init function */
@@ -316,9 +314,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
-
 }
-
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */

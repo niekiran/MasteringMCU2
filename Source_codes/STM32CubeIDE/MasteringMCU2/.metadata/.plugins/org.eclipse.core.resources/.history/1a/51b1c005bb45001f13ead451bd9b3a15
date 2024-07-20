@@ -1,0 +1,5 @@
+../StdPeriph_Driver/src/stm32f4xx_cryp_aes.c:106:13:CRYP_AES_ECB	184	static
+../StdPeriph_Driver/src/stm32f4xx_cryp_aes.c:294:13:CRYP_AES_CBC	216	static
+../StdPeriph_Driver/src/stm32f4xx_cryp_aes.c:496:13:CRYP_AES_CTR	216	static
+../StdPeriph_Driver/src/stm32f4xx_cryp_aes.c:670:13:CRYP_AES_GCM	296	static
+../StdPeriph_Driver/src/stm32f4xx_cryp_aes.c:1135:13:CRYP_AES_CCM	288	static

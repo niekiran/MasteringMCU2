@@ -1,0 +1,9 @@
+../Src/core_matrix.c:87:8:core_bench_matrix	48	static
+../Src/core_matrix.c:124:8:matrix_test	32	static
+../Src/core_matrix.c:173:8:core_init_matrix	56	static
+../Src/core_matrix.c:228:8:matrix_sum	48	static
+../Src/core_matrix.c:258:6:matrix_mul_const	32	static
+../Src/core_matrix.c:273:6:matrix_add_const	32	static
+../Src/core_matrix.c:289:6:matrix_mul_vect	32	static
+../Src/core_matrix.c:306:6:matrix_mul_matrix	40	static
+../Src/core_matrix.c:326:6:matrix_mul_matrix_bitextract	40	static

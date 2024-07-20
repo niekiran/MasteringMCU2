@@ -1,0 +1,2 @@
+../StdPeriph_Driver/src/stm32f4xx_flash_ramfunc.c:105:12:FLASH_FlashInterfaceCmd	16	static
+../StdPeriph_Driver/src/stm32f4xx_flash_ramfunc.c:128:12:FLASH_FlashSleepModeCmd	16	static

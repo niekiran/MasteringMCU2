@@ -1,6 +1,23 @@
-10:44:10 **** Clean-only build of configuration Debug for project RTC_Date_Time ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+10:41:18 **** Build of configuration Debug for project RTC_Date_Time ****
+make all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\RTC_Date_Time\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Date_Time/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Date_Time/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Date_Time/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Date_Time/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Date_Time/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+Finished building: ../Src/main.c
+ 
+Building target: RTC_Date_Time.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F446RETx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "RTC_Date_Time.elf" @"objects.list"   -lm
+Finished building target: RTC_Date_Time.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "RTC_Date_Time.elf" "RTC_Date_Time.bin"
+arm-none-eabi-size "RTC_Date_Time.elf"
+   text	   data	    bss	    dec	    hex	filename
+  10736	    120	   1680	  12536	   30f8	RTC_Date_Time.elf
+ 
 
-10:44:11 Build Finished (took 124ms)
+10:41:20 Build Finished (took 1s.660ms)
 

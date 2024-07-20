@@ -1,6 +1,23 @@
-10:44:10 **** Clean-only build of configuration Debug for project PLL_SYSCLK_HSE ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+10:40:40 **** Build of configuration Debug for project PLL_SYSCLK_HSE ****
+make all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\PLL_SYSCLK_HSE\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/PLL_SYSCLK_HSE/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/PLL_SYSCLK_HSE/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/PLL_SYSCLK_HSE/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/PLL_SYSCLK_HSE/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/PLL_SYSCLK_HSE/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+Finished building: ../Src/main.c
+ 
+Building target: PLL_SYSCLK_HSE.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F446RETx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "PLL_SYSCLK_HSE.elf" @"objects.list"   -lm
+Finished building target: PLL_SYSCLK_HSE.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "PLL_SYSCLK_HSE.elf" "PLL_SYSCLK_HSE.bin"
+arm-none-eabi-size "PLL_SYSCLK_HSE.elf"
+   text	   data	    bss	    dec	    hex	filename
+   8632	    120	   1648	  10400	   28a0	PLL_SYSCLK_HSE.elf
+ 
 
-10:44:10 Build Finished (took 136ms)
+10:40:42 Build Finished (took 1s.565ms)
 

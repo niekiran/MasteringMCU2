@@ -1,0 +1,34 @@
+StdPeriph_Driver/src/stm32f4xx_pwr.o: \
+ ../StdPeriph_Driver/src/stm32f4xx_pwr.c \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_pwr.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/device/stm32f4xx.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core/core_cm4.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core/core_cmInstr.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core/core_cmFunc.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core/core_cmSimd.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/device/system_stm32f4xx.h \
+ ../Inc/stm32f4xx_conf.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_dbgmcu.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_exti.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_flash.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_gpio.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_rcc.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_rtc.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_syscfg.h \
+ C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/misc.h
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_pwr.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/device/stm32f4xx.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core/core_cm4.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core/core_cmInstr.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core/core_cmFunc.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/core/core_cmSimd.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/CMSIS/device/system_stm32f4xx.h:
+../Inc/stm32f4xx_conf.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_dbgmcu.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_exti.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_flash.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_gpio.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_rcc.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_rtc.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/stm32f4xx_syscfg.h:
+C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/STM32CubeIDE/MasteringMCU2/Current_Measurement_Run_Mode/StdPeriph_Driver/inc/misc.h:

@@ -5,63 +5,62 @@
  *      Author: kiran
  */
 
-#include<string.h>
+/* Includes ------------------------------------------------------------------*/
+#include <string.h>
+#include <stdio.h>
 #include "stm32f4xx_hal.h"
 #include "main.h"
 
-#define TRUE 1
-#define FALSE 0
+/* Private define ------------------------------------------------------------*/
+#define TRUE 	  1
+#define FALSE 	0
 
-
+/* Private function prototypes -----------------------------------------------*/
 void UART2_Init(void);
 void Error_handler(void);
 
-
+/* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart2;
-
-
 
 int main(void)
 {
 	RCC_OscInitTypeDef osc_init;
 	RCC_ClkInitTypeDef clk_init;
 	char msg[100];
-
 	HAL_Init();
-
 	UART2_Init();
 
 	memset(&osc_init,0,sizeof(osc_init));
 	osc_init.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-    osc_init.HSEState = RCC_HSE_BYPASS;
-    if ( HAL_RCC_OscConfig(&osc_init) != HAL_OK)
-    {
-    	Error_handler();
-    }
+  osc_init.HSEState = RCC_HSE_BYPASS;
+  if ( HAL_RCC_OscConfig(&osc_init) != HAL_OK)
+  {
+    Error_handler();
+  }
 
-    clk_init.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | \
-    					RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-    clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
-    clk_init.AHBCLKDivider = RCC_SYSCLK_DIV2;
-    clk_init.APB1CLKDivider = RCC_HCLK_DIV2;
-    clk_init.APB2CLKDivider = RCC_HCLK_DIV2;
+  clk_init.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK  | \
+                       RCC_CLOCKTYPE_PCLK1  | RCC_CLOCKTYPE_PCLK2;
+  clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
+  clk_init.AHBCLKDivider = RCC_SYSCLK_DIV2;
+  clk_init.APB1CLKDivider = RCC_HCLK_DIV2;
+  clk_init.APB2CLKDivider = RCC_HCLK_DIV2;
 
-    if( HAL_RCC_ClockConfig(&clk_init, FLASH_ACR_LATENCY_0WS) != HAL_OK)
-    {
-    	Error_handler();
-    }
+  if( HAL_RCC_ClockConfig(&clk_init, FLASH_ACR_LATENCY_0WS) != HAL_OK)
+  {
+    Error_handler();
+  }
 
- /*---------------------------- AFTER THIS LINE SYSCLK is SOURCED BY HSE------------------*/
+  /*---------------------------- AFTER THIS LINE SYSCLK is SOURCED BY HSE------------------*/
 
-    __HAL_RCC_HSI_DISABLE(); //Saves some current
+  __HAL_RCC_HSI_DISABLE(); //Saves some current
 
-    /* LETS REDO THE SYSTICK CONFIGURATION */
+  /* LETS REDO THE SYSTICK CONFIGURATION */
 
-     HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
-     HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
-     UART2_Init();
+  UART2_Init();
 
 	memset(msg,0,sizeof(msg));
 	sprintf(msg,"SYSCLK : %ldHz\r\n",HAL_RCC_GetSysClockFreq());
@@ -81,12 +80,14 @@ int main(void)
 
 	while(1);
 
-
 	return 0;
 }
 
-
-
+/**
+  * @brief USART2 Initialization Function
+  * @param None
+  * @retval None
+  */
 void UART2_Init(void)
 {
 	huart2.Instance = USART2;
@@ -101,11 +102,12 @@ void UART2_Init(void)
 		//There is a problem
 		Error_handler();
 	}
-
-
 }
 
-
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_handler(void)
 {
 	while(1);

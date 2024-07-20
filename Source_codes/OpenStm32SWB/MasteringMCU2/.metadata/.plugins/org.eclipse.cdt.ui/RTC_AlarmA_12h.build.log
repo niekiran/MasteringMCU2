@@ -1,6 +1,23 @@
-10:44:10 **** Clean-only build of configuration Debug for project RTC_AlarmA_12h ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+10:41:08 **** Build of configuration Debug for project RTC_AlarmA_12h ****
+make all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\RTC_AlarmA_12h\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_AlarmA_12h/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_AlarmA_12h/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_AlarmA_12h/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_AlarmA_12h/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_AlarmA_12h/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+Finished building: ../Src/main.c
+ 
+Building target: RTC_AlarmA_12h.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F446RETx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "RTC_AlarmA_12h.elf" @"objects.list"   -lm
+Finished building target: RTC_AlarmA_12h.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "RTC_AlarmA_12h.elf" "RTC_AlarmA_12h.bin"
+arm-none-eabi-size "RTC_AlarmA_12h.elf"
+   text	   data	    bss	    dec	    hex	filename
+  12240	    120	   1680	  14040	   36d8	RTC_AlarmA_12h.elf
+ 
 
-10:44:10 Build Finished (took 90ms)
+10:41:10 Build Finished (took 1s.765ms)
 

@@ -1,0 +1,10 @@
+10:32:26 **** Incremental Build of configuration Debug for project RTC_Print_TimeInfo ****
+make -j4 all 
+arm-none-eabi-size  RTC_Print_TimeInfo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16100	    100	   2076	  18276	   4764	RTC_Print_TimeInfo.elf
+Finished building: default.size.stdout
+ 
+
+10:32:26 Build Finished. 0 errors, 0 warnings. (took 399ms)
+

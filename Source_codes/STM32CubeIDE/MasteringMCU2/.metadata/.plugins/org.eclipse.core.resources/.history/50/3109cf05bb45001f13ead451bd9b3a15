@@ -1,0 +1,15 @@
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:86:6:SPDIFRX_DeInit	1
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:105:6:SPDIFRX_Init	1
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:146:6:SPDIFRX_StructInit	1
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:169:6:SPDIFRX_SetPreambleTypeBit	2
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:192:6:SPDIFRX_SetUserDataChannelStatusBits	2
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:215:6:SPDIFRX_SetValidityBit	2
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:238:6:SPDIFRX_SetParityBit	2
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:261:6:SPDIFRX_RxDMACmd	2
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:284:6:SPDIFRX_CbDMACmd	2
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:310:6:SPDIFRX_Cmd	1
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:336:6:SPDIFRX_ITConfig	2
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:369:12:SPDIFRX_GetFlagStatus	2
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:402:6:SPDIFRX_ClearFlag	1
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:424:10:SPDIFRX_GetITStatus	3
+../StdPeriph_Driver/src/stm32f4xx_spdifrx.c:469:6:SPDIFRX_ClearITPendingBit	1

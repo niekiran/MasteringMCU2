@@ -1,0 +1,4 @@
+../Src/core_state.c:43:8:core_bench_state	104	static
+../Src/core_state.c:134:6:core_init_state	40	static
+../Src/core_state.c:191:14:ee_isdigit	24	static
+../Src/core_state.c:208:17:core_state_transition	24	static

@@ -1,0 +1,10 @@
+10:32:56 **** Incremental Build of configuration Debug for project RTC_Alarm_standby_wakeup ****
+make -j4 all 
+arm-none-eabi-size  RTC_Alarm_standby_wakeup.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17380	    100	   2004	  19484	   4c1c	RTC_Alarm_standby_wakeup.elf
+Finished building: default.size.stdout
+ 
+
+10:32:57 Build Finished. 0 errors, 0 warnings. (took 406ms)
+

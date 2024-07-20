@@ -1,0 +1,10 @@
+10:33:42 **** Incremental Build of configuration Debug for project BkupSRAM_Standby ****
+make -j4 all 
+arm-none-eabi-size  BkupSRAM_Standby.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12296	    100	   1972	  14368	   3820	BkupSRAM_Standby.elf
+Finished building: default.size.stdout
+ 
+
+10:33:42 Build Finished. 0 errors, 0 warnings. (took 367ms)
+

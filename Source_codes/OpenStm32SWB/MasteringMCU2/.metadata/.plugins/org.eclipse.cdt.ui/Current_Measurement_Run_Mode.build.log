@@ -1,6 +1,6 @@
-10:44:09 **** Clean-only build of configuration Debug for project Current_Measurement_Run_Mode ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+10:39:19 **** Incremental Build of configuration Debug for project Current_Measurement_Run_Mode ****
+make all 
+make: Nothing to be done for 'all'.
 
-10:44:09 Build Finished (took 76ms)
+10:39:20 Build Finished (took 542ms)
 

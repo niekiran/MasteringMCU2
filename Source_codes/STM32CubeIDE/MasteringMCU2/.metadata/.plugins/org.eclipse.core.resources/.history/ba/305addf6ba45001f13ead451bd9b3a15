@@ -1,0 +1,4 @@
+Src/core_main.o: ../Src/core_main.c ../Inc/coremark.h \
+ ../Inc/core_portme.h
+../Inc/coremark.h:
+../Inc/core_portme.h:

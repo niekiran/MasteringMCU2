@@ -1,6 +1,31 @@
-10:44:11 **** Clean-only build of configuration Debug for project RTC_Demo_App ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+10:41:29 **** Build of configuration Debug for project RTC_Demo_App ****
+make all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\RTC_Demo_App\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Demo_App/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Demo_App/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Demo_App/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Demo_App/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/RTC_Demo_App/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'Calendar_Demo':
+../Src/main.c:406:61: warning: unused variable 'year' [-Wunused-variable]
+   uint8_t time_format, seconds, minutes, hour, date, month, year, ampm;
+                                                             ^~~~
+../Src/main.c: In function 'RTC_configureUserGivenTime':
+../Src/main.c:552:20: warning: unused variable 'sdatestructure' [-Wunused-variable]
+   RTC_DateTypeDef  sdatestructure;
+                    ^~~~~~~~~~~~~~
+Finished building: ../Src/main.c
+ 
+Building target: RTC_Demo_App.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F446RETx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "RTC_Demo_App.elf" @"objects.list"   -lm
+Finished building target: RTC_Demo_App.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "RTC_Demo_App.elf" "RTC_Demo_App.bin"
+arm-none-eabi-size "RTC_Demo_App.elf"
+   text	   data	    bss	    dec	    hex	filename
+  14292	    120	   1776	  16188	   3f3c	RTC_Demo_App.elf
+ 
 
-10:44:11 Build Finished (took 84ms)
+10:41:31 Build Finished (took 1s.810ms)
 

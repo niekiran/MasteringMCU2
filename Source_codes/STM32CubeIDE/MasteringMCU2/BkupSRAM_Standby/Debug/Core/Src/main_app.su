@@ -1,6 +1,6 @@
-main_app.c:28:6:printmsg	96	static
-main_app.c:42:5:main	40	static
-main_app.c:120:6:SystemClock_Config_HSE	96	static
-main_app.c:212:6:GPIO_Init	32	static
-main_app.c:228:6:UART2_Init	8	static
-main_app.c:251:6:Error_handler	4	static
+../Core/Src/main_app.c:33:6:printmsg	96	static
+../Core/Src/main_app.c:45:5:main	40	static
+../Core/Src/main_app.c:110:6:SystemClock_Config_HSE	96	static
+../Core/Src/main_app.c:200:6:GPIO_Init	32	static
+../Core/Src/main_app.c:216:6:UART2_Init	8	static
+../Core/Src/main_app.c:237:6:Error_handler	4	static

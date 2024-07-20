@@ -55,27 +55,20 @@ static void LedsConfig (void);
   */
 int main(void)
 {
-
 	/* Enable PWR APB1 Clock */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
-
 	/* Configure CPIOs as analog inputs */
 	GPIO_AnalogConfig ();
-
 	/*Configure Leds GPIOs */
 	LedsConfig();
-
 	/* Configure Wakeup pin  */
 	ButtonPinInt_configuration();
-
 	/* Execute defined Sleep modes */
 	Measure_Sleep ();
 
 	/* Infinite loop */
 	while (1)
 	{}
-
-
 }
 
 
@@ -86,8 +79,7 @@ int main(void)
 */
 void Measure_Sleep (void)
 {
-
-#if defined (SleepPeriphDisabled180Mhz)
+  #if defined (SleepPeriphDisabled180Mhz)
 
   /* Wait User puch button to enter Sleep mode */
   WaitUser_PushButton ();
@@ -147,35 +139,35 @@ void Measure_Sleep (void)
 */
 void GPIO_AnalogConfig (void)
 {
-	  GPIO_InitTypeDef  GPIO_InitStructure;
+  GPIO_InitTypeDef  GPIO_InitStructure;
 
-	  /* Configure GPIOs as Analog input to reduce current consumption*/
-	  /* Enable GPIOs clock */
-	  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | \
-	                          RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | \
-	                          RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOH , ENABLE);
+  /* Configure GPIOs as Analog input to reduce current consumption*/
+  /* Enable GPIOs clock */
+  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | \
+                          RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | \
+                          RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOH , ENABLE);
 
-	  RCC_AHB1PeriphClockCmd ((RCC_AHB1Periph_GPIOF | RCC_AHB1Periph_GPIOG),ENABLE );
+  RCC_AHB1PeriphClockCmd ((RCC_AHB1Periph_GPIOF | RCC_AHB1Periph_GPIOG),ENABLE );
 
-	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
-	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
-	  GPIO_Init(GPIOC, &GPIO_InitStructure);
-	  GPIO_Init(GPIOD, &GPIO_InitStructure);
-	  GPIO_Init(GPIOE, &GPIO_InitStructure);
-	  GPIO_Init(GPIOH, &GPIO_InitStructure);
-	  GPIO_Init(GPIOF, &GPIO_InitStructure);
-	  GPIO_Init(GPIOG, &GPIO_InitStructure);
-	  GPIO_Init(GPIOA, &GPIO_InitStructure);
-	  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
+  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  GPIO_Init(GPIOD, &GPIO_InitStructure);
+  GPIO_Init(GPIOE, &GPIO_InitStructure);
+  GPIO_Init(GPIOH, &GPIO_InitStructure);
+  GPIO_Init(GPIOF, &GPIO_InitStructure);
+  GPIO_Init(GPIOG, &GPIO_InitStructure);
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-	  /* Disable GPIOs clock */
-	  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | \
-	                          RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | \
-	                          RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOH , DISABLE);
+  /* Disable GPIOs clock */
+  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOB | \
+                          RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_GPIOD | \
+                          RCC_AHB1Periph_GPIOE | RCC_AHB1Periph_GPIOH , DISABLE);
 
-	  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOF | RCC_AHB1Periph_GPIOG, DISABLE);
+  RCC_AHB1PeriphClockCmd (RCC_AHB1Periph_GPIOF | RCC_AHB1Periph_GPIOG, DISABLE);
 }
 
 /**
@@ -285,34 +277,34 @@ void WaitUser_PushButton (void)
 */
 static void Mode_Exit (void)
 {
-	/* Clock init configuration */
-	  RCC_DeInit();
+  /* Clock init configuration */
+  RCC_DeInit();
 
-	  /* Disable HSE */
-	  RCC_HSEConfig(RCC_HSE_OFF);
+  /* Disable HSE */
+  RCC_HSEConfig(RCC_HSE_OFF);
 
-	  /* Enable HSI */
-	  RCC_HSICmd(ENABLE);
+  /* Enable HSI */
+  RCC_HSICmd(ENABLE);
 
-	  /* Wait till HSI is ready */
-	  while (RCC_GetFlagStatus(RCC_FLAG_HSIRDY) == RESET)
-	  {}
+  /* Wait till HSI is ready */
+  while (RCC_GetFlagStatus(RCC_FLAG_HSIRDY) == RESET)
+  {}
 
-	  /* Select HSI as system clock source */
-	  RCC_SYSCLKConfig(RCC_SYSCLKSource_HSI);
+  /* Select HSI as system clock source */
+  RCC_SYSCLKConfig(RCC_SYSCLKSource_HSI);
 
-	  /* Wait till HSI is used as system clock source */
-	  while (RCC_GetSYSCLKSource() != 0x00)
-	  {}
+  /* Wait till HSI is used as system clock source */
+  while (RCC_GetSYSCLKSource() != 0x00)
+  {}
 
-	  /* Enable PWR APB1 Clock */
-	  RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+  /* Enable PWR APB1 Clock */
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
 
-	  /*Configure Leds GPIOs */
-	  LedsConfig();
+  /*Configure Leds GPIOs */
+  LedsConfig();
 
-	  /* Configure Wakeup pin  */
-	  ButtonPinInt_configuration();
+  /* Configure Wakeup pin  */
+  ButtonPinInt_configuration();
 }
 
 /**

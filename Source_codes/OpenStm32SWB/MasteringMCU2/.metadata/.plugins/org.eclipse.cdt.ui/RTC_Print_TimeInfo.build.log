@@ -1,6 +1,6 @@
-10:44:11 **** Clean-only build of configuration Debug for project RTC_Print_TimeInfo ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+10:41:57 **** Incremental Build of configuration Debug for project RTC_Print_TimeInfo ****
+make all 
+make: Nothing to be done for 'all'.
 
-10:44:11 Build Finished (took 84ms)
+10:41:57 Build Finished (took 251ms)
 

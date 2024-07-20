@@ -1,6 +1,23 @@
-10:44:10 **** Clean-only build of configuration Debug for project Current_Measurement_Stop_Mode ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+10:40:07 **** Build of configuration Debug for project Current_Measurement_Stop_Mode ****
+make all 
+Building file: ../src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\Current_Measurement_Stop_Mode\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -DDEBUG -DSTM32F446xx -DUSE_STDPERIPH_DRIVER -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/Current_Measurement_Stop_Mode/StdPeriph_Driver/inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/Current_Measurement_Stop_Mode/inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/Current_Measurement_Stop_Mode/CMSIS/device" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/Current_Measurement_Stop_Mode/CMSIS/core" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: Current_Measurement_Stop_Mode.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/Current_Measurement_Stop_Mode/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Current_Measurement_Stop_Mode.elf" @"objects.list"   -lm
+Finished building target: Current_Measurement_Stop_Mode.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "Current_Measurement_Stop_Mode.elf" "Current_Measurement_Stop_Mode.bin"
+arm-none-eabi-size "Current_Measurement_Stop_Mode.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3924	   1080	   1100	   6104	   17d8	Current_Measurement_Stop_Mode.elf
+ 
 
-10:44:10 Build Finished (took 100ms)
+10:40:09 Build Finished (took 1s.917ms)
 

@@ -1,0 +1,10 @@
+10:33:09 **** Incremental Build of configuration Debug for project HSE_SYSCLK_8Mhz ****
+make -j4 all 
+arm-none-eabi-size  HSE_SYSCLK_8Mhz.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11540	    100	   1972	  13612	   352c	HSE_SYSCLK_8Mhz.elf
+Finished building: default.size.stdout
+ 
+
+10:33:10 Build Finished. 0 errors, 0 warnings. (took 265ms)
+

@@ -1,0 +1,7 @@
+../Src/core_portme.c:62:6:start_time	4	static
+../Src/core_portme.c:76:6:stop_time	4	static
+../Src/core_portme.c:93:12:get_time	16	static
+../Src/core_portme.c:104:10:time_in_secs	24	static
+../Src/core_portme.c:116:6:portable_init	24	static
+../Src/core_portme.c:132:6:portable_fini	16	static
+../Src/core_portme.c:145:6:SystemInit	4	static

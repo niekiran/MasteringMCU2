@@ -1,0 +1,2 @@
+../StdPeriph_Driver/src/stm32f4xx_cryp_des.c:99:13:CRYP_DES_ECB	120	static
+../StdPeriph_Driver/src/stm32f4xx_cryp_des.c:202:13:CRYP_DES_CBC	144	static

@@ -1,6 +1,27 @@
-10:44:12 **** Clean-only build of configuration Debug for project WFI ****
-make clean 
-make: *** No rule to make target 'clean'.  Stop.
+10:46:09 **** Build of configuration Debug for project WFI ****
+make all 
+Building file: ../Src/main.c
+Invoking: MCU GCC Compiler
+C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\OpenStm32SWB\MasteringMCU2\WFI\Debug
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F446xx -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/WFI/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/WFI/Drivers/STM32F4xx_HAL_Driver/Inc" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/WFI/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/WFI/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/WFI/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"Src/main.d" -MT"Src/main.o" -o "Src/main.o" "../Src/main.c"
+../Src/main.c: In function 'GPIO_Init':
+../Src/main.c:170:19: warning: unused variable 'ledgpio' [-Wunused-variable]
+  GPIO_InitTypeDef ledgpio , buttongpio;
+                   ^~~~~~~
+Finished building: ../Src/main.c
+ 
+Building target: WFI.elf
+Invoking: MCU GCC Linker
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -specs=nosys.specs -specs=nano.specs -T"../STM32F446RETx_FLASH.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "WFI.elf" @"objects.list"   -lm
+Finished building target: WFI.elf
+ 
+make --no-print-directory post-build
+Generating binary and Printing size information:
+arm-none-eabi-objcopy -O binary "WFI.elf" "WFI.bin"
+arm-none-eabi-size "WFI.elf"
+   text	   data	    bss	    dec	    hex	filename
+   3496	     56	   1632	   5184	   1440	WFI.elf
+ 
 
-10:44:12 Build Finished (took 90ms)
+10:46:11 Build Finished (took 1s.684ms)
 

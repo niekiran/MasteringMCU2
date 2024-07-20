@@ -35,7 +35,6 @@ int main(void)
 
 	while(1)
 	{
-
 		if ( HAL_UART_Transmit(&huart2,(uint8_t*)some_data,(uint16_t)strlen((char*)some_data),HAL_MAX_DELAY) != HAL_OK)
 		{
 			Error_handler();

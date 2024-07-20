@@ -1,4 +1,4 @@
-17:34:41 **** Incremental Build of configuration Debug for project CAN_Normal_Mode_2Nodes ****
+10:36:16 **** Build of configuration Debug for project CAN_Normal_Mode_2Nodes ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
@@ -19,5 +19,5 @@ arm-none-eabi-size "CAN_Normal_Mode_2Nodes.elf"
   12472	    120	   1784	  14376	   3828	CAN_Normal_Mode_2Nodes.elf
  
 
-17:34:43 Build Finished (took 2s.540ms)
+10:36:18 Build Finished (took 2s.25ms)
 

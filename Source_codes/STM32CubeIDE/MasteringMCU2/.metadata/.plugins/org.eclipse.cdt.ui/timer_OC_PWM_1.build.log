@@ -1,4 +1,4 @@
-19:04:31 **** Incremental Build of configuration Debug for project timer_OC_PWM_1 ****
+10:31:23 **** Incremental Build of configuration Debug for project timer_OC_PWM_1 ****
 make -j4 all 
 arm-none-eabi-size  timer_OC_PWM_1.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  timer_OC_PWM_1.elf
 Finished building: default.size.stdout
  
 
-19:04:32 Build Finished. 0 errors, 0 warnings. (took 315ms)
+10:31:24 Build Finished. 0 errors, 0 warnings. (took 415ms)
 

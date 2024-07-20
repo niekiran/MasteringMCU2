@@ -1,4 +1,4 @@
-17:20:26 **** Incremental Build of configuration Debug for project RTC_TS_Timer ****
+10:32:22 **** Incremental Build of configuration Debug for project RTC_TS_Timer ****
 make -j4 all 
 arm-none-eabi-size  RTC_TS_Timer.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  RTC_TS_Timer.elf
 Finished building: default.size.stdout
  
 
-17:20:26 Build Finished. 0 errors, 0 warnings. (took 386ms)
+10:32:22 Build Finished. 0 errors, 0 warnings. (took 352ms)
 

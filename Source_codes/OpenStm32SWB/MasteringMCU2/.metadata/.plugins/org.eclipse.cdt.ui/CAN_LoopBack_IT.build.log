@@ -1,4 +1,4 @@
-17:34:19 **** Incremental Build of configuration Debug for project CAN_LoopBack_IT ****
+10:36:05 **** Build of configuration Debug for project CAN_LoopBack_IT ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
@@ -19,5 +19,5 @@ arm-none-eabi-size "CAN_LoopBack_IT.elf"
   11096	    120	   1688	  12904	   3268	CAN_LoopBack_IT.elf
  
 
-17:34:21 Build Finished (took 2s.201ms)
+10:36:07 Build Finished (took 1s.799ms)
 

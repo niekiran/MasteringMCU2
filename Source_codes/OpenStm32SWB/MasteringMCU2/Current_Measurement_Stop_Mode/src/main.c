@@ -55,7 +55,6 @@ static void LedsConfig (void);
   */
 int main(void)
 {
-
 	/* Enable PWR APB1 Clock */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
 
@@ -74,8 +73,6 @@ int main(void)
 	/* Infinite loop */
 	while (1)
 	{}
-
-
 }
 
 

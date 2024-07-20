@@ -54,27 +54,20 @@ static void LedsConfig (void);
   */
 int main(void)
 {
-
 	/* Enable PWR APB1 Clock */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
-
 	/* Configure CPIOs as analog inputs */
 	GPIO_AnalogConfig ();
-
 	/*Configure Leds GPIOs */
 	LedsConfig();
-
 	/* Configure Wakeup pin  */
 	ButtonPinInt_configuration();
-
 	/* Execute defined Standby modes */
 	Measure_Standby ();
 
 	/* Infinite loop */
 	while (1)
 	{}
-
-
 }
 
 /**
@@ -84,8 +77,7 @@ int main(void)
 */
 void Measure_Standby (void)
 {
-
-#if defined StandbyBkpSramOnRtcON
+  #if defined StandbyBkpSramOnRtcON
 
   /* Wait User puch buttom to enter Standby mode */
   WaitUser_PushBottom ();

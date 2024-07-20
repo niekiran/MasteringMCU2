@@ -24,15 +24,10 @@ UART_HandleTypeDef huart2;
 int main(void)
 {
 	uint16_t brightness=0;
-
 	HAL_Init();
-
 	SystemClock_Config_HSE(SYS_CLOCK_FREQ_50_MHZ);
-
 	GPIO_Init();
-
 	UART2_Init();
-
 	TIMER2_Init();
 
 	if ( HAL_TIM_PWM_Start(&htimer2,TIM_CHANNEL_1) != HAL_OK)
@@ -40,24 +35,20 @@ int main(void)
 		Error_handler();
 	}
 
-
 	while(1)
 	{
-
 		while( brightness < htimer2.Init.Period)
 		{
 			brightness+=20;
 			__HAL_TIM_SET_COMPARE(&htimer2,TIM_CHANNEL_1,brightness);
 			HAL_Delay(1);
 		}
-
 		while(brightness > 0)
 		{
 			brightness-=20;
 			__HAL_TIM_SET_COMPARE(&htimer2,TIM_CHANNEL_1,brightness);
 			HAL_Delay(1);
 		}
-
 	}
 	return 0;
 }

@@ -1,4 +1,4 @@
-18:20:29 **** Incremental Build of configuration Debug for project BkupSRAM_Standby ****
+10:35:05 **** Build of configuration Debug for project BkupSRAM_Standby ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
@@ -19,5 +19,5 @@ arm-none-eabi-size "BkupSRAM_Standby.elf"
    8916	    120	   1648	  10684	   29bc	BkupSRAM_Standby.elf
  
 
-18:20:32 Build Finished (took 2s.866ms)
+10:35:11 Build Finished (took 6s.299ms)
 

@@ -1,17 +1,6 @@
-17:34:52 **** Incremental Build of configuration Debug for project Current_Measurement_Run_Mode ****
+10:39:19 **** Incremental Build of configuration Debug for project Current_Measurement_Run_Mode ****
 make all 
-Building target: Current_Measurement_Run_Mode.elf
-Invoking: MCU GCC Linker
-arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"C:/Users/shrey/STM32CubeIDE/MasteringMCU2/Source_codes/OpenStm32SWB/MasteringMCU2/Current_Measurement_Run_Mode/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -o "Current_Measurement_Run_Mode.elf" @"objects.list"   -lm
-Finished building target: Current_Measurement_Run_Mode.elf
- 
-make --no-print-directory post-build
-Generating binary and Printing size information:
-arm-none-eabi-objcopy -O binary "Current_Measurement_Run_Mode.elf" "Current_Measurement_Run_Mode.bin"
-arm-none-eabi-size "Current_Measurement_Run_Mode.elf"
-   text	   data	    bss	    dec	    hex	filename
-  12548	   1208	   3140	  16896	   4200	Current_Measurement_Run_Mode.elf
- 
+make: Nothing to be done for 'all'.
 
-17:34:54 Build Finished (took 1s.583ms)
+10:39:20 Build Finished (took 542ms)
 

@@ -55,27 +55,20 @@ static void LedsConfig (void);
   */
 int main(void)
 {
-
 	/* Enable PWR APB1 Clock */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
-
 	/* Configure CPIOs as analog inputs */
 	GPIO_AnalogConfig ();
-
 	/*Configure Leds GPIOs */
 	LedsConfig();
-
 	/* Configure Wakeup pin  */
 	ButtonPinInt_configuration();
-
 	/* Execute defined Sleep modes */
 	Measure_Sleep ();
 
 	/* Infinite loop */
 	while (1)
 	{}
-
-
 }
 
 
@@ -86,8 +79,7 @@ int main(void)
 */
 void Measure_Sleep (void)
 {
-
-#if defined (SleepPeriphDisabled180Mhz)
+  #if defined (SleepPeriphDisabled180Mhz)
 
   /* Wait User puch button to enter Sleep mode */
   WaitUser_PushButton ();

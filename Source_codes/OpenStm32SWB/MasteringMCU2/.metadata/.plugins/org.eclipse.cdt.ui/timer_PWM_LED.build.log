@@ -1,4 +1,4 @@
-17:25:37 **** Incremental Build of configuration Debug for project timer_PWM_LED ****
+10:45:05 **** Incremental Build of configuration Debug for project timer_PWM_LED ****
 make all 
 Building file: ../Src/main.c
 Invoking: MCU GCC Compiler
@@ -19,5 +19,5 @@ arm-none-eabi-size "timer_PWM_LED.elf"
    7276	     20	   1692	   8988	   231c	timer_PWM_LED.elf
  
 
-17:25:39 Build Finished (took 2s.636ms)
+10:45:06 Build Finished (took 1s.660ms)
 

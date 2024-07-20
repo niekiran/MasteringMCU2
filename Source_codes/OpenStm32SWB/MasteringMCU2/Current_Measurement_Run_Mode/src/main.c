@@ -53,19 +53,14 @@ static void LedsConfig (void);
   */
 int main(void)
 {
-
 	/* Enable PWR APB1 Clock */
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
-
 	/* Configure GPIOs as analog inputs */
 	GPIO_AnalogConfig ();
-
 	/*Configure Leds GPIOs */
 	LedsConfig();
-
 	/* Configure Wakeup pin  */
 	ButtonPinInt_configuration();
-
 	/* Execute defined Run modes */
 	Measure_Run ();
 
@@ -83,9 +78,9 @@ int main(void)
 */
 void Measure_Run (void)
 {
-#if defined (RUN_MODE)
+  #if defined (RUN_MODE)
 
-#if defined (RunPeriphDisabled180Mhz)
+  #if defined (RunPeriphDisabled180Mhz)
 
   /* Wait User push button to enter Run mode */
   WaitUser_PushBotton ();
@@ -256,8 +251,6 @@ void ButtonPinInt_configuration(void)
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
   EXTI_Init(&EXTI_InitStructure);
 
-
-
   /* Enable and set EXTI Line0 Interrupt to the lowest priority */
   NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
@@ -301,30 +294,24 @@ static void Mode_Exit (void)
 {
   /* Clock init configuration */
   RCC_DeInit();
-
   /* Disable HSE */
   RCC_HSEConfig(RCC_HSE_OFF);
-
   /* Enable HSI */
   RCC_HSICmd(ENABLE);
-
   /* Wait till HSI is ready */
   while (RCC_GetFlagStatus(RCC_FLAG_HSIRDY) == RESET)
   {}
 
   /* Select HSI as system clock source */
   RCC_SYSCLKConfig(RCC_SYSCLKSource_HSI);
-
   /* Wait till HSI is used as system clock source */
   while (RCC_GetSYSCLKSource() != 0x00)
   {}
 
   /* Enable PWR APB1 Clock */
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
-
   /*Configure Leds GPIOs */
   LedsConfig();
-
   /* Configure Wakeup pin  */
   ButtonPinInt_configuration();
 }

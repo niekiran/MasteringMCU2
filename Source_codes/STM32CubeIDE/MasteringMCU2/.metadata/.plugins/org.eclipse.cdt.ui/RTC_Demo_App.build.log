@@ -1,26 +1,10 @@
-18:39:19 **** Build of configuration Debug for project RTC_Demo_App ****
+10:32:34 **** Incremental Build of configuration Debug for project RTC_Demo_App ****
 make -j4 all 
-arm-none-eabi-gcc "../Core/Src/main_app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main_app.d" -MT"Core/Src/main_app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main_app.o"
-../Core/Src/main_app.c: In function 'Calendar_Demo':
-../Core/Src/main_app.c:406:61: warning: unused variable 'year' [-Wunused-variable]
-  406 |   uint8_t time_format, seconds, minutes, hour, date, month, year, ampm;
-      |                                                             ^~~~
-../Core/Src/main_app.c: In function 'RTC_configureUserGivenTime':
-../Core/Src/main_app.c:552:20: warning: unused variable 'sdatestructure' [-Wunused-variable]
-  552 |   RTC_DateTypeDef  sdatestructure;
-      |                    ^~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "RTC_Demo_App.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\RTC_Demo_App\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RTC_Demo_App.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-C:/ST/STM32CubeIDE_1.15.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.100.202403111256/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: RTC_Demo_App.elf has a LOAD segment with RWX permissions
-Finished building target: RTC_Demo_App.elf
- 
 arm-none-eabi-size  RTC_Demo_App.elf 
-arm-none-eabi-objdump -h -S RTC_Demo_App.elf  > "RTC_Demo_App.list"
    text	   data	    bss	    dec	    hex	filename
   19580	    100	   2108	  21788	   551c	RTC_Demo_App.elf
 Finished building: default.size.stdout
  
-Finished building: RTC_Demo_App.list
- 
 
-18:39:21 Build Finished. 0 errors, 3 warnings. (took 1s.682ms)
+10:32:35 Build Finished. 0 errors, 0 warnings. (took 408ms)
 

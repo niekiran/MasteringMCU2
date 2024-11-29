@@ -1,0 +1,30 @@
+  uint8_t is_sleeping = 1;
+
+  CHECK_AND_HANDLE_ERROR(is_mpu6050_sleeping(&hi2c1,&is_sleeping));
+
+  if(is_sleeping) {
+	  Error_Handler();
+  }
+
+
+  CHECK_AND_HANDLE_ERROR( mpu6050_set_memory_bank(&hi2c1,0x10, true, true));
+  CHECK_AND_HANDLE_ERROR(mpu6050_set_memory_start_address(&hi2c1,0x06));
+
+  uint8_t read_byte = 0;
+
+  CHECK_AND_HANDLE_ERROR(mpu6050_read_memory_byte(&hi2c1, &read_byte));
+  CHECK_AND_HANDLE_ERROR( mpu6050_set_memory_bank(&hi2c1,0, false, false));
+
+  uint8_t otp_valid_bit = 0;
+  CHECK_AND_HANDLE_ERROR(mpu6050_read_otp_valid_bit(&hi2c1, &otp_valid_bit));
+
+  if(!otp_valid_bit) {
+	  Error_Handler();
+  }
+  
+  //dummy
+  mpu6050_set_slave_address(&hi2c1, 0, 0x7f) ;
+    mpu6050_set_slave_address(&hi2c1, 0, 0x68) ;
+  CHECK_AND_HANDLE_ERROR( mpu6050_set_clock_source(&hi2c1,MPU6050_CLOCK_PLL_ZGYRO));
+  CHECK_AND_HANDLE_ERROR( mpu6050_set_external_frame_sync(&hi2c1, MPU6050_EXT_SYNC_TEMP_OUT_L));
+   CHECK_AND_HANDLE_ERROR( mpu6050_set_full_scale_gyro_range(&hi2c1, MPU6050_GYRO_FS_2000));

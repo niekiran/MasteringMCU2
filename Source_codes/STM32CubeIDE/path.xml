@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+  <section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+    <language id="org.eclipse.cdt.core.assembly" name="s,S">
+      <includepath>C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\Current_Measurement_Run_Mode\CMSIS\core</includepath>
+      <includepath>C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\Current_Measurement_Run_Mode\CMSIS\device</includepath>
+      <includepath>C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\Current_Measurement_Run_Mode\StdPeriph_Driver\inc</includepath>
+      <includepath>C:\Users\shrey\STM32CubeIDE\MasteringMCU2\Source_codes\STM32CubeIDE\MasteringMCU2\Current_Measurement_Run_Mode\StdPeriph_Driver\src</includepath>
+    </language>
+    <language id="org.eclipse.cdt.core.gcc" name="C Source File">
+      <includepath>Inc</includepath>
+      <includepath workspace_path="true">/${ProjName}/StdPeriph_Driver/inc</includepath>
+      <includepath workspace_path="true">/${ProjName}/CMSIS/core</includepath>
+      <includepath workspace_path="true">/${ProjName}/CMSIS/device</includepath>
+    </language>
+    <language name="Object File"/>
+  </section>
+  <section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+    <language id="org.eclipse.cdt.core.assembly" name="s,S">
+      <macro>
+        <name>STM32</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>STM32F4</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>STM32F446RETx</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>NUCLEO_F446RE</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>DEBUG</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>STM32F446xx</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>USE_STDPERIPH_DRIVER</name>
+        <value/>
+      </macro>
+    </language>
+    <language id="org.eclipse.cdt.core.gcc" name="C Source File">
+      <macro>
+        <name>STM32</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>STM32F4</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>STM32F446RETx</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>NUCLEO_F446RE</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>DEBUG</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>STM32F446xx</name>
+        <value/>
+      </macro>
+      <macro>
+        <name>USE_STDPERIPH_DRIVER</name>
+        <value/>
+      </macro>
+    </language>
+    <language name="Object File"/>
+  </section>
+</cdtprojectproperties>
